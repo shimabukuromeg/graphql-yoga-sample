@@ -13,5 +13,10 @@
       "name": "frontend"
     }
   ],
-  "settings": {}
+  "settings": {
+    "files.exclude": {
+      "frontend": true,
+      "backend": true
+    }
+  }
 }
