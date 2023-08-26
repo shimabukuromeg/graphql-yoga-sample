@@ -1,13 +1,13 @@
-import { NestFactory } from '@nestjs/core';
-import { AppModule } from './app.module';
-import { ConfigService } from '@nestjs/config';
 
-async function bootstrap() {
-  const app = await NestFactory.create(AppModule);
-  app.enableShutdownHooks();
-  const configService = app.get(ConfigService);
-  const port = configService.get('PORT') || 3001;
 
-  await app.listen(port);
-}
-bootstrap();
+import { createServer } from 'node:http'
+import { createYoga } from 'graphql-yoga'
+import { schema } from './schema'
+
+const yoga = createYoga({ schema })
+const server = createServer(yoga)
+
+// Start the server and you're done!
+server.listen(4000, () => {
+    console.info('Server is running on http://localhost:4000/graphql')
+})
