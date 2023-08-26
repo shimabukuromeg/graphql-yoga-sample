@@ -6,6 +6,7 @@ const typeDefinitions = /* GraphQL */ `
     info: String!
     feed: [Link!]!
     comment(id: ID!): Comment
+    link(id: ID): Link
   }
 
   type Mutation {
@@ -23,12 +24,19 @@ const typeDefinitions = /* GraphQL */ `
 type Comment {
   id: ID!
   body: String!
+  link: Link
 }
 `
 type Link = {
     id: string
     url: string
     description: string
+}
+
+type Comment = {
+    id: string
+    body: string
+    linkId: string
 }
 
 const resolvers = {
@@ -42,8 +50,13 @@ const resolvers = {
                 where: { id: parseInt(args.id) }
             })
             return comment
+        },
+        async link(parent: unknown, args: { id: string }, context: GraphQLContext) {
+            const link = await context.prisma.link.findUnique({
+                where: { id: parseInt(args.id) }
+            })
+            return link
         }
-
     },
     Mutation: {
         postLink: async (parent: unknown, args: { description: string; url: string }, context: GraphQLContext) => {
@@ -81,6 +94,17 @@ const resolvers = {
             return context.prisma.comment.findMany({
                 where: {
                     linkId: parseInt(parent.id)
+                }
+            })
+        }
+    },
+    Comment: {
+        id: (parent: Comment) => parent.id,
+        body: (parent: Comment) => parent.body,
+        link(parent: Comment, args: {}, context: GraphQLContext) {
+            return context.prisma.link.findUnique({
+                where: {
+                    id: parseInt(parent.linkId)
                 }
             })
         }
