@@ -5,17 +5,25 @@ const typeDefinitions = /* GraphQL */ `
   type Query {
     info: String!
     feed: [Link!]!
+    comment(id: ID!): Comment
   }
 
   type Mutation {
     postLink(url: String!, description: String!): Link!
+    postCommentOnLink(linkId: ID!, body: String!): Comment!
   }
 
   type Link {
     id: ID!
     description: String!
     url: String!
+    comments: [Comment!]!
   }
+
+type Comment {
+  id: ID!
+  body: String!
+}
 `
 type Link = {
     id: string
@@ -23,25 +31,19 @@ type Link = {
     description: string
 }
 
-const links: Link[] = [
-    {
-        id: 'link-0',
-        url: 'https://graphql-yoga.com',
-        description: 'The easiest way of setting up a GraphQL server'
-    }
-    , {
-        id: 'link-1',
-        url: 'https://graphql-yoga.com',
-        description: 'The easiest way of setting up a GraphQL server'
-    }
-]
-
 const resolvers = {
     Query: {
         info: () => `This is the API of a Hackernews Clone`,
         feed: (_parent: unknown, _args: {}, context: GraphQLContext) => {
             return context.prisma.link.findMany()
+        },
+        async comment(parent: unknown, args: { id: string }, context: GraphQLContext) {
+            const comment = await context.prisma.comment.findUnique({
+                where: { id: parseInt(args.id) }
+            })
+            return comment
         }
+
     },
     Mutation: {
         postLink: async (parent: unknown, args: { description: string; url: string }, context: GraphQLContext) => {
@@ -55,12 +57,33 @@ const resolvers = {
             })
 
             return newLink
+        },
+        async postCommentOnLink(
+            parent: unknown,
+            args: { linkId: string; body: string },
+            context: GraphQLContext
+        ) {
+            const newComment = await context.prisma.comment.create({
+                data: {
+                    linkId: parseInt(args.linkId),
+                    body: args.body
+                }
+            })
+
+            return newComment
         }
     },
     Link: {
         id: (parent: Link) => parent.id,
         description: (parent: Link) => parent.description,
-        url: (parent: Link) => parent.url
+        url: (parent: Link) => parent.url,
+        comments(parent: Link, args: {}, context: GraphQLContext) {
+            return context.prisma.comment.findMany({
+                where: {
+                    linkId: parseInt(parent.id)
+                }
+            })
+        }
     }
 }
 
