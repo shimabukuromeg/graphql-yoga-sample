@@ -1,4 +1,5 @@
 import { makeExecutableSchema } from '@graphql-tools/schema'
+import { GraphQLContext } from './context'
 
 const typeDefinitions = /* GraphQL */ `
   type Query {
@@ -16,15 +17,12 @@ const typeDefinitions = /* GraphQL */ `
     url: String!
   }
 `
-
-// 1
 type Link = {
     id: string
     url: string
     description: string
 }
 
-// 2
 const links: Link[] = [
     {
         id: 'link-0',
@@ -41,27 +39,24 @@ const links: Link[] = [
 const resolvers = {
     Query: {
         info: () => `This is the API of a Hackernews Clone`,
-        // 3
-        feed: () => links
-    },
-    Mutation: {
-        postLink: (parent: unknown, args: { description: string; url: string }) => {
-            // 1
-            let idCount = links.length
-
-            // 2
-            const link: Link = {
-                id: `link-${idCount}`,
-                description: args.description,
-                url: args.url
-            }
-
-            links.push(link)
-
-            return link
+        feed: (_parent: unknown, _args: {}, context: GraphQLContext) => {
+            return context.prisma.link.findMany()
         }
     },
-    // 4
+    Mutation: {
+        postLink: async (parent: unknown, args: { description: string; url: string }, context: GraphQLContext) => {
+
+
+            const newLink = await context.prisma.link.create({
+                data: {
+                    url: args.url,
+                    description: args.description,
+                }
+            })
+
+            return newLink
+        }
+    },
     Link: {
         id: (parent: Link) => parent.id,
         description: (parent: Link) => parent.description,
