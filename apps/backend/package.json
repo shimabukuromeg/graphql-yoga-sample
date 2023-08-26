@@ -8,6 +8,9 @@
     "dev": "cross-env NODE_ENV=development ts-node-dev --exit-child --respawn src/main.ts",
     "start": "ts-node src/main.ts"
   },
+  "prisma": {
+    "seed": "ts-node prisma/seed.ts"
+  },
   "keywords": [],
   "author": "",
   "license": "ISC",
