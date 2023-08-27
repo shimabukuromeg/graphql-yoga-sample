@@ -1,22 +1,18 @@
 import { GraphQLContext } from '../../../context';
 import type { UserResolvers } from './../../types.generated';
 export const User: UserResolvers = {
-  /* Implement User resolver logic here */
-  id: (parent) => parent.id,
-  name: (parent) => parent.name,
-  email: (parent) => parent.email,
-  links(parent, args: {}, context) {
-    return context.prisma.user.findUnique({
+  comments: (parent, arg, ctx) => { /* User.comments resolver is required because User.comments exists but User_Mapper.comments does not */
+    return ctx.prisma.user.findUnique({
       where: {
-        id: parseInt(parent.id as string)
-      }
-    }).links()
-  },
-  comments(parent, args: {}, context: GraphQLContext) {
-    return context.prisma.user.findUnique({
-      where: {
-        id: parseInt(parent.id as string)
+        id: parent.id
       }
     }).comments()
+  },
+  links: (parent, arg, ctx) => { /* User.links resolver is required because User.links exists but User_Mapper.links does not */
+    return ctx.prisma.user.findUnique({
+      where: {
+        id: parent.id
+      }
+    }).links()
   }
 };

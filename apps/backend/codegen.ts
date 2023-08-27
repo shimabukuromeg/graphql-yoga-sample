@@ -17,7 +17,11 @@ const config: CodegenConfig = {
                 includeDirectives: true,
             },
         },
-        'src/schema': defineConfig()
+        'src/schema': defineConfig(
+            {
+                mappersSuffix: "_Mapper",
+            }
+        )
     }
 }
 export default config

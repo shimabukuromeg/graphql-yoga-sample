@@ -1,4 +1,7 @@
 import { GraphQLResolveInfo, GraphQLScalarType, GraphQLScalarTypeConfig } from 'graphql';
+import { Comment_Mapper } from './comment/schema.mappers';
+import { Link_Mapper } from './feed/schema.mappers';
+import { User_Mapper } from './user/schema.mappers';
 export type Maybe<T> = T | null;
 export type InputMaybe<T> = Maybe<T>;
 export type Exact<T extends { [key: string]: unknown }> = { [K in keyof T]: T[K] };
@@ -164,29 +167,29 @@ export type DirectiveResolverFn<TResult = {}, TParent = {}, TContext = {}, TArgs
 
 /** Mapping between all available schema types and the resolvers types */
 export type ResolversTypes = {
-  Comment: ResolverTypeWrapper<Comment>;
+  Comment: ResolverTypeWrapper<Comment_Mapper>;
   String: ResolverTypeWrapper<Scalars['String']['output']>;
   ID: ResolverTypeWrapper<Scalars['ID']['output']>;
   DateTime: ResolverTypeWrapper<Scalars['DateTime']['output']>;
-  Link: ResolverTypeWrapper<Link>;
+  Link: ResolverTypeWrapper<Link_Mapper>;
   Mutation: ResolverTypeWrapper<{}>;
   Query: ResolverTypeWrapper<{}>;
   Int: ResolverTypeWrapper<Scalars['Int']['output']>;
-  User: ResolverTypeWrapper<User>;
+  User: ResolverTypeWrapper<User_Mapper>;
   Boolean: ResolverTypeWrapper<Scalars['Boolean']['output']>;
 };
 
 /** Mapping between all available schema types and the resolvers parents */
 export type ResolversParentTypes = {
-  Comment: Comment;
+  Comment: Comment_Mapper;
   String: Scalars['String']['output'];
   ID: Scalars['ID']['output'];
   DateTime: Scalars['DateTime']['output'];
-  Link: Link;
+  Link: Link_Mapper;
   Mutation: {};
   Query: {};
   Int: Scalars['Int']['output'];
-  User: User;
+  User: User_Mapper;
   Boolean: Scalars['Boolean']['output'];
 };
 
