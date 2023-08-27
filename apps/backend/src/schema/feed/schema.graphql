@@ -1,0 +1,16 @@
+extend type Query {
+  feed(filterNeedle: String, skip: Int, take: Int): [Link!]!
+  link(id: ID!): Link
+}
+
+extend type Mutation {
+  postLink(url: String!, description: String!): Link!
+}
+
+type Link {
+  id: ID!
+  description: String!
+  url: String!
+  comments: [Comment!]!
+  postedBy: User
+}

@@ -6,42 +6,9 @@ import { GraphQLError } from 'graphql'
 
 const typeDefinitions = /* GraphQL */ `
   type Query {
-    info: String!
-    feed(filterNeedle: String, skip: Int, take: Int): [Link!]!
-    comment(id: ID!): Comment
-    link(id: ID): Link
-    user(id: ID): User
-    users: [User!]!
   }
-
-  type Mutation {
-    postLink(url: String!, description: String!): Link!
-    postCommentOnLink(linkId: ID!, body: String!): Comment!
-  }
-
-  type Link {
-    id: ID!
-    description: String!
-    url: String!
-    comments: [Comment!]!
-    postedBy: User
-  }
-
-type Comment {
-  id: ID!
-  body: String!
-  link: Link
-  postedBy: User
-}
-
-type User {
-    id: ID!
-    name: String!
-    email: String!
-    links: [Link!]
-    comments: [Comment!]
-}
 `
+
 type Link = {
     id: string
     url: string
