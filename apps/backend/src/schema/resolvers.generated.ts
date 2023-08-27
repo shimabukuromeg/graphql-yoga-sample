@@ -11,11 +11,13 @@ import    { link as Query_link } from './feed/resolvers/Query/link';
 import    { user as Query_user } from './user/resolvers/Query/user';
 import    { users as Query_users } from './user/resolvers/Query/users';
 import    { User } from './user/resolvers/User';
+import    { DateTimeResolver } from 'graphql-scalars';
     export const resolvers: Resolvers = {
       Query: { comment: Query_comment,feed: Query_feed,info: Query_info,link: Query_link,user: Query_user,users: Query_users },
       Mutation: { postCommentOnLink: Mutation_postCommentOnLink,postLink: Mutation_postLink },
       
       Comment: Comment,
 Link: Link,
-User: User
+User: User,
+DateTime: DateTimeResolver
     }

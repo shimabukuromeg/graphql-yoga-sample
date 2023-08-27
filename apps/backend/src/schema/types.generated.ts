@@ -1,4 +1,4 @@
-import { GraphQLResolveInfo } from 'graphql';
+import { GraphQLResolveInfo, GraphQLScalarType, GraphQLScalarTypeConfig } from 'graphql';
 export type Maybe<T> = T | null;
 export type InputMaybe<T> = Maybe<T>;
 export type Exact<T extends { [key: string]: unknown }> = { [K in keyof T]: T[K] };
@@ -14,6 +14,7 @@ export type Scalars = {
   Boolean: { input: boolean; output: boolean; }
   Int: { input: number; output: number; }
   Float: { input: number; output: number; }
+  DateTime: { input: Date | string; output: Date | string; }
 };
 
 export type Comment = {
@@ -166,6 +167,7 @@ export type ResolversTypes = {
   Comment: ResolverTypeWrapper<Comment>;
   String: ResolverTypeWrapper<Scalars['String']['output']>;
   ID: ResolverTypeWrapper<Scalars['ID']['output']>;
+  DateTime: ResolverTypeWrapper<Scalars['DateTime']['output']>;
   Link: ResolverTypeWrapper<Link>;
   Mutation: ResolverTypeWrapper<{}>;
   Query: ResolverTypeWrapper<{}>;
@@ -179,6 +181,7 @@ export type ResolversParentTypes = {
   Comment: Comment;
   String: Scalars['String']['output'];
   ID: Scalars['ID']['output'];
+  DateTime: Scalars['DateTime']['output'];
   Link: Link;
   Mutation: {};
   Query: {};
@@ -194,6 +197,10 @@ export type CommentResolvers<ContextType = any, ParentType extends ResolversPare
   postedBy?: Resolver<Maybe<ResolversTypes['User']>, ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
+
+export interface DateTimeScalarConfig extends GraphQLScalarTypeConfig<ResolversTypes['DateTime'], any> {
+  name: 'DateTime';
+}
 
 export type LinkResolvers<ContextType = any, ParentType extends ResolversParentTypes['Link'] = ResolversParentTypes['Link']> = {
   comments?: Resolver<Array<ResolversTypes['Comment']>, ParentType, ContextType>;
@@ -229,6 +236,7 @@ export type UserResolvers<ContextType = any, ParentType extends ResolversParentT
 
 export type Resolvers<ContextType = any> = {
   Comment?: CommentResolvers<ContextType>;
+  DateTime?: GraphQLScalarType;
   Link?: LinkResolvers<ContextType>;
   Mutation?: MutationResolvers<ContextType>;
   Query?: QueryResolvers<ContextType>;

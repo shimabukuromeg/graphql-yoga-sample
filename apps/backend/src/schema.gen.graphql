@@ -13,6 +13,8 @@ type Comment {
   postedBy: User
 }
 
+scalar DateTime
+
 type Link {
   comments: [Comment!]!
   description: String!
