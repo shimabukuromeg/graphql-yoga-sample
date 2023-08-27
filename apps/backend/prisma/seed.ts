@@ -6,10 +6,20 @@ const prisma = new PrismaClient()
 
 // 3
 async function main() {
+    const user = await prisma.user.create({
+        data: {
+            name: 'Alice',
+            email: "alice@gmail.com",
+        }
+    })
+
     const newLink = await prisma.link.create({
         data: {
             description: 'Fullstack tutorial for GraphQL',
-            url: 'www.howtographql.com'
+            url: 'www.howtographql.com',
+            postedBy: {
+                connect: { id: user.id }
+            }
         }
     })
 
