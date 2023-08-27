@@ -13,15 +13,17 @@ async function main() {
         }
     })
 
-    const newLink = await prisma.link.create({
-        data: {
-            description: 'Fullstack tutorial for GraphQL',
-            url: 'www.howtographql.com',
-            postedBy: {
-                connect: { id: user.id }
+    for (let i = 0; i < 10; i++) {
+        await prisma.link.create({
+            data: {
+                description: `Fullstack tutorial for GraphQL ${i + 1}`,
+                url: `www.howtographql.com/${i}`,
+                postedBy: {
+                    connect: { id: user.id }
+                }
             }
-        }
-    })
+        })
+    }
 
     const allLinks = await prisma.link.findMany()
 
