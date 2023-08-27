@@ -17,11 +17,15 @@ model Link {
   url         String
 
   comments    Comment[]
+
+  @@map("links")
 }
 
 model Comment {
   id        Int      @id @default(autoincrement())
   body      String
   link      Link?    @relation(fields: [linkId], references: [id])
-  linkId    Int?
+  linkId    Int? @map("link_id")
+
+  @@map("comments")
 }
