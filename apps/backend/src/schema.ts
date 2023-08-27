@@ -10,6 +10,8 @@ const typeDefinitions = /* GraphQL */ `
     feed(filterNeedle: String): [Link!]!
     comment(id: ID!): Comment
     link(id: ID): Link
+    user(id: ID): User
+    users: [User!]!
   }
 
   type Mutation {
@@ -22,24 +24,44 @@ const typeDefinitions = /* GraphQL */ `
     description: String!
     url: String!
     comments: [Comment!]!
+    postedBy: User
   }
 
 type Comment {
   id: ID!
   body: String!
   link: Link
+  postedBy: User
+}
+
+type User {
+    id: ID!
+    name: String!
+    email: String!
+    links: [Link!]
+    comments: [Comment!]
 }
 `
 type Link = {
     id: string
     url: string
     description: string
+    postedById: string
 }
 
 type Comment = {
     id: string
     body: string
     linkId: string
+    authorId: string
+}
+
+type User = {
+    id: string
+    name: string
+    email: string
+    links: Link[]
+    comments: Comment[]
 }
 
 const parseIntSafe = (value: string): number | null => {
@@ -75,6 +97,16 @@ const resolvers = {
                 where: { id: parseInt(args.id) }
             })
             return link
+        },
+        async user(parent: unknown, args: { id: string }, context: GraphQLContext) {
+            const user = await context.prisma.user.findUnique({
+                where: { id: parseInt(args.id) }
+            })
+            return user
+        },
+        async users(parent: unknown, args: {}, context: GraphQLContext) {
+            const users = await context.prisma.user.findMany()
+            return users
         }
     },
     Mutation: {
@@ -131,6 +163,13 @@ const resolvers = {
                     linkId: parseInt(parent.id)
                 }
             })
+        },
+        postedBy(parent: Link, args: {}, context: GraphQLContext) {
+            return context.prisma.link.findUnique({
+                where: {
+                    id: parseInt(parent.id)
+                }
+            }).postedBy()
         }
     },
     Comment: {
@@ -142,6 +181,32 @@ const resolvers = {
                     id: parseInt(parent.linkId)
                 }
             })
+        },
+        postedBy(parent: Comment, args: {}, context: GraphQLContext) {
+            return context.prisma.comment.findUnique({
+                where: {
+                    id: parseInt(parent.id)
+                }
+            }).postedBy()
+        }
+    },
+    User: {
+        id: (parent: User) => parent.id,
+        name: (parent: User) => parent.name,
+        email: (parent: User) => parent.email,
+        links(parent: User, args: {}, context: GraphQLContext) {
+            return context.prisma.user.findUnique({
+                where: {
+                    id: parseInt(parent.id)
+                }
+            }).links()
+        },
+        comments(parent: User, args: {}, context: GraphQLContext) {
+            return context.prisma.user.findUnique({
+                where: {
+                    id: parseInt(parent.id)
+                }
+            }).comments()
         }
     }
 }
