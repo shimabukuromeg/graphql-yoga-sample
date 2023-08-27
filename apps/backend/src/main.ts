@@ -1,21 +1,28 @@
 import { createServer } from 'http'
-import { createYoga } from 'graphql-yoga'
-import { schema } from './schema'
+import { createYoga, createSchema } from 'graphql-yoga'
 import { createContext } from './context'
+import { typeDefs } from './schema/typeDefs.generated'
+import { resolvers } from './schema/resolvers.generated'
+import { applyMiddleware } from "graphql-middleware"
 
 // fastify 導入した。
 // 参考: https://the-guild.dev/graphql/yoga-server/docs/integrations/integration-with-fastify
 import fastify, { FastifyReply, FastifyRequest } from 'fastify'
 
+
+
 function main() {
     // This is the fastify instance you have created
     const app = fastify({ logger: true })
 
+    // TODO: スキーマ読み込み
     const yoga = createYoga<{
         req: FastifyRequest
         reply: FastifyReply
     }>({
-        schema,
+        schema: applyMiddleware(createSchema({
+            typeDefs, resolvers
+        })),
         context: createContext,
         // Integrate Fastify logger
         logging: {

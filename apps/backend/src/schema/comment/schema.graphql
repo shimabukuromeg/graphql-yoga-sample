@@ -1,0 +1,14 @@
+extend type Query {
+  comment(id: ID!): Comment
+}
+
+extend type Mutation {
+  postCommentOnLink(linkId: ID!, body: String!): Comment!
+}
+
+type Comment {
+  id: ID!
+  body: String!
+  link: Link
+  postedBy: User
+}

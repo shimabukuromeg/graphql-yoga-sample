@@ -6,7 +6,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "cross-env NODE_ENV=development ts-node-dev --exit-child --respawn src/main.ts",
-    "start": "ts-node src/main.ts"
+    "start": "ts-node src/main.ts",
+    "codegen:gql": "graphql-codegen --config ./codegen.ts"
   },
   "prisma": {
     "seed": "ts-node prisma/seed.ts"
@@ -15,6 +16,8 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "@eddeee888/gcg-typescript-resolver-files": "^0.6.0",
+    "@graphql-codegen/cli": "^5.0.0",
     "@prisma/client": "5.2.0",
     "@types/node": "20.4.2",
     "cross-env": "7.0.3",
@@ -27,6 +30,8 @@
     "@graphql-tools/schema": "^10.0.0",
     "fastify": "^4.21.0",
     "graphql": "^16.8.0",
+    "graphql-middleware": "^6.1.35",
+    "graphql-scalars": "^1.22.2",
     "graphql-yoga": "4.0.4"
   }
 }
