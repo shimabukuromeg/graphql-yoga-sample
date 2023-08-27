@@ -1,6 +1,5 @@
 import { createServer } from 'http'
 import { createYoga, createSchema } from 'graphql-yoga'
-import { schema } from './schema'
 import { createContext } from './context'
 import { typeDefs } from './schema/typeDefs.generated'
 import { resolvers } from './schema/resolvers.generated'
