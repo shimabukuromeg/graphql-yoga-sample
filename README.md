@@ -1,4 +1,4 @@
-# Sample Monorepo PNPM
+# graphql-yoga-sample
 
 This repository serves as a sample monorepo using pnpm. It contains two applications: backend and frontend.
 
