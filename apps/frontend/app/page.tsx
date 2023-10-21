@@ -27,7 +27,7 @@ const fetchUser = async (
 
   const client = new GraphQLClient(backendEndpoint, {
     fetch: cache(async (url: any, params: any) =>
-      fetch(url, { ...params, next: { revalidate: 30 } })
+      fetch(url, { ...params, next: { revalidate: 60 } })
     ),
   });
   const data = await client.request(UsersQuery, input)
