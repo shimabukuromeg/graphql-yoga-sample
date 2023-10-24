@@ -2,6 +2,8 @@ import { graphql } from '@/src/gql'
 import { VariablesOf } from '@graphql-typed-document-node/core'
 import { GraphQLClient } from 'graphql-request'
 import { cache } from 'react'
+import ClientComponent from './components/ClientComponent'
+import ServerComponent from './components/ServerComponent'
 
 
 export default async function Home() {
@@ -10,12 +12,22 @@ export default async function Home() {
   console.log(data)
   return (
     <div>
-      <h1>Users</h1>
-      <ul>
-        {data.users.map((user) => (
-          <li key={user.id}>{user.name}</li>
-        ))}
-      </ul>
+      <div>
+        <h1>Users</h1>
+        <ul>
+          {/* backendのGraphqlから取得したデータの表示テ */}
+          {data.users.map((user) => (
+            <li key={user.id}>{user.name}</li>
+          ))}
+        </ul>
+      </div>
+      <div>
+        {/* Firebase authのユーザーを NextAuth の useSession を使って取得したデータを表示 */}
+        <ClientComponent />
+        {/* Firebase authのユーザーを NextAuth の getServerSession を使って取得したデータを表示 */}
+        {/* @ts-ignore */}
+        <ServerComponent />
+      </div>
     </div>
   )
 }
