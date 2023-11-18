@@ -23,7 +23,7 @@ const SingIn = () => {
             // (2) next auth の処理
             await signInByNextAuth("credentials", {
                 idToken,
-                callbackUrl: "/",
+                callbackUrl: "/mypage",
             });
         } catch (e) {
             console.error(e);

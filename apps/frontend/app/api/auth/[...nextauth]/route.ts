@@ -45,8 +45,6 @@ export const authOptions: NextAuthOptions = {
         // NOTE: session { strategy: jwt } の場合は　token にしか値はっていないっぽい。(JWTをシリアライズした値)
         // JWT トークンを生成・更新する際に呼び出されます
         async jwt({ token, user }: { token: JWT; user: User }) {
-            console.log('jwt: token => ', token);
-            console.log('jwt: user => ', user);
             return { ...token, ...user };
         },
         // NOTE: sessionにJWTトークンからのユーザ情報を格納
@@ -54,9 +52,6 @@ export const authOptions: NextAuthOptions = {
         async session({ session, token }) {
             session.user.emailVerified = token.emailVerified;
             session.user.uid = token.uid;
-
-            console.log('session: session => ', session);
-            console.log('session: token => ', token);
 
             return {
                 ...session,
