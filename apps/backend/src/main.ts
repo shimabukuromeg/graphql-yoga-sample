@@ -57,7 +57,7 @@ function main() {
     })
 
     console.info("starting http server")
-    app.listen({ port: 4000 }, (err, address) => {
+    app.listen({ port: 4000, host: '0.0.0.0' }, (err, address) => {
         if (err) {
             console.error(err)
             process.exit(1)
