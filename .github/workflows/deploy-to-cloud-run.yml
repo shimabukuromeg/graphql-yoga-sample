@@ -106,4 +106,4 @@ jobs:
             --min-instances=0
             --cpu=1
             --memory=640Mi
-          secrets: DATABASE_URL=${{ env.DATABASE_URL }}:latest
+          secrets: DATABASE_URL=DATABASE_URL:latest
