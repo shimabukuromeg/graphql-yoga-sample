@@ -26,7 +26,7 @@ env:
   SERVICE_ACCOUNT: ${{ secrets.SERVICE_ACCOUNT }}
   RUN_SERVICE_ACCOUNT: ${{ secrets.RUN_SERVICE_ACCOUNT }}
   GCP_REGION: asia-northeast1
-  GCP_CLOUD_RUN_SERVICE_NAME: "api"
+  GCP_CLOUD_RUN_SERVICE_NAME: "graphql-yoga-sample"
   IMAGE_HOST: "asia-northeast1-docker.pkg.dev"
   IMAGE_TAG_BASE: ${{ secrets.IMAGE_TAG_BASE }}
   DATABASE_URL: ${{ secrets.DATABASE_URL }}
