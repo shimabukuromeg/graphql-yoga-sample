@@ -65,7 +65,7 @@ jobs:
           fi
           echo ": $jobs_cmd a job"
 
-          gcloud beta run jobs $jobs_cmd migration --image="${{ env.IMAGE_HOST }}/${{ env.IMAGE_TAG_BASE }}:latest" --max-retries=1 --args="pnpm,prisma,migrate,reset,-f" --service-account="${{ env.RUN_SERVICE_ACCOUNT }}" --set-secrets="DATABASE_URL=${{ env.DATABASE_URL }}:latest"
+          gcloud beta run jobs $jobs_cmd migration --image="${{ env.IMAGE_HOST }}/${{ env.IMAGE_TAG_BASE }}:latest" --max-retries=1 --args="pnpm,prisma,migrate,reset,-f" --service-account="${{ env.RUN_SERVICE_ACCOUNT }}" --set-secrets="DATABASE_URL=DATABASE_URL:latest"
           gcloud beta run jobs execute migration --wait --format=json
 
   deploy:
