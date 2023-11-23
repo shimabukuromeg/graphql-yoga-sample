@@ -1,8 +1,12 @@
-name: "build-deploy"
+name: Build and Deploy
 on:
-  # push:
-  #   branches:
-  #     - "main"
+  push:
+    paths:
+      - "apps/backend/**"
+      - ".github/workflows/**"
+      - "Dockerfile"
+    branches:
+      - "main"
   workflow_dispatch:
 
 permissions:
