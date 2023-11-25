@@ -17,6 +17,9 @@ export const UserCardFragment = graphql(`
   fragment User on User {
     id
     name
+    iconImageURL
+    description
+    twitterProfileUrl
   }
 `)
 
@@ -33,20 +36,21 @@ export const UserCard = (props: Props) => {
                     <Avatar className="h-14 w-14">
                         <AvatarImage
                             className=""
-                            src="https://vnbnghhfpjhiwnipemcz.supabase.co/storage/v1/object/public/graphql-yoga-sample/profile2.jpg"
+                            src={user.iconImageURL ?? ""}
                         />
-                        <AvatarFallback>{user.name}</AvatarFallback>
+                        <AvatarFallback>{user.name.split('')[0]}</AvatarFallback>
                     </Avatar>
                     <CardTitle>{user.name}</CardTitle>
                 </div>
                 <CardDescription className="line-clamp-3 h-[40px]">
-                    1991年うまれ。ソフトウェアエンジニア🧑‍💻
+                    {user.description}
                 </CardDescription>
             </CardHeader>
             <CardFooter className="flex-row justify-end gap-4">
-                <Link href={`https://twitter.com/20092014`} target="_blank">
+                {user.twitterProfileUrl && <Link href={user.twitterProfileUrl} target="_blank">
                     <Icons.twitter className="h-5 w-5" />
                 </Link>
+                }
             </CardFooter>
         </Card>
     )

@@ -2,8 +2,8 @@ import { GraphQLResolveInfo, GraphQLScalarType, GraphQLScalarTypeConfig } from '
 import { Comment_Mapper } from './comment/schema.mappers';
 import { Link_Mapper } from './feed/schema.mappers';
 import { User_Mapper } from './user/schema.mappers';
-export type Maybe<T> = T | null;
-export type InputMaybe<T> = Maybe<T>;
+export type Maybe<T> = T | null | undefined;
+export type InputMaybe<T> = T | null | undefined;
 export type Exact<T extends { [key: string]: unknown }> = { [K in keyof T]: T[K] };
 export type MakeOptional<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]?: Maybe<T[SubKey]> };
 export type MakeMaybe<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]: Maybe<T[SubKey]> };
@@ -44,13 +44,13 @@ export type Mutation = {
 };
 
 
-export type MutationPostCommentOnLinkArgs = {
+export type MutationpostCommentOnLinkArgs = {
   body: Scalars['String']['input'];
   linkId: Scalars['ID']['input'];
 };
 
 
-export type MutationPostLinkArgs = {
+export type MutationpostLinkArgs = {
   description: Scalars['String']['input'];
   url: Scalars['String']['input'];
 };
@@ -66,34 +66,37 @@ export type Query = {
 };
 
 
-export type QueryCommentArgs = {
+export type QuerycommentArgs = {
   id: Scalars['ID']['input'];
 };
 
 
-export type QueryFeedArgs = {
+export type QueryfeedArgs = {
   filterNeedle?: InputMaybe<Scalars['String']['input']>;
   skip?: InputMaybe<Scalars['Int']['input']>;
   take?: InputMaybe<Scalars['Int']['input']>;
 };
 
 
-export type QueryLinkArgs = {
+export type QuerylinkArgs = {
   id: Scalars['ID']['input'];
 };
 
 
-export type QueryUserArgs = {
+export type QueryuserArgs = {
   id: Scalars['ID']['input'];
 };
 
 export type User = {
   __typename?: 'User';
   comments?: Maybe<Array<Comment>>;
+  description?: Maybe<Scalars['String']['output']>;
   email: Scalars['String']['output'];
+  iconImageURL?: Maybe<Scalars['String']['output']>;
   id: Scalars['ID']['output'];
   links?: Maybe<Array<Link>>;
   name: Scalars['String']['output'];
+  twitterProfileUrl?: Maybe<Scalars['String']['output']>;
 };
 
 
@@ -215,25 +218,28 @@ export type LinkResolvers<ContextType = any, ParentType extends ResolversParentT
 };
 
 export type MutationResolvers<ContextType = any, ParentType extends ResolversParentTypes['Mutation'] = ResolversParentTypes['Mutation']> = {
-  postCommentOnLink?: Resolver<ResolversTypes['Comment'], ParentType, ContextType, RequireFields<MutationPostCommentOnLinkArgs, 'body' | 'linkId'>>;
-  postLink?: Resolver<ResolversTypes['Link'], ParentType, ContextType, RequireFields<MutationPostLinkArgs, 'description' | 'url'>>;
+  postCommentOnLink?: Resolver<ResolversTypes['Comment'], ParentType, ContextType, RequireFields<MutationpostCommentOnLinkArgs, 'body' | 'linkId'>>;
+  postLink?: Resolver<ResolversTypes['Link'], ParentType, ContextType, RequireFields<MutationpostLinkArgs, 'description' | 'url'>>;
 };
 
 export type QueryResolvers<ContextType = any, ParentType extends ResolversParentTypes['Query'] = ResolversParentTypes['Query']> = {
-  comment?: Resolver<Maybe<ResolversTypes['Comment']>, ParentType, ContextType, RequireFields<QueryCommentArgs, 'id'>>;
-  feed?: Resolver<Array<ResolversTypes['Link']>, ParentType, ContextType, Partial<QueryFeedArgs>>;
+  comment?: Resolver<Maybe<ResolversTypes['Comment']>, ParentType, ContextType, RequireFields<QuerycommentArgs, 'id'>>;
+  feed?: Resolver<Array<ResolversTypes['Link']>, ParentType, ContextType, Partial<QueryfeedArgs>>;
   info?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
-  link?: Resolver<Maybe<ResolversTypes['Link']>, ParentType, ContextType, RequireFields<QueryLinkArgs, 'id'>>;
-  user?: Resolver<Maybe<ResolversTypes['User']>, ParentType, ContextType, RequireFields<QueryUserArgs, 'id'>>;
+  link?: Resolver<Maybe<ResolversTypes['Link']>, ParentType, ContextType, RequireFields<QuerylinkArgs, 'id'>>;
+  user?: Resolver<Maybe<ResolversTypes['User']>, ParentType, ContextType, RequireFields<QueryuserArgs, 'id'>>;
   users?: Resolver<Array<ResolversTypes['User']>, ParentType, ContextType>;
 };
 
 export type UserResolvers<ContextType = any, ParentType extends ResolversParentTypes['User'] = ResolversParentTypes['User']> = {
   comments?: Resolver<Maybe<Array<ResolversTypes['Comment']>>, ParentType, ContextType>;
+  description?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   email?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  iconImageURL?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
   links?: Resolver<Maybe<Array<ResolversTypes['Link']>>, ParentType, ContextType>;
   name?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  twitterProfileUrl?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 

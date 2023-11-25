@@ -10,6 +10,9 @@ async function main() {
         data: {
             name: 'シマブクロメグミ',
             email: "shimabukuromeg@example.com",
+            iconImageURL: "https://vnbnghhfpjhiwnipemcz.supabase.co/storage/v1/object/public/graphql-yoga-sample/profile2.jpg",
+            description: "1991年うまれ。ソフトウェアエンジニア🧑‍💻",
+            twitterProfileUrl: "https://twitter.com/20092014",
         }
     })
 

@@ -13,7 +13,7 @@ import { TypedDocumentNode as DocumentNode } from '@graphql-typed-document-node/
  * Therefore it is highly recommended to use the babel or swc plugin for production.
  */
 const documents = {
-    "\n  fragment User on User {\n    id\n    name\n  }\n": types.UserFragmentDoc,
+    "\n  fragment User on User {\n    id\n    name\n    iconImageURL\n    description\n    twitterProfileUrl\n  }\n": types.UserFragmentDoc,
     "\n  query Users {\n    users {\n      id\n      ...User\n    }\n  }\n": types.UsersDocument,
 };
 
@@ -34,7 +34,7 @@ export function graphql(source: string): unknown;
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
-export function graphql(source: "\n  fragment User on User {\n    id\n    name\n  }\n"): (typeof documents)["\n  fragment User on User {\n    id\n    name\n  }\n"];
+export function graphql(source: "\n  fragment User on User {\n    id\n    name\n    iconImageURL\n    description\n    twitterProfileUrl\n  }\n"): (typeof documents)["\n  fragment User on User {\n    id\n    name\n    iconImageURL\n    description\n    twitterProfileUrl\n  }\n"];
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
