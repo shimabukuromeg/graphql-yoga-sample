@@ -34,3 +34,6 @@ jobs:
       PROJECT_ID: ${{ secrets.PROJECT_ID }}
       IMAGE_TAG_BASE: ${{ secrets.IMAGE_TAG_BASE }}
       DATABASE_URL: ${{ secrets.DATABASE_URL }}
+      VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
+      VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
+      VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
