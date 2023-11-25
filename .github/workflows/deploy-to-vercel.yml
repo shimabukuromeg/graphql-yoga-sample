@@ -10,6 +10,7 @@ permissions:
 env:
   VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
   VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
+  # https://github.com/vercel/vercel/issues/8272#issuecomment-1210440993
   ENABLE_EXPERIMENTAL_COREPACK: 1
 
 jobs:
