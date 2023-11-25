@@ -39,8 +39,11 @@ type Query {
 
 type User {
   comments: [Comment!]
+  description: String
   email: String!
+  iconImageURL: String
   id: ID!
   links: [Link!]
   name: String!
+  twitterProfileUrl: String
 }
