@@ -30,6 +30,8 @@ env:
   IMAGE_HOST: "asia-northeast1-docker.pkg.dev"
   IMAGE_TAG_BASE: ${{ secrets.IMAGE_TAG_BASE }}
   DATABASE_URL: ${{ secrets.DATABASE_URL }}
+  VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
+  VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
 
 jobs:
   migrate:
@@ -68,7 +70,7 @@ jobs:
           gcloud beta run jobs $jobs_cmd migration --image="${{ env.IMAGE_HOST }}/${{ env.IMAGE_TAG_BASE }}:latest" --max-retries=1 --args="pnpm,prisma,migrate,reset,-f" --service-account="${{ env.RUN_SERVICE_ACCOUNT }}" --set-secrets="DATABASE_URL=DATABASE_URL:latest"
           gcloud beta run jobs execute migration --wait --format=json
 
-  deploy:
+  cloudrun-deploy:
     runs-on: ubuntu-latest
 
     needs:
@@ -107,3 +109,22 @@ jobs:
             --cpu=1
             --memory=640Mi
           secrets: DATABASE_URL=DATABASE_URL:latest
+
+  vercle-deploy:
+    if: ${{ github.ref == 'refs/heads/main' }}
+    needs: cloudrun-deploy
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Install Vercel CLI
+        run: npm install --global vercel@latest
+
+      - name: Pull Vercel Environment Information
+        run: vercel pull --yes --environment=production --token=${{ secrets.VERCEL_TOKEN }}
+
+      - name: Build Project Artifacts
+        run: vercel build --prod --token=${{ secrets.VERCEL_TOKEN }}
+
+      - name: Deploy Project Artifacts to Vercel
+        run: vercel deploy --prebuilt --prod --token=${{ secrets.VERCEL_TOKEN }}
