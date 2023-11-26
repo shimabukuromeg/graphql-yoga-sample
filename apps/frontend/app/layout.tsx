@@ -33,7 +33,7 @@ export default function RootLayout({
           <Link href="/">
             <div className='flex flex-row items-center'>
               <Icons.logo className="mr-1 h-14 w-14" />
-              <p className='text-s tracking-widest font-bold'>Hoge</p>
+              <p className='text-s tracking-widest font-bold'>Age</p>
             </div>
           </Link>
           <MenubarMenu>
