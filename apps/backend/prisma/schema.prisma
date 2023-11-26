@@ -38,6 +38,7 @@ model Comment {
 model User {
   id                Int     @id @default(autoincrement())
   name              String
+  displayName       String  @map("display_name")
   email             String  @unique
   iconImageURL      String? @map("icon_image_url")
   description       String?
