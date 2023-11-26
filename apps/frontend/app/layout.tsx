@@ -12,6 +12,7 @@ import {
 } from "@/components/ui/menubar"
 import Link from 'next/link'
 import { Icons } from "@/components/ui/icons"
+import { FloatingButton } from '@/components/ui/floating-button'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -53,6 +54,7 @@ export default function RootLayout({
           </MenubarMenu>
         </Menubar>
         {children}
+        <FloatingButton />
       </body>
     </html>
   )

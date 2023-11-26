@@ -12,7 +12,7 @@ export default async function Home() {
       <div className='px-1 md:px-4'>
         <p>10件</p>
       </div>
-      <div className="grid grid-cols-3 gap-1">
+      <div className="grid grid-cols-2 gap-1">
         {
           [...Array(9)].map((_, i) => (
             <div key={i}>
