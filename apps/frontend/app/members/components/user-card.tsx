@@ -20,6 +20,7 @@ export const UserCardFragment = graphql(`
     iconImageURL
     description
     twitterProfileUrl
+    displayName
   }
 `)
 
@@ -38,9 +39,9 @@ export const UserCard = (props: Props) => {
                             className=""
                             src={user.iconImageURL ?? ""}
                         />
-                        <AvatarFallback>{user.name.split('')[0]}</AvatarFallback>
+                        <AvatarFallback>{user.displayName.split('')[0]}</AvatarFallback>
                     </Avatar>
-                    <CardTitle>{user.name}</CardTitle>
+                    <CardTitle>{user.displayName}</CardTitle>
                 </div>
                 <CardDescription className="line-clamp-3 h-[40px]">
                     {user.description}

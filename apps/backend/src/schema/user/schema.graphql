@@ -6,6 +6,7 @@ extend type Query {
 type User {
   id: ID!
   name: String!
+  displayName: String!
   email: String!
   iconImageURL: String
   description: String

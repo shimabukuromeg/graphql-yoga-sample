@@ -1,5 +1,5 @@
 // 1
-import { PrismaClient } from '@prisma/client'
+import { PrismaClient, User } from '@prisma/client'
 
 // 2
 const prisma = new PrismaClient()
@@ -9,6 +9,7 @@ async function main() {
     const user = await prisma.user.create({
         data: {
             name: 'シマブクロメグミ',
+            displayName: "Megumi Shimabukuro",
             email: "shimabukuromeg@example.com",
             iconImageURL: "https://vnbnghhfpjhiwnipemcz.supabase.co/storage/v1/object/public/graphql-yoga-sample/profile2.jpg",
             description: "1991年うまれ。ソフトウェアエンジニア🧑‍💻",
