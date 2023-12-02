@@ -10,9 +10,9 @@ export default async function Home() {
 
   return (
     <div className='flex flex-col md:gap-8 gap-4 md:p-20 p-2'>
-      <h1 className="text-3xl font-bold">那覇</h1>
+      <h1 className="text-3xl font-bold">全て</h1>
       <div className='px-1 md:px-4'>
-        <p>09件</p>
+        <p>{data.meshis.length}件</p>
       </div>
       <div className='flex justify-center'>
         <div className="grid grid-cols-2 md:grid-cols-3 gap-1 max-w-[900px]">
