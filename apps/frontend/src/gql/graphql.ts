@@ -14,6 +14,7 @@ export type Scalars = {
   Boolean: { input: boolean; output: boolean; }
   Int: { input: number; output: number; }
   Float: { input: number; output: number; }
+  Date: { input: any; output: any; }
   DateTime: { input: any; output: any; }
 };
 
@@ -32,6 +33,30 @@ export type Link = {
   id: Scalars['ID']['output'];
   postedBy?: Maybe<User>;
   url: Scalars['String']['output'];
+};
+
+export type Meshi = {
+  __typename?: 'Meshi';
+  address: Scalars['String']['output'];
+  articleId: Scalars['String']['output'];
+  createdAt: Scalars['Date']['output'];
+  id: Scalars['ID']['output'];
+  imageUrl: Scalars['String']['output'];
+  latitude: Scalars['Float']['output'];
+  longitude: Scalars['Float']['output'];
+  municipality?: Maybe<Municipality>;
+  publishedDate: Scalars['Date']['output'];
+  siteUrl: Scalars['String']['output'];
+  storeName: Scalars['String']['output'];
+  title: Scalars['String']['output'];
+};
+
+export type Municipality = {
+  __typename?: 'Municipality';
+  createdAt: Scalars['Date']['output'];
+  id: Scalars['ID']['output'];
+  meshis: Array<Maybe<Meshi>>;
+  name: Scalars['String']['output'];
 };
 
 export type Mutation = {
@@ -58,6 +83,8 @@ export type Query = {
   feed: Array<Link>;
   info: Scalars['String']['output'];
   link?: Maybe<Link>;
+  meshi?: Maybe<Meshi>;
+  meshis: Array<Meshi>;
   user?: Maybe<User>;
   users: Array<User>;
 };
@@ -76,6 +103,11 @@ export type QueryFeedArgs = {
 
 
 export type QueryLinkArgs = {
+  id: Scalars['ID']['input'];
+};
+
+
+export type QueryMeshiArgs = {
   id: Scalars['ID']['input'];
 };
 
@@ -107,5 +139,11 @@ export type UsersQuery = { __typename?: 'Query', users: Array<(
     & { ' $fragmentRefs'?: { 'UserFragment': UserFragment } }
   )> };
 
+export type MeshiQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type MeshiQuery = { __typename?: 'Query', meshis: Array<{ __typename?: 'Meshi', id: string, imageUrl: string, siteUrl: string, title: string, storeName: string, publishedDate: any, createdAt: any }> };
+
 export const UserFragmentDoc = {"kind":"Document","definitions":[{"kind":"FragmentDefinition","name":{"kind":"Name","value":"User"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"User"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"iconImageURL"}},{"kind":"Field","name":{"kind":"Name","value":"description"}},{"kind":"Field","name":{"kind":"Name","value":"twitterProfileUrl"}},{"kind":"Field","name":{"kind":"Name","value":"displayName"}}]}}]} as unknown as DocumentNode<UserFragment, unknown>;
 export const UsersDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"Users"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"users"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"FragmentSpread","name":{"kind":"Name","value":"User"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"User"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"User"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"iconImageURL"}},{"kind":"Field","name":{"kind":"Name","value":"description"}},{"kind":"Field","name":{"kind":"Name","value":"twitterProfileUrl"}},{"kind":"Field","name":{"kind":"Name","value":"displayName"}}]}}]} as unknown as DocumentNode<UsersQuery, UsersQueryVariables>;
+export const MeshiDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"Meshi"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"meshis"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"imageUrl"}},{"kind":"Field","name":{"kind":"Name","value":"siteUrl"}},{"kind":"Field","name":{"kind":"Name","value":"title"}},{"kind":"Field","name":{"kind":"Name","value":"storeName"}},{"kind":"Field","name":{"kind":"Name","value":"publishedDate"}},{"kind":"Field","name":{"kind":"Name","value":"createdAt"}}]}}]}}]} as unknown as DocumentNode<MeshiQuery, MeshiQueryVariables>;

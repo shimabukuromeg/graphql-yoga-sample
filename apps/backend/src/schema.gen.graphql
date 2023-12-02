@@ -13,6 +13,8 @@ type Comment {
   postedBy: User
 }
 
+scalar Date
+
 scalar DateTime
 
 type Link {
@@ -21,6 +23,28 @@ type Link {
   id: ID!
   postedBy: User
   url: String!
+}
+
+type Meshi {
+  address: String!
+  articleId: String!
+  createdAt: Date!
+  id: ID!
+  imageUrl: String!
+  latitude: Float!
+  longitude: Float!
+  municipality: Municipality
+  publishedDate: Date!
+  siteUrl: String!
+  storeName: String!
+  title: String!
+}
+
+type Municipality {
+  createdAt: Date!
+  id: ID!
+  meshis: [Meshi]!
+  name: String!
 }
 
 type Mutation {
@@ -33,6 +57,8 @@ type Query {
   feed(filterNeedle: String, skip: Int, take: Int): [Link!]!
   info: String!
   link(id: ID!): Link
+  meshi(id: ID!): Meshi
+  meshis: [Meshi!]!
   user(id: ID!): User
   users: [User!]!
 }

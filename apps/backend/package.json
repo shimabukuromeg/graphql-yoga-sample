@@ -9,7 +9,8 @@
     "start": "node dist/src/main.js",
     "build": "prisma generate && rm -rf ./dist && tsc && cp -r ./prisma/* ./dist/prisma",
     "codegen:gql": "graphql-codegen --config ./codegen.ts",
-    "codegen:prisma": "prisma generate"
+    "codegen:prisma": "prisma generate",
+    "codegen": "pnpm run codegen:prisma && pnpm run codegen:gql"
   },
   "prisma": {
     "seed": "node dist/prisma/seed.js"

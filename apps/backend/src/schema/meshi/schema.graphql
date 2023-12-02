@@ -1,0 +1,26 @@
+extend type Query {
+  meshi(id: ID!): Meshi
+  meshis: [Meshi!]!
+}
+
+type Meshi {
+  id: ID!
+  articleId: String!
+  title: String!
+  imageUrl: String!
+  storeName: String!
+  address: String!
+  siteUrl: String!
+  publishedDate: Date!
+  latitude: Float!
+  longitude: Float!
+  createdAt: Date!
+  municipality: Municipality
+}
+
+type Municipality {
+  id: ID!
+  name: String!
+  createdAt: Date!
+  meshis: [Meshi]!
+}
