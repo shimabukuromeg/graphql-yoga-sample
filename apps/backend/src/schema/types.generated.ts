@@ -1,6 +1,7 @@
 import { GraphQLResolveInfo, GraphQLScalarType, GraphQLScalarTypeConfig } from 'graphql';
 import { Comment_Mapper } from './comment/schema.mappers';
 import { Link_Mapper } from './feed/schema.mappers';
+import { Meshi_Mapper } from './meshi/schema.mappers';
 import { User_Mapper } from './user/schema.mappers';
 export type Maybe<T> = T | null | undefined;
 export type InputMaybe<T> = T | null | undefined;
@@ -9,6 +10,7 @@ export type MakeOptional<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]?: 
 export type MakeMaybe<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]: Maybe<T[SubKey]> };
 export type MakeEmpty<T extends { [key: string]: unknown }, K extends keyof T> = { [_ in K]?: never };
 export type Incremental<T> = T | { [P in keyof T]?: P extends ' $fragmentName' | '__typename' ? T[P] : never };
+export type Omit<T, K extends keyof T> = Pick<T, Exclude<keyof T, K>>;
 export type RequireFields<T, K extends keyof T> = Omit<T, K> & { [P in K]-?: NonNullable<T[P]> };
 /** All built-in and custom scalars, mapped to their actual values */
 export type Scalars = {
@@ -17,6 +19,7 @@ export type Scalars = {
   Boolean: { input: boolean; output: boolean; }
   Int: { input: number; output: number; }
   Float: { input: number; output: number; }
+  Date: { input: Date | string; output: Date | string; }
   DateTime: { input: Date | string; output: Date | string; }
 };
 
@@ -35,6 +38,30 @@ export type Link = {
   id: Scalars['ID']['output'];
   postedBy?: Maybe<User>;
   url: Scalars['String']['output'];
+};
+
+export type Meshi = {
+  __typename?: 'Meshi';
+  address: Scalars['String']['output'];
+  articleId: Scalars['String']['output'];
+  createdAt: Scalars['Date']['output'];
+  id: Scalars['ID']['output'];
+  imageUrl: Scalars['String']['output'];
+  latitude: Scalars['Float']['output'];
+  longitude: Scalars['Float']['output'];
+  municipality?: Maybe<Municipality>;
+  publishedDate: Scalars['Date']['output'];
+  siteUrl: Scalars['String']['output'];
+  storeName: Scalars['String']['output'];
+  title: Scalars['String']['output'];
+};
+
+export type Municipality = {
+  __typename?: 'Municipality';
+  createdAt: Scalars['Date']['output'];
+  id: Scalars['ID']['output'];
+  meshis: Array<Maybe<Meshi>>;
+  name: Scalars['String']['output'];
 };
 
 export type Mutation = {
@@ -61,6 +88,8 @@ export type Query = {
   feed: Array<Link>;
   info: Scalars['String']['output'];
   link?: Maybe<Link>;
+  meshi?: Maybe<Meshi>;
+  meshis: Array<Meshi>;
   user?: Maybe<User>;
   users: Array<User>;
 };
@@ -79,6 +108,11 @@ export type QueryfeedArgs = {
 
 
 export type QuerylinkArgs = {
+  id: Scalars['ID']['input'];
+};
+
+
+export type QuerymeshiArgs = {
   id: Scalars['ID']['input'];
 };
 
@@ -174,8 +208,12 @@ export type ResolversTypes = {
   Comment: ResolverTypeWrapper<Comment_Mapper>;
   String: ResolverTypeWrapper<Scalars['String']['output']>;
   ID: ResolverTypeWrapper<Scalars['ID']['output']>;
+  Date: ResolverTypeWrapper<Scalars['Date']['output']>;
   DateTime: ResolverTypeWrapper<Scalars['DateTime']['output']>;
   Link: ResolverTypeWrapper<Link_Mapper>;
+  Meshi: ResolverTypeWrapper<Meshi_Mapper>;
+  Float: ResolverTypeWrapper<Scalars['Float']['output']>;
+  Municipality: ResolverTypeWrapper<Omit<Municipality, 'meshis'> & { meshis: Array<Maybe<ResolversTypes['Meshi']>> }>;
   Mutation: ResolverTypeWrapper<{}>;
   Query: ResolverTypeWrapper<{}>;
   Int: ResolverTypeWrapper<Scalars['Int']['output']>;
@@ -188,8 +226,12 @@ export type ResolversParentTypes = {
   Comment: Comment_Mapper;
   String: Scalars['String']['output'];
   ID: Scalars['ID']['output'];
+  Date: Scalars['Date']['output'];
   DateTime: Scalars['DateTime']['output'];
   Link: Link_Mapper;
+  Meshi: Meshi_Mapper;
+  Float: Scalars['Float']['output'];
+  Municipality: Omit<Municipality, 'meshis'> & { meshis: Array<Maybe<ResolversParentTypes['Meshi']>> };
   Mutation: {};
   Query: {};
   Int: Scalars['Int']['output'];
@@ -205,6 +247,10 @@ export type CommentResolvers<ContextType = any, ParentType extends ResolversPare
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
+export interface DateScalarConfig extends GraphQLScalarTypeConfig<ResolversTypes['Date'], any> {
+  name: 'Date';
+}
+
 export interface DateTimeScalarConfig extends GraphQLScalarTypeConfig<ResolversTypes['DateTime'], any> {
   name: 'DateTime';
 }
@@ -218,6 +264,30 @@ export type LinkResolvers<ContextType = any, ParentType extends ResolversParentT
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
+export type MeshiResolvers<ContextType = any, ParentType extends ResolversParentTypes['Meshi'] = ResolversParentTypes['Meshi']> = {
+  address?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  articleId?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  createdAt?: Resolver<ResolversTypes['Date'], ParentType, ContextType>;
+  id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
+  imageUrl?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  latitude?: Resolver<ResolversTypes['Float'], ParentType, ContextType>;
+  longitude?: Resolver<ResolversTypes['Float'], ParentType, ContextType>;
+  municipality?: Resolver<Maybe<ResolversTypes['Municipality']>, ParentType, ContextType>;
+  publishedDate?: Resolver<ResolversTypes['Date'], ParentType, ContextType>;
+  siteUrl?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  storeName?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  title?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type MunicipalityResolvers<ContextType = any, ParentType extends ResolversParentTypes['Municipality'] = ResolversParentTypes['Municipality']> = {
+  createdAt?: Resolver<ResolversTypes['Date'], ParentType, ContextType>;
+  id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
+  meshis?: Resolver<Array<Maybe<ResolversTypes['Meshi']>>, ParentType, ContextType>;
+  name?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
 export type MutationResolvers<ContextType = any, ParentType extends ResolversParentTypes['Mutation'] = ResolversParentTypes['Mutation']> = {
   postCommentOnLink?: Resolver<ResolversTypes['Comment'], ParentType, ContextType, RequireFields<MutationpostCommentOnLinkArgs, 'body' | 'linkId'>>;
   postLink?: Resolver<ResolversTypes['Link'], ParentType, ContextType, RequireFields<MutationpostLinkArgs, 'description' | 'url'>>;
@@ -228,6 +298,8 @@ export type QueryResolvers<ContextType = any, ParentType extends ResolversParent
   feed?: Resolver<Array<ResolversTypes['Link']>, ParentType, ContextType, Partial<QueryfeedArgs>>;
   info?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   link?: Resolver<Maybe<ResolversTypes['Link']>, ParentType, ContextType, RequireFields<QuerylinkArgs, 'id'>>;
+  meshi?: Resolver<Maybe<ResolversTypes['Meshi']>, ParentType, ContextType, RequireFields<QuerymeshiArgs, 'id'>>;
+  meshis?: Resolver<Array<ResolversTypes['Meshi']>, ParentType, ContextType>;
   user?: Resolver<Maybe<ResolversTypes['User']>, ParentType, ContextType, RequireFields<QueryuserArgs, 'id'>>;
   users?: Resolver<Array<ResolversTypes['User']>, ParentType, ContextType>;
 };
@@ -247,8 +319,11 @@ export type UserResolvers<ContextType = any, ParentType extends ResolversParentT
 
 export type Resolvers<ContextType = any> = {
   Comment?: CommentResolvers<ContextType>;
+  Date?: GraphQLScalarType;
   DateTime?: GraphQLScalarType;
   Link?: LinkResolvers<ContextType>;
+  Meshi?: MeshiResolvers<ContextType>;
+  Municipality?: MunicipalityResolvers<ContextType>;
   Mutation?: MutationResolvers<ContextType>;
   Query?: QueryResolvers<ContextType>;
   User?: UserResolvers<ContextType>;

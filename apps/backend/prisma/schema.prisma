@@ -49,3 +49,32 @@ model User {
 
   @@map("users")
 }
+
+model Municipality {
+  id         BigInt   @id @default(autoincrement())
+  name       String   @unique
+  createdAt DateTime @map("created_at")
+
+  meshis Meshi[]
+
+  @@map("municipalities")
+}
+
+model Meshi {
+  id                  Int   @id @default(autoincrement())
+  articleId          String   @map("article_id") @unique
+  title               String   @default("unknown")
+  imageUrl           String   @map("image_url") @default("unknown")
+  storeName          String   @map("store_name") @default("unknown")
+  address             String   @default("unknown")
+  siteUrl            String   @map("site_url") @default("unknown")
+  publishedDate      DateTime @map("published_date")
+  latitude            Float
+  longitude           Float
+  createdAt          DateTime @map("created_at")
+  municipalityMeshis BigInt?  @map("municipality_meshis")
+
+  municipality Municipality? @relation(fields: [municipalityMeshis], references: [id])
+
+  @@map("meshis")
+}

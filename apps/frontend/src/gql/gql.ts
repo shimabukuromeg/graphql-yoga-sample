@@ -15,6 +15,7 @@ import { TypedDocumentNode as DocumentNode } from '@graphql-typed-document-node/
 const documents = {
     "\n  fragment User on User {\n    id\n    name\n    iconImageURL\n    description\n    twitterProfileUrl\n    displayName\n  }\n": types.UserFragmentDoc,
     "\n  query Users {\n    users {\n      id\n      ...User\n    }\n  }\n": types.UsersDocument,
+    "\n  query Meshi {\n    meshis {\n      id\n      imageUrl\n      siteUrl\n      title\n      storeName\n      publishedDate\n      createdAt\n    }\n  }\n": types.MeshiDocument,
 };
 
 /**
@@ -39,6 +40,10 @@ export function graphql(source: "\n  fragment User on User {\n    id\n    name\n
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
 export function graphql(source: "\n  query Users {\n    users {\n      id\n      ...User\n    }\n  }\n"): (typeof documents)["\n  query Users {\n    users {\n      id\n      ...User\n    }\n  }\n"];
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(source: "\n  query Meshi {\n    meshis {\n      id\n      imageUrl\n      siteUrl\n      title\n      storeName\n      publishedDate\n      createdAt\n    }\n  }\n"): (typeof documents)["\n  query Meshi {\n    meshis {\n      id\n      imageUrl\n      siteUrl\n      title\n      storeName\n      publishedDate\n      createdAt\n    }\n  }\n"];
 
 export function graphql(source: string) {
   return (documents as any)[source] ?? {};
