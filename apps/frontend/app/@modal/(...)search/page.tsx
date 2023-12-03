@@ -24,6 +24,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select"
+import Link from "next/link"
 
 export default function SearchModal() {
   const [open, setOpen] = useState(true)
@@ -53,31 +54,33 @@ export default function SearchModal() {
           </div>
           <DialogTitle>検索</DialogTitle>
           <DialogDescription>
-            <Select>
+            <Select onValueChange={async (value) => {
+              router.push(`/municipality/${value}`)
+              setOpen(false)
+            }}>
               <SelectTrigger className="w-full">
                 <SelectValue placeholder="市町村を選択" />
               </SelectTrigger>
               <SelectContent>
                 <SelectGroup>
                   <SelectLabel>南部</SelectLabel>
-                  <SelectItem value="est">那覇市</SelectItem>
-                  <SelectItem value="cst">糸満市</SelectItem>
-                  <SelectItem value="mst">南城市</SelectItem>
-                  <SelectItem value="pst">浦添市</SelectItem>
-                  <SelectItem value="ad">豊見城市</SelectItem>
+                  <SelectItem value="3">那覇市</SelectItem>
+                  <SelectItem value="2">糸満市</SelectItem>
+                  <SelectItem value="67">南城市</SelectItem>
+                  <SelectItem value="27">浦添市</SelectItem>
+                  <SelectItem value="4">豊見城市</SelectItem>
                 </SelectGroup>
                 <SelectGroup>
                   <SelectLabel>中部</SelectLabel>
-                  <SelectItem value="gmt">北谷町</SelectItem>
-                  <SelectItem value="cet">沖縄市</SelectItem>
-                  <SelectItem value="eet">うるま市</SelectItem>
-                  <SelectItem value="west">北中城村</SelectItem>
-                  <SelectItem value="dd">恩納村</SelectItem>
+                  <SelectItem value="1">北谷町</SelectItem>
+                  <SelectItem value="22">沖縄市</SelectItem>
+                  <SelectItem value="7">うるま市</SelectItem>
+                  <SelectItem value="5">北中城村</SelectItem>
+                  <SelectItem value="110">恩納村</SelectItem>
                 </SelectGroup>
                 <SelectGroup>
                   <SelectLabel>北部</SelectLabel>
-                  <SelectItem value="msk">名護市</SelectItem>
-                  <SelectItem value="ist">今帰仁村</SelectItem>
+                  <SelectItem value="84">名護市</SelectItem>
                 </SelectGroup>
               </SelectContent>
             </Select>
@@ -86,6 +89,6 @@ export default function SearchModal() {
         <DialogFooter className="sm:justify-start">
         </DialogFooter>
       </DialogContent>
-    </Dialog>
+    </Dialog >
   )
 }
