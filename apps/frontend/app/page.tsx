@@ -1,9 +1,8 @@
 import { graphql } from '@/src/gql'
-import Image from 'next/image'
 import { VariablesOf } from '@graphql-typed-document-node/core'
 import { GraphQLClient } from 'graphql-request'
 import { cache } from 'react'
-import Link from 'next/link'
+import { MeshiCard } from '@/components/meshi-card'
 
 export default async function Home() {
   const data = await fetchMeshis({})
@@ -18,13 +17,7 @@ export default async function Home() {
         <div className="grid grid-cols-2 md:grid-cols-3 gap-1 max-w-[900px]">
           {
             data.meshis.map((meshi, i) => (
-              <Link target='_blank' href={meshi.siteUrl} key={i}>
-                <Image className="h-auto max-w-full rounded-lg"
-                  width={300}
-                  height={300}
-                  src={meshi.imageUrl}
-                  alt="" />
-              </Link>
+              <MeshiCard meshi={meshi} key={i} />
             ))
           }
         </div>
@@ -51,12 +44,7 @@ const MeshisQuery = graphql(/* GraphQL */ `
   query Meshi {
     meshis {
       id
-      imageUrl
-      siteUrl
-      title
-      storeName
-      publishedDate
-      createdAt
+      ...MeshiCard
     }
   }
 `)
