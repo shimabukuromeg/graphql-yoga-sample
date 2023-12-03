@@ -17,10 +17,3 @@ type Meshi {
   createdAt: Date!
   municipality: Municipality
 }
-
-type Municipality {
-  id: ID!
-  name: String!
-  createdAt: Date!
-  meshis: [Meshi]!
-}

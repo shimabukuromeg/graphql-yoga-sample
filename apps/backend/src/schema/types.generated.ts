@@ -2,6 +2,7 @@ import { GraphQLResolveInfo, GraphQLScalarType, GraphQLScalarTypeConfig } from '
 import { Comment_Mapper } from './comment/schema.mappers';
 import { Link_Mapper } from './feed/schema.mappers';
 import { Meshi_Mapper } from './meshi/schema.mappers';
+import { Municipality_Mapper } from './municipality/schema.mappers';
 import { User_Mapper } from './user/schema.mappers';
 export type Maybe<T> = T | null | undefined;
 export type InputMaybe<T> = T | null | undefined;
@@ -10,7 +11,6 @@ export type MakeOptional<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]?: 
 export type MakeMaybe<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]: Maybe<T[SubKey]> };
 export type MakeEmpty<T extends { [key: string]: unknown }, K extends keyof T> = { [_ in K]?: never };
 export type Incremental<T> = T | { [P in keyof T]?: P extends ' $fragmentName' | '__typename' ? T[P] : never };
-export type Omit<T, K extends keyof T> = Pick<T, Exclude<keyof T, K>>;
 export type RequireFields<T, K extends keyof T> = Omit<T, K> & { [P in K]-?: NonNullable<T[P]> };
 /** All built-in and custom scalars, mapped to their actual values */
 export type Scalars = {
@@ -90,6 +90,7 @@ export type Query = {
   link?: Maybe<Link>;
   meshi?: Maybe<Meshi>;
   meshis: Array<Meshi>;
+  municipality?: Maybe<Municipality>;
   user?: Maybe<User>;
   users: Array<User>;
 };
@@ -113,6 +114,11 @@ export type QuerylinkArgs = {
 
 
 export type QuerymeshiArgs = {
+  id: Scalars['ID']['input'];
+};
+
+
+export type QuerymunicipalityArgs = {
   id: Scalars['ID']['input'];
 };
 
@@ -213,7 +219,7 @@ export type ResolversTypes = {
   Link: ResolverTypeWrapper<Link_Mapper>;
   Meshi: ResolverTypeWrapper<Meshi_Mapper>;
   Float: ResolverTypeWrapper<Scalars['Float']['output']>;
-  Municipality: ResolverTypeWrapper<Omit<Municipality, 'meshis'> & { meshis: Array<Maybe<ResolversTypes['Meshi']>> }>;
+  Municipality: ResolverTypeWrapper<Municipality_Mapper>;
   Mutation: ResolverTypeWrapper<{}>;
   Query: ResolverTypeWrapper<{}>;
   Int: ResolverTypeWrapper<Scalars['Int']['output']>;
@@ -231,7 +237,7 @@ export type ResolversParentTypes = {
   Link: Link_Mapper;
   Meshi: Meshi_Mapper;
   Float: Scalars['Float']['output'];
-  Municipality: Omit<Municipality, 'meshis'> & { meshis: Array<Maybe<ResolversParentTypes['Meshi']>> };
+  Municipality: Municipality_Mapper;
   Mutation: {};
   Query: {};
   Int: Scalars['Int']['output'];
@@ -300,6 +306,7 @@ export type QueryResolvers<ContextType = any, ParentType extends ResolversParent
   link?: Resolver<Maybe<ResolversTypes['Link']>, ParentType, ContextType, RequireFields<QuerylinkArgs, 'id'>>;
   meshi?: Resolver<Maybe<ResolversTypes['Meshi']>, ParentType, ContextType, RequireFields<QuerymeshiArgs, 'id'>>;
   meshis?: Resolver<Array<ResolversTypes['Meshi']>, ParentType, ContextType>;
+  municipality?: Resolver<Maybe<ResolversTypes['Municipality']>, ParentType, ContextType, RequireFields<QuerymunicipalityArgs, 'id'>>;
   user?: Resolver<Maybe<ResolversTypes['User']>, ParentType, ContextType, RequireFields<QueryuserArgs, 'id'>>;
   users?: Resolver<Array<ResolversTypes['User']>, ParentType, ContextType>;
 };
