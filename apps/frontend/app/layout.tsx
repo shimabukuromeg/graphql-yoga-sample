@@ -13,6 +13,8 @@ import {
 import Link from 'next/link'
 import { Icons } from "@/components/ui/icons"
 import { FloatingButton } from '@/components/ui/floating-button'
+// @ts-ignore
+import { GoogleTagManager } from '@next/third-parties/google'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -59,6 +61,7 @@ export default function RootLayout({
         {modal}
         <FloatingButton />
       </body>
+      <GoogleTagManager gtmId={process.env.GOOGLE_TAG_MANAGER_ID ?? ""} />
     </html>
   )
 }
