@@ -13,7 +13,8 @@ import {
 import Link from 'next/link'
 import { Icons } from "@/components/ui/icons"
 import { FloatingButton } from '@/components/ui/floating-button'
-import { GoogleTagManager } from '@next/third-parties/dist/google'
+// @ts-ignore
+import { GoogleTagManager } from '@next/third-parties/google'
 
 const inter = Inter({ subsets: ['latin'] })
 
