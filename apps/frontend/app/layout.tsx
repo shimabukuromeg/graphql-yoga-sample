@@ -15,7 +15,10 @@ import { Icons } from "@/components/ui/icons"
 import { FloatingButton } from '@/components/ui/floating-button'
 // @ts-ignore
 import { GoogleTagManager } from '@next/third-parties/google'
+import { Noto_Sans_JP } from "next/font/google"
+import { cn } from "@/lib/utils"
 
+const noto = Noto_Sans_JP({ weight: ['400', '700'], subsets: ['latin'], variable: '--font-noto' });
 const inter = Inter({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
@@ -33,7 +36,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={inter.className}>
+      <body className={cn("font-sans", noto.variable)}>
         <Menubar className='flex flex-row justify-between'>
           <Link href="/">
             <div className='flex flex-row items-center'>
