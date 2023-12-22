@@ -19,6 +19,9 @@ module.exports = {
       fontFamily: {
         sans: ["var(--font-noto)"],
       },
+      boxShadow: {
+        nav: "0px 1px 3px rgba(0,0,0,0.1)",
+      },
       colors: {
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
@@ -53,6 +56,7 @@ module.exports = {
           DEFAULT: "hsl(var(--card))",
           foreground: "hsl(var(--card-foreground))",
         },
+        textBlack: "#333",
       },
       borderRadius: {
         lg: "var(--radius)",

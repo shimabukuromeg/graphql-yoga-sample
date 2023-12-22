@@ -18,10 +18,10 @@ export default async function MunicipalityPage(props: Props) {
   })
 
   return (
-    <div className='flex flex-col md:gap-8 gap-4 md:p-20 p-2'>
-      <h1 className="text-3xl font-bold">{data.municipality?.name}</h1>
-      <div className='px-1 md:px-4'>
-        <p>{data.municipality?.meshis.length}件</p>
+    <div className='flex flex-col md:gap-8 gap-2 md:p-20 p-2'>
+      <h1 className="text-2xl md:text-3xl font-bold text-textBlack">{data.municipality?.name}</h1>
+      <div className='md:px-4'>
+        <p className='font-bold text-textBlack'>{data.municipality?.meshis.length}件</p>
       </div>
       <div className='flex justify-center'>
         {

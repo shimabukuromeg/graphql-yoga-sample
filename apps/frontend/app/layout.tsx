@@ -17,6 +17,8 @@ import { FloatingButton } from '@/components/ui/floating-button'
 import { GoogleTagManager } from '@next/third-parties/google'
 import { Noto_Sans_JP } from "next/font/google"
 import { cn } from "@/lib/utils"
+import { HamburgerMenuIcon } from '@radix-ui/react-icons'
+
 
 const noto = Noto_Sans_JP({ weight: ['400', '700'], subsets: ['latin'], variable: '--font-noto' });
 const inter = Inter({ subsets: ['latin'] })
@@ -35,9 +37,9 @@ export default function RootLayout({
   modal: React.ReactNode
 }) {
   return (
-    <html lang="en">
-      <body className={cn("font-sans", noto.variable)}>
-        <Menubar className='flex flex-row justify-between'>
+    <html lang="jp">
+      <body className={cn("font-sans bg-background", noto.variable)}>
+        <Menubar className='flex flex-row justify-between bg-white shadow-nav'>
           <Link href="/">
             <div className='flex flex-row items-center'>
               <Icons.logo className="mr-1 h-14 w-14" />
@@ -45,7 +47,9 @@ export default function RootLayout({
             </div>
           </Link>
           <MenubarMenu>
-            <MenubarTrigger>Menu</MenubarTrigger>
+            <MenubarTrigger>
+              <HamburgerMenuIcon className='w-6 h-6' />
+            </MenubarTrigger>
             <MenubarContent>
               <Link href="/">
                 <MenubarItem>Top</MenubarItem>
