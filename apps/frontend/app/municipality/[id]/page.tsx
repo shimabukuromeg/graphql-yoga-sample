@@ -20,7 +20,7 @@ export default async function MunicipalityPage(props: Props) {
   return (
     <div className='flex flex-col md:gap-8 gap-2 md:p-20 p-2'>
       <h1 className="text-2xl md:text-3xl font-bold text-textBlack">{data.municipality?.name}</h1>
-      <div className='md:px-4'>
+      <div className='md:px-4 px-1'>
         <p className='font-bold text-textBlack'>{data.municipality?.meshis.length}件</p>
       </div>
       <div className='flex justify-center'>

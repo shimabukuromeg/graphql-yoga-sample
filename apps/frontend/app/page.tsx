@@ -8,9 +8,9 @@ export default async function Home() {
   const data = await fetchMeshis({})
 
   return (
-    <div className='flex flex-col md:gap-8 gap-2 md:p-20 p-2'>
+    <div className='flex flex-col md:gap-8 gap-2 md:p-20 px-2 pt-4'>
       <h1 className="text-2xl md:text-3xl font-bold text-textBlack">全域</h1>
-      <div className='md:px-4'>
+      <div className='md:px-4 px-1'>
         <p className='font-bold text-textBlack'>{data.meshis.length}件</p>
       </div>
       <div className='flex justify-center'>
