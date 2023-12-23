@@ -1,18 +1,5 @@
 "use client"
 
-import { usePathname, useRouter } from "next/navigation"
-import { useEffect, useState } from "react"
-import { Button } from "@/components/ui/button"
-import {
-    Dialog,
-    DialogClose,
-    DialogContent,
-    DialogDescription,
-    DialogFooter,
-    DialogHeader,
-    DialogTitle,
-    DialogTrigger,
-} from "@/components/ui/dialog"
 import { Icons } from "@/components/ui/icons"
 import { CaretLeftIcon, ArrowLeftIcon } from '@radix-ui/react-icons'
 import {
@@ -30,16 +17,14 @@ type Props = {
 }
 
 export const SearchContent = (props: Props) => {
-    // const [open, setOpen] = useState(true)
-    // const router = useRouter()
-    // const pathname = usePathname()
 
     return (
         <Select onValueChange={props.onValueChange}>
             <SelectTrigger className="w-full">
                 <SelectValue placeholder="市町村を選択" />
             </SelectTrigger>
-            <SelectContent>
+            {/* TODO: 雑に高さ調整したけど検索UIいい感じにしたいね */}
+            <SelectContent className="h-[300px]">
                 <SelectGroup>
                     <SelectLabel>南部</SelectLabel>
                     <SelectItem value="3">那覇市</SelectItem>
