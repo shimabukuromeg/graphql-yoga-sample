@@ -4,7 +4,7 @@ export const Municipality: MunicipalityResolvers = {
         return ctx.prisma.meshi.findMany({
             where: { municipalityMeshis: parent.id },
             orderBy: {
-                articleId: 'desc',
+                publishedDate: 'desc',
             }
         })
     }
