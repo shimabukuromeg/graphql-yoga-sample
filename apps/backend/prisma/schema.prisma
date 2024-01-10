@@ -53,7 +53,7 @@ model User {
 model Municipality {
   id        Int      @id @default(autoincrement())
   name      String   @unique
-  zipcode   String?  @unique
+  zipcode   String?
   createdAt DateTime @map("created_at") @db.Timestamptz
 
   meshis Meshi[]
