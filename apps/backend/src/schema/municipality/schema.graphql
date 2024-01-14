@@ -1,6 +1,6 @@
 extend type Query {
   municipality(id: ID!): Municipality
-  municipalities: [Municipality]!
+  municipalities: [Municipality!]!
 }
 
 type Municipality {

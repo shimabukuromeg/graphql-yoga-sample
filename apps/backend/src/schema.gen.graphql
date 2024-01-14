@@ -59,7 +59,7 @@ type Query {
   link(id: ID!): Link
   meshi(id: ID!): Meshi
   meshis: [Meshi!]!
-  municipalities: [Municipality]!
+  municipalities: [Municipality!]!
   municipality(id: ID!): Municipality
   user(id: ID!): User
   users: [User!]!

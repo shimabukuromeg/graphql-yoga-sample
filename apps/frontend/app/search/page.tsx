@@ -3,7 +3,6 @@
 import { SearchContent } from "../@modal/components/serach-content";
 import { usePathname, useRouter } from "next/navigation"
 import { useEffect, useState } from "react"
-import { Button } from "@/components/ui/button"
 
 export default function SearchPage() {
   const [open, setOpen] = useState(true)
@@ -26,8 +25,10 @@ export default function SearchPage() {
         <SearchContent onValueChange={async (value) => {
           setOpen(false)
           router.push(`/municipality/${value}`)
-        }} />
+        }}
+        />
       </div>
     </div>
   )
 }
+
