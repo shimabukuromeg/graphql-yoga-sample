@@ -90,6 +90,7 @@ export type Query = {
   link?: Maybe<Link>;
   meshi?: Maybe<Meshi>;
   meshis: Array<Meshi>;
+  municipalities: Array<Maybe<Municipality>>;
   municipality?: Maybe<Municipality>;
   user?: Maybe<User>;
   users: Array<User>;
@@ -306,6 +307,7 @@ export type QueryResolvers<ContextType = any, ParentType extends ResolversParent
   link?: Resolver<Maybe<ResolversTypes['Link']>, ParentType, ContextType, RequireFields<QuerylinkArgs, 'id'>>;
   meshi?: Resolver<Maybe<ResolversTypes['Meshi']>, ParentType, ContextType, RequireFields<QuerymeshiArgs, 'id'>>;
   meshis?: Resolver<Array<ResolversTypes['Meshi']>, ParentType, ContextType>;
+  municipalities?: Resolver<Array<Maybe<ResolversTypes['Municipality']>>, ParentType, ContextType>;
   municipality?: Resolver<Maybe<ResolversTypes['Municipality']>, ParentType, ContextType, RequireFields<QuerymunicipalityArgs, 'id'>>;
   user?: Resolver<Maybe<ResolversTypes['User']>, ParentType, ContextType, RequireFields<QueryuserArgs, 'id'>>;
   users?: Resolver<Array<ResolversTypes['User']>, ParentType, ContextType>;
