@@ -4,6 +4,7 @@ on:
     paths:
       - "apps/backend/**"
       - ".github/workflows/**"
+      - "!.github/workflows/exec-ageage-collector.yml"
       - "Dockerfile"
     branches:
       - "main"
