@@ -16,7 +16,7 @@ env:
   SERVICE_ACCOUNT: ${{ secrets.SERVICE_ACCOUNT }}
   RUN_SERVICE_ACCOUNT: ${{ secrets.RUN_SERVICE_ACCOUNT }}
   IMAGE_HOST: "asia-northeast1-docker.pkg.dev"
-  IMAGE_TAG_BASE: ${{ secrets.IMAGE_TAG_BASE }} # 例. プロジェクトID/artifact_registry名/イメージ名
+  IMAGE_TAG_BASE: ${{ secrets.AGE_IMAGE_TAG_BASE }} # 例. プロジェクトID/artifact_registry名/イメージ名
   GCP_REGION: asia-northeast1
   VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
 
