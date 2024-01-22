@@ -61,7 +61,7 @@ type Query {
   meshis: [Meshi!]!
   municipalities: [Municipality!]!
   municipality(id: ID!): Municipality
-  user(id: ID!): User
+  user(id: ID!): User!
   users: [User!]!
 }
 

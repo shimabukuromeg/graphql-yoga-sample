@@ -31,7 +31,7 @@ type Props = {
 export const UserCard = (props: Props) => {
     const user = useFragment(UserCardFragment, props.user)
     return (
-        <Card className={cn("w-[325px]")} key={user.id}>
+        <Card className={cn("w-[325px]")}>
             <CardHeader>
                 <div className='flex flex-row gap-3 items-center pb-2'>
                     <Avatar className="h-14 w-14">
@@ -48,6 +48,9 @@ export const UserCard = (props: Props) => {
                 </CardDescription>
             </CardHeader>
             <CardFooter className="flex-row justify-end gap-4">
+                <Link href={`/members/${user.id}`}>
+                    <Button>View Profile</Button>
+                </Link>
                 {user.twitterProfileUrl && <Link href={user.twitterProfileUrl} target="_blank">
                     <Icons.twitter className="h-5 w-5" />
                 </Link>

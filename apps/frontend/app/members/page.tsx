@@ -3,9 +3,10 @@ import { VariablesOf } from '@graphql-typed-document-node/core'
 import { GraphQLClient } from 'graphql-request'
 import { cache } from 'react'
 import { UserCard } from './components/user-card'
+import { Link } from 'lucide-react'
 
 export default async function Members() {
-  const data = await fetchUser({})
+  const data = await fetchUsers({})
 
   console.log(data)
   return (
@@ -13,14 +14,14 @@ export default async function Members() {
       <h1 className="text-3xl font-bold">Members</h1>
       <div className='flex flex-row gap-8 flex-wrap justify-center md:justify-start'>
         {data.users.map((user) => (
-          <UserCard user={user} key={user.id} />
+          <UserCard user={user} />
         ))}
       </div>
     </div>
   )
 }
 
-const fetchUser = async (
+const fetchUsers = async (
   input: VariablesOf<typeof UsersQuery>
 ) => {
   const backendEndpoint = process.env.BACKEND_ENDPOINT ?? 'http://localhost:4000/graphql'
