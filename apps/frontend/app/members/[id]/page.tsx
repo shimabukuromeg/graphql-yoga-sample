@@ -21,8 +21,16 @@ type Props = {
     params: {
         id: string
     }
+    searchParams?: {
+        [key: string]: string | string[] | undefined
+    }
 }
-export default async function Page({ params }: Props) {
+export default async function Page({ params, searchParams }: Props) {
+
+    // 動作確認用
+    const x = searchParams != null && typeof searchParams["createdAt"] === "string" ? "a" : "b"
+    console.log("x", x)
+
     const { user: u } = await fetchUser({ id: params.id })
     const user = useFragment(UserCardFragment, u)
 
