@@ -29,7 +29,7 @@ export default async function Page({ params }: Props) {
 
     return (
         <div className='flex flex-col p-8 md:p-20 gap-8'>
-            <h1 className="text-3xl font-bold">詳細</h1>
+            <h1 className="text-3xl font-bold">詳細ページ</h1>
             <div className='flex flex-col gap-8 flex-wrap justify-center md:justify-start'>
                 <div className='flex flex-row gap-3 items-center pb-2'>
                     <Avatar className="h-14 w-14">
