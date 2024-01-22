@@ -1,8 +1,21 @@
-import { graphql } from '@/src/gql'
+import { FragmentType, graphql, useFragment } from '@/src/gql'
 import { VariablesOf } from '@graphql-typed-document-node/core'
 import { GraphQLClient } from 'graphql-request'
 import { cache } from 'react'
-import { UserCard } from '../components/user-card'
+import { UserCard, UserCardFragment } from '../components/user-card'
+import {
+    Card,
+    CardContent,
+    CardDescription,
+    CardFooter,
+    CardHeader,
+    CardTitle,
+} from "@/components/ui/card"
+import { cn } from '@/lib/utils'
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
+import { Button } from '@/components/ui/button'
+import { Icons } from "@/components/ui/icons"
+import Link from "next/link"
 
 type Props = {
     params: {
@@ -10,14 +23,32 @@ type Props = {
     }
 }
 export default async function Page({ params }: Props) {
-    const { user } = await fetchUser({ id: params.id })
+    const { user: u } = await fetchUser({ id: params.id })
+    const user = useFragment(UserCardFragment, u)
+
 
     return (
         <div className='flex flex-col p-8 md:p-20 gap-8'>
-            <h1 className="text-3xl font-bold">Members</h1>
-            <div className='flex flex-row gap-8 flex-wrap justify-center md:justify-start'>
-                <UserCard user={user} />
+            <h1 className="text-3xl font-bold">詳細</h1>
+            <div className='flex flex-col gap-8 flex-wrap justify-center md:justify-start'>
+                <div className='flex flex-row gap-3 items-center pb-2'>
+                    <Avatar className="h-14 w-14">
+                        <AvatarImage
+                            className=""
+                            src={user.iconImageURL ?? ""}
+                        />
+                        <AvatarFallback>{user.displayName.split('')[0]}</AvatarFallback>
+                    </Avatar>
+                    <CardTitle>{user.displayName}</CardTitle>
+                </div>
+                <CardDescription className="line-clamp-3 h-[40px]">
+                    {user.description}
+                </CardDescription>
             </div>
+            {/* 戻る */}
+            <Link href={`/members`}>
+                <Button>戻る</Button>
+            </Link>
         </div>
     )
 }
