@@ -18,6 +18,8 @@ import { Icons } from "@/components/ui/icons"
 import Link from "next/link"
 import { UserDetail } from './components/user-detail'
 
+export const revalidate = 3600 // revalidate at most every hour
+
 type Props = {
     params: {
         id: string
