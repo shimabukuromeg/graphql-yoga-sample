@@ -16,6 +16,7 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { Button } from '@/components/ui/button'
 import { Icons } from "@/components/ui/icons"
 import Link from "next/link"
+import { UserDetail } from './components/user-detail'
 
 type Props = {
     params: {
@@ -31,28 +32,12 @@ export default async function Page({ params, searchParams }: Props) {
     const x = searchParams != null && typeof searchParams["createdAt"] === "string" ? "a" : "b"
     console.log("x", x)
 
-    const { user: u } = await fetchUser({ id: params.id })
-    const user = useFragment(UserCardFragment, u)
-
+    const { user } = await fetchUser({ id: params.id })
 
     return (
         <div className='flex flex-col p-8 md:p-20 gap-8'>
             <h1 className="text-3xl font-bold">詳細ページ</h1>
-            <div className='flex flex-col gap-8 flex-wrap justify-center md:justify-start'>
-                <div className='flex flex-row gap-3 items-center pb-2'>
-                    <Avatar className="h-14 w-14">
-                        <AvatarImage
-                            className=""
-                            src={user.iconImageURL ?? ""}
-                        />
-                        <AvatarFallback>{user.displayName.split('')[0]}</AvatarFallback>
-                    </Avatar>
-                    <CardTitle>{user.displayName}</CardTitle>
-                </div>
-                <CardDescription className="line-clamp-3 h-[40px]">
-                    {user.description}
-                </CardDescription>
-            </div>
+            <UserDetail user={user} />
             {/* 戻る */}
             <Link href={`/members`}>
                 <Button>戻る</Button>

@@ -141,6 +141,8 @@ export type MunicipalitiesQueryVariables = Exact<{ [key: string]: never; }>;
 
 export type MunicipalitiesQuery = { __typename?: 'Query', municipalities: Array<{ __typename?: 'Municipality', name: string, id: string }> };
 
+export type UserFragment = { __typename?: 'User', id: string, name: string, iconImageURL?: string | null, description?: string | null, twitterProfileUrl?: string | null, displayName: string } & { ' $fragmentName'?: 'UserFragment' };
+
 export type UserQueryVariables = Exact<{
   id: Scalars['ID']['input'];
 }>;
@@ -158,8 +160,6 @@ export type UsersQuery = { __typename?: 'Query', users: Array<(
     { __typename?: 'User', id: string }
     & { ' $fragmentRefs'?: { 'UserFragment': UserFragment } }
   )> };
-
-export type UserFragment = { __typename?: 'User', id: string, name: string, iconImageURL?: string | null, description?: string | null, twitterProfileUrl?: string | null, displayName: string } & { ' $fragmentName'?: 'UserFragment' };
 
 export type MunicipalityQueryVariables = Exact<{
   id: Scalars['ID']['input'];
