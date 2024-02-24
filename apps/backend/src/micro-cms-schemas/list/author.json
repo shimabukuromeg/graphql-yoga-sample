@@ -1,0 +1,18 @@
+{
+  "apiFields": [
+    {
+      "idValue": "6KeWJU-f32",
+      "fieldId": "name",
+      "name": "著者名",
+      "kind": "text",
+      "required": true,
+      "isUnique": false
+    },
+    {
+      "fieldId": "image",
+      "name": "著者画像",
+      "kind": "media"
+    }
+  ],
+  "customFields": []
+}
