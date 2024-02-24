@@ -6,6 +6,43 @@ schema {
   mutation: Mutation
 }
 
+"""ブログ記事の著者"""
+type Author {
+  blogs: [Blog!]
+  createdAt: DateTime!
+  id: ID!
+  image: MicroCmsImage
+  name: String!
+  publishedAt: DateTime
+  revisedAt: DateTime
+  updatedAt: DateTime!
+}
+
+"""ブログ記事"""
+type Blog {
+  author: Author!
+  body: String!
+  category: Category!
+  createdAt: DateTime!
+  id: ID!
+  image: MicroCmsImage
+  publishedAt: DateTime
+  revisedAt: DateTime
+  title: String!
+  updatedAt: DateTime!
+}
+
+"""ブログ記事のカテゴリー"""
+type Category {
+  blogs: [Blog!]!
+  createdAt: DateTime!
+  id: ID!
+  name: String!
+  publishedAt: DateTime
+  revisedAt: DateTime
+  updatedAt: DateTime!
+}
+
 type Comment {
   body: String!
   id: ID!
@@ -40,6 +77,13 @@ type Meshi {
   title: String!
 }
 
+"""MicroCMSの画像"""
+type MicroCmsImage {
+  height: Int
+  url: String!
+  width: Int
+}
+
 type Municipality {
   createdAt: Date!
   id: ID!
@@ -53,6 +97,9 @@ type Mutation {
 }
 
 type Query {
+  blog(id: ID!): Blog!
+  blogs: [Blog!]!
+  categories: [Category!]!
   comment(id: ID!): Comment
   feed(filterNeedle: String, skip: Int, take: Int): [Link!]!
   info: String!
