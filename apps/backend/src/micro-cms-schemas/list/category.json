@@ -1,0 +1,13 @@
+{
+  "apiFields": [
+    {
+      "idValue": "P1Zo9fcVn4",
+      "fieldId": "name",
+      "name": "カテゴリー名",
+      "kind": "text",
+      "required": true,
+      "isUnique": false
+    }
+  ],
+  "customFields": []
+}

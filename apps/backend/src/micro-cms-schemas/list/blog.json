@@ -1,0 +1,32 @@
+{
+  "apiFields": [
+    {
+      "idValue": "7EwsUooATH",
+      "fieldId": "title",
+      "name": "タイトル",
+      "kind": "text",
+      "required": true,
+      "isUnique": false
+    },
+    {
+      "fieldId": "category",
+      "name": "カテゴリー",
+      "kind": "relation",
+      "required": true
+    },
+    {
+      "fieldId": "author",
+      "name": "著者",
+      "kind": "relation",
+      "required": true
+    },
+    { "fieldId": "image", "name": "画像", "kind": "media" },
+    {
+      "fieldId": "body",
+      "name": "本文",
+      "kind": "richEditorV2",
+      "required": true
+    }
+  ],
+  "customFields": []
+}

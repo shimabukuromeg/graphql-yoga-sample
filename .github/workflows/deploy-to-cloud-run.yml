@@ -117,7 +117,9 @@ jobs:
             --min-instances=0
             --cpu=1
             --memory=640Mi
-          secrets: DATABASE_URL=DATABASE_URL:latest
+          secrets: |
+            DATABASE_URL=DATABASE_URL:latest
+            MICRO_CMS_API_KEY=MICRO_CMS_API_KEY:latest
 
   vercle-deploy:
     if: ${{ github.ref == 'refs/heads/main' }}

@@ -1,4 +1,7 @@
 import { GraphQLResolveInfo, GraphQLScalarType, GraphQLScalarTypeConfig } from 'graphql';
+import { Author_Mapper } from './author/schema.mappers';
+import { Blog_Mapper } from './blog/schema.mappers';
+import { Category_Mapper } from './category/schema.mappers';
 import { Comment_Mapper } from './comment/schema.mappers';
 import { Link_Mapper } from './feed/schema.mappers';
 import { Meshi_Mapper } from './meshi/schema.mappers';
@@ -21,6 +24,46 @@ export type Scalars = {
   Float: { input: number; output: number; }
   Date: { input: Date | string; output: Date | string; }
   DateTime: { input: Date | string; output: Date | string; }
+};
+
+/** ブログ記事の著者 */
+export type Author = {
+  __typename?: 'Author';
+  blogs?: Maybe<Array<Blog>>;
+  createdAt: Scalars['DateTime']['output'];
+  id: Scalars['ID']['output'];
+  image?: Maybe<MicroCmsImage>;
+  name: Scalars['String']['output'];
+  publishedAt?: Maybe<Scalars['DateTime']['output']>;
+  revisedAt?: Maybe<Scalars['DateTime']['output']>;
+  updatedAt: Scalars['DateTime']['output'];
+};
+
+/** ブログ記事 */
+export type Blog = {
+  __typename?: 'Blog';
+  author: Author;
+  body: Scalars['String']['output'];
+  category: Category;
+  createdAt: Scalars['DateTime']['output'];
+  id: Scalars['ID']['output'];
+  image?: Maybe<MicroCmsImage>;
+  publishedAt?: Maybe<Scalars['DateTime']['output']>;
+  revisedAt?: Maybe<Scalars['DateTime']['output']>;
+  title: Scalars['String']['output'];
+  updatedAt: Scalars['DateTime']['output'];
+};
+
+/** ブログ記事のカテゴリー */
+export type Category = {
+  __typename?: 'Category';
+  blogs: Array<Blog>;
+  createdAt: Scalars['DateTime']['output'];
+  id: Scalars['ID']['output'];
+  name: Scalars['String']['output'];
+  publishedAt?: Maybe<Scalars['DateTime']['output']>;
+  revisedAt?: Maybe<Scalars['DateTime']['output']>;
+  updatedAt: Scalars['DateTime']['output'];
 };
 
 export type Comment = {
@@ -56,6 +99,14 @@ export type Meshi = {
   title: Scalars['String']['output'];
 };
 
+/** MicroCMSの画像 */
+export type MicroCmsImage = {
+  __typename?: 'MicroCmsImage';
+  height?: Maybe<Scalars['Int']['output']>;
+  url: Scalars['String']['output'];
+  width?: Maybe<Scalars['Int']['output']>;
+};
+
 export type Municipality = {
   __typename?: 'Municipality';
   createdAt: Scalars['Date']['output'];
@@ -84,6 +135,9 @@ export type MutationpostLinkArgs = {
 
 export type Query = {
   __typename?: 'Query';
+  blog: Blog;
+  blogs: Array<Blog>;
+  categories: Array<Category>;
   comment?: Maybe<Comment>;
   feed: Array<Link>;
   info: Scalars['String']['output'];
@@ -94,6 +148,11 @@ export type Query = {
   municipality?: Maybe<Municipality>;
   user: User;
   users: Array<User>;
+};
+
+
+export type QueryblogArgs = {
+  id: Scalars['ID']['input'];
 };
 
 
@@ -212,38 +271,83 @@ export type DirectiveResolverFn<TResult = {}, TParent = {}, TContext = {}, TArgs
 
 /** Mapping between all available schema types and the resolvers types */
 export type ResolversTypes = {
-  Comment: ResolverTypeWrapper<Comment_Mapper>;
-  String: ResolverTypeWrapper<Scalars['String']['output']>;
+  Author: ResolverTypeWrapper<Author_Mapper>;
   ID: ResolverTypeWrapper<Scalars['ID']['output']>;
+  String: ResolverTypeWrapper<Scalars['String']['output']>;
+  Blog: ResolverTypeWrapper<Blog_Mapper>;
+  Category: ResolverTypeWrapper<Category_Mapper>;
+  Comment: ResolverTypeWrapper<Comment_Mapper>;
   Date: ResolverTypeWrapper<Scalars['Date']['output']>;
   DateTime: ResolverTypeWrapper<Scalars['DateTime']['output']>;
   Link: ResolverTypeWrapper<Link_Mapper>;
   Meshi: ResolverTypeWrapper<Meshi_Mapper>;
   Float: ResolverTypeWrapper<Scalars['Float']['output']>;
+  MicroCmsImage: ResolverTypeWrapper<MicroCmsImage>;
+  Int: ResolverTypeWrapper<Scalars['Int']['output']>;
   Municipality: ResolverTypeWrapper<Municipality_Mapper>;
   Mutation: ResolverTypeWrapper<{}>;
   Query: ResolverTypeWrapper<{}>;
-  Int: ResolverTypeWrapper<Scalars['Int']['output']>;
   User: ResolverTypeWrapper<User_Mapper>;
   Boolean: ResolverTypeWrapper<Scalars['Boolean']['output']>;
 };
 
 /** Mapping between all available schema types and the resolvers parents */
 export type ResolversParentTypes = {
-  Comment: Comment_Mapper;
-  String: Scalars['String']['output'];
+  Author: Author_Mapper;
   ID: Scalars['ID']['output'];
+  String: Scalars['String']['output'];
+  Blog: Blog_Mapper;
+  Category: Category_Mapper;
+  Comment: Comment_Mapper;
   Date: Scalars['Date']['output'];
   DateTime: Scalars['DateTime']['output'];
   Link: Link_Mapper;
   Meshi: Meshi_Mapper;
   Float: Scalars['Float']['output'];
+  MicroCmsImage: MicroCmsImage;
+  Int: Scalars['Int']['output'];
   Municipality: Municipality_Mapper;
   Mutation: {};
   Query: {};
-  Int: Scalars['Int']['output'];
   User: User_Mapper;
   Boolean: Scalars['Boolean']['output'];
+};
+
+export type AuthorResolvers<ContextType = any, ParentType extends ResolversParentTypes['Author'] = ResolversParentTypes['Author']> = {
+  blogs?: Resolver<Maybe<Array<ResolversTypes['Blog']>>, ParentType, ContextType>;
+  createdAt?: Resolver<ResolversTypes['DateTime'], ParentType, ContextType>;
+  id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
+  image?: Resolver<Maybe<ResolversTypes['MicroCmsImage']>, ParentType, ContextType>;
+  name?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  publishedAt?: Resolver<Maybe<ResolversTypes['DateTime']>, ParentType, ContextType>;
+  revisedAt?: Resolver<Maybe<ResolversTypes['DateTime']>, ParentType, ContextType>;
+  updatedAt?: Resolver<ResolversTypes['DateTime'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type BlogResolvers<ContextType = any, ParentType extends ResolversParentTypes['Blog'] = ResolversParentTypes['Blog']> = {
+  author?: Resolver<ResolversTypes['Author'], ParentType, ContextType>;
+  body?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  category?: Resolver<ResolversTypes['Category'], ParentType, ContextType>;
+  createdAt?: Resolver<ResolversTypes['DateTime'], ParentType, ContextType>;
+  id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
+  image?: Resolver<Maybe<ResolversTypes['MicroCmsImage']>, ParentType, ContextType>;
+  publishedAt?: Resolver<Maybe<ResolversTypes['DateTime']>, ParentType, ContextType>;
+  revisedAt?: Resolver<Maybe<ResolversTypes['DateTime']>, ParentType, ContextType>;
+  title?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  updatedAt?: Resolver<ResolversTypes['DateTime'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type CategoryResolvers<ContextType = any, ParentType extends ResolversParentTypes['Category'] = ResolversParentTypes['Category']> = {
+  blogs?: Resolver<Array<ResolversTypes['Blog']>, ParentType, ContextType>;
+  createdAt?: Resolver<ResolversTypes['DateTime'], ParentType, ContextType>;
+  id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
+  name?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  publishedAt?: Resolver<Maybe<ResolversTypes['DateTime']>, ParentType, ContextType>;
+  revisedAt?: Resolver<Maybe<ResolversTypes['DateTime']>, ParentType, ContextType>;
+  updatedAt?: Resolver<ResolversTypes['DateTime'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
 export type CommentResolvers<ContextType = any, ParentType extends ResolversParentTypes['Comment'] = ResolversParentTypes['Comment']> = {
@@ -287,6 +391,13 @@ export type MeshiResolvers<ContextType = any, ParentType extends ResolversParent
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
+export type MicroCmsImageResolvers<ContextType = any, ParentType extends ResolversParentTypes['MicroCmsImage'] = ResolversParentTypes['MicroCmsImage']> = {
+  height?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
+  url?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  width?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
 export type MunicipalityResolvers<ContextType = any, ParentType extends ResolversParentTypes['Municipality'] = ResolversParentTypes['Municipality']> = {
   createdAt?: Resolver<ResolversTypes['Date'], ParentType, ContextType>;
   id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
@@ -301,6 +412,9 @@ export type MutationResolvers<ContextType = any, ParentType extends ResolversPar
 };
 
 export type QueryResolvers<ContextType = any, ParentType extends ResolversParentTypes['Query'] = ResolversParentTypes['Query']> = {
+  blog?: Resolver<ResolversTypes['Blog'], ParentType, ContextType, RequireFields<QueryblogArgs, 'id'>>;
+  blogs?: Resolver<Array<ResolversTypes['Blog']>, ParentType, ContextType>;
+  categories?: Resolver<Array<ResolversTypes['Category']>, ParentType, ContextType>;
   comment?: Resolver<Maybe<ResolversTypes['Comment']>, ParentType, ContextType, RequireFields<QuerycommentArgs, 'id'>>;
   feed?: Resolver<Array<ResolversTypes['Link']>, ParentType, ContextType, Partial<QueryfeedArgs>>;
   info?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
@@ -327,11 +441,15 @@ export type UserResolvers<ContextType = any, ParentType extends ResolversParentT
 };
 
 export type Resolvers<ContextType = any> = {
+  Author?: AuthorResolvers<ContextType>;
+  Blog?: BlogResolvers<ContextType>;
+  Category?: CategoryResolvers<ContextType>;
   Comment?: CommentResolvers<ContextType>;
   Date?: GraphQLScalarType;
   DateTime?: GraphQLScalarType;
   Link?: LinkResolvers<ContextType>;
   Meshi?: MeshiResolvers<ContextType>;
+  MicroCmsImage?: MicroCmsImageResolvers<ContextType>;
   Municipality?: MunicipalityResolvers<ContextType>;
   Mutation?: MutationResolvers<ContextType>;
   Query?: QueryResolvers<ContextType>;
