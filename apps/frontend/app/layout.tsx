@@ -18,6 +18,7 @@ import { GoogleTagManager } from '@next/third-parties/google'
 import { Noto_Sans_JP } from "next/font/google"
 import { cn } from "@/lib/utils"
 import { HamburgerMenuIcon } from '@radix-ui/react-icons'
+import { SpeedInsights } from '@vercel/speed-insights/next';
 
 
 const noto = Noto_Sans_JP({ weight: ['400', '700'], subsets: ['latin'], variable: '--font-noto' });
@@ -65,6 +66,7 @@ export default function RootLayout({
         {children}
         {modal}
         <FloatingButton />
+        <SpeedInsights />
       </body>
       <GoogleTagManager gtmId={process.env.GOOGLE_TAG_MANAGER_ID ?? ""} />
     </html>
