@@ -20,7 +20,7 @@ const documents = {
     "\n  query Users {\n    users {\n      id\n      ...User\n    }\n  }\n": types.UsersDocument,
     "\n  query Municipality($id: ID!) {\n    municipality(id: $id) {\n    createdAt\n    name\n    id\n    meshis {\n      id\n      title\n      address\n      articleId\n      createdAt\n      imageUrl\n      latitude\n      longitude\n      publishedDate\n      siteUrl\n      storeName\n    }\n  }\n  }\n": types.MunicipalityDocument,
     "\n  query Meshi {\n    meshis {\n      id\n      ...MeshiCard\n    }\n  }\n": types.MeshiDocument,
-    "\n  fragment MeshiCard on Meshi {\n    id\n    imageUrl\n    siteUrl\n    title\n    storeName\n    publishedDate\n    createdAt\n  }\n": types.MeshiCardFragmentDoc,
+    "\n  fragment MeshiCard on Meshi {\n    id\n    imageUrl\n    siteUrl\n    title\n    storeName\n    publishedDate\n    createdAt\n    municipality {\n        id\n        name\n    }\n  }\n": types.MeshiCardFragmentDoc,
 };
 
 /**
@@ -68,7 +68,7 @@ export function graphql(source: "\n  query Meshi {\n    meshis {\n      id\n    
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
-export function graphql(source: "\n  fragment MeshiCard on Meshi {\n    id\n    imageUrl\n    siteUrl\n    title\n    storeName\n    publishedDate\n    createdAt\n  }\n"): (typeof documents)["\n  fragment MeshiCard on Meshi {\n    id\n    imageUrl\n    siteUrl\n    title\n    storeName\n    publishedDate\n    createdAt\n  }\n"];
+export function graphql(source: "\n  fragment MeshiCard on Meshi {\n    id\n    imageUrl\n    siteUrl\n    title\n    storeName\n    publishedDate\n    createdAt\n    municipality {\n        id\n        name\n    }\n  }\n"): (typeof documents)["\n  fragment MeshiCard on Meshi {\n    id\n    imageUrl\n    siteUrl\n    title\n    storeName\n    publishedDate\n    createdAt\n    municipality {\n        id\n        name\n    }\n  }\n"];
 
 export function graphql(source: string) {
   return (documents as any)[source] ?? {};

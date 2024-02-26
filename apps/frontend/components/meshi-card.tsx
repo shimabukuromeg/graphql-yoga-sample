@@ -7,7 +7,6 @@ import {
     CardTitle,
 } from "@/components/ui/card"
 import { cn } from '@/lib/utils'
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { Button } from '@/components/ui/button'
 import { FragmentType, graphql, useFragment } from '@/src/gql'
 import { Icons } from "@/components/ui/icons"
@@ -23,6 +22,10 @@ export const MeshiCardFragment = graphql(`
     storeName
     publishedDate
     createdAt
+    municipality {
+        id
+        name
+    }
   }
 `)
 
@@ -37,13 +40,18 @@ export const MeshiCard = (props: Props) => {
     return (
         <Link id="meshi" target='_blank' href={meshi.siteUrl} key={meshi.id}>
             <Card className="p-2 max-w-[300px]">
-                <Image className="h-auto max-w-full rounded-lg"
-                    width={300}
-                    height={300}
-                    src={meshi.imageUrl}
-                    alt=""
-                    loading={props.isEager ? 'eager' : 'lazy'}
-                />
+                <CardContent className="p-0">
+                    <Image className="h-auto max-w-full rounded-lg"
+                        width={300}
+                        height={300}
+                        src={meshi.imageUrl}
+                        alt=""
+                        loading={props.isEager ? 'eager' : 'lazy'}
+                    />
+                    <div className="flex flex-row flex-wrap gap-1 pt-2">
+                        <div className="px-2 py-1 rounded-xl text-[10px] text-white w-fit bg-primary">{meshi.municipality?.name}</div>
+                    </div>
+                </CardContent>
                 <CardFooter className="p-1">
                     <p className="font-bold line-clamp-3">{meshi.title}</p>
                 </CardFooter>
