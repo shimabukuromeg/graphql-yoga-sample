@@ -28,6 +28,7 @@ export const MeshiCardFragment = graphql(`
 
 type Props = {
     meshi: FragmentType<typeof MeshiCardFragment>
+    isEager?: boolean
 }
 
 export const MeshiCard = (props: Props) => {
@@ -41,6 +42,7 @@ export const MeshiCard = (props: Props) => {
                     height={300}
                     src={meshi.imageUrl}
                     alt=""
+                    loading={props.isEager ? 'eager' : 'lazy'}
                 />
             </Link>
         </>
