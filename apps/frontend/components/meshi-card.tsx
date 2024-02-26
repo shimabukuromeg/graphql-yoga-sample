@@ -35,8 +35,8 @@ export const MeshiCard = (props: Props) => {
     const meshi = useFragment(MeshiCardFragment, props.meshi)
 
     return (
-        <>
-            <Link id="meshi" target='_blank' href={meshi.siteUrl} key={meshi.id}>
+        <Link id="meshi" target='_blank' href={meshi.siteUrl} key={meshi.id}>
+            <Card className="p-2">
                 <Image className="h-auto max-w-full rounded-lg"
                     width={300}
                     height={300}
@@ -44,7 +44,10 @@ export const MeshiCard = (props: Props) => {
                     alt=""
                     loading={props.isEager ? 'eager' : 'lazy'}
                 />
-            </Link>
-        </>
+                <CardFooter className="p-1">
+                    <p className="font-bold line-clamp-3">{meshi.title}</p>
+                </CardFooter>
+            </Card >
+        </Link>
     )
 }
