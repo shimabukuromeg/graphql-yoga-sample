@@ -36,7 +36,7 @@ export const MeshiCard = (props: Props) => {
 
     return (
         <Link id="meshi" target='_blank' href={meshi.siteUrl} key={meshi.id}>
-            <Card className="p-2">
+            <Card className="p-2 max-w-[300px]">
                 <Image className="h-auto max-w-full rounded-lg"
                     width={300}
                     height={300}
