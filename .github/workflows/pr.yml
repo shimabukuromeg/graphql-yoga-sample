@@ -7,7 +7,7 @@ on:
 
 jobs:
   deploy-to-cloud-run:
-    environment: Preview
+    environment: backend_preview
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
