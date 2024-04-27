@@ -1,4 +1,8 @@
 name: PR
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+
 on:
   push:
     branches:
@@ -7,7 +11,7 @@ on:
 
 jobs:
   deploy-to-cloud-run:
-    environment: backend_preview
+    environment: Preview
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
