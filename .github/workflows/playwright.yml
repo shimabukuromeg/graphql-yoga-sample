@@ -1,0 +1,62 @@
+name: Playwright Tests
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - "apps/frontend/**"
+    branches: "main"
+  pull_request:
+    branches:
+      - "**"
+    paths:
+      - "apps/frontend/**"
+
+jobs:
+  test:
+    timeout-minutes: 60
+    env:
+      PLAYWRIGHT_VERSION: null
+    runs-on: ubuntu-latest
+    steps:
+      - name: Waiting for 200 from the Vercel Preview
+        uses: patrickedqvist/wait-for-vercel-preview@v1.3.1
+        id: waitFor200
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          max_timeout: 550
+          check_interval: 10
+      - run: echo ${{steps.waitFor200.outputs.url}}
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: lts/*
+      - name: Install dependencies
+        run: npm install -g pnpm && pnpm install
+      - name: Store Playwright's Version
+        working-directory: apps/frontend
+        shell: bash
+        run: |
+          PLAYWRIGHT_VERSION=$(pnpm exec playwright --version)
+          echo "PLAYWRIGHT_VERSION=$PLAYWRIGHT_VERSION" >> $GITHUB_ENV
+      - name: Cache Playwright Browsers for Playwright's Version(Playwright のブラウザのインストールをキャッシュする) # 参考: https://blog.cybozu.io/entry/2024/04/08/100000
+        id: cache-playwright-browsers
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/ms-playwright
+          key: playwright-browsers-${{ env.PLAYWRIGHT_VERSION }}
+      - name: Install Playwright Browsers(ブラウザインストール)
+        shell: bash
+        working-directory: apps/frontend
+        if: steps.cache-playwright-browsers.outputs.cache-hit != 'true'
+        run: pnpm exec playwright install --with-deps chromium
+      - name: Run Playwright tests(テスト実行)
+        working-directory: apps/frontend
+        run: pnpm exec playwright test
+        env:
+          BASE_URL: ${{steps.waitFor200.outputs.url}}
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: playwright-report
+          path: apps/frontend/playwright-report/
+          retention-days: 2
