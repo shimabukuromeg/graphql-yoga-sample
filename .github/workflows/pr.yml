@@ -12,5 +12,5 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
       - name: Display the path
-        shell: cmd
-        run: echo %PATH%
+        shell: bash
+        run: echo $PATH
