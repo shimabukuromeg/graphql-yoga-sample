@@ -190,8 +190,10 @@ export type QueryuserArgs = {
 export type User = {
   __typename?: 'User';
   comments?: Maybe<Array<Comment>>;
+  contents?: Maybe<Scalars['String']['output']>;
   description?: Maybe<Scalars['String']['output']>;
   displayName: Scalars['String']['output'];
+  email: Scalars['String']['output'];
   iconImageURL?: Maybe<Scalars['String']['output']>;
   id: Scalars['ID']['output'];
   links?: Maybe<Array<Link>>;
@@ -428,8 +430,10 @@ export type QueryResolvers<ContextType = any, ParentType extends ResolversParent
 
 export type UserResolvers<ContextType = any, ParentType extends ResolversParentTypes['User'] = ResolversParentTypes['User']> = {
   comments?: Resolver<Maybe<Array<ResolversTypes['Comment']>>, ParentType, ContextType>;
+  contents?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   description?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   displayName?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  email?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   iconImageURL?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
   links?: Resolver<Maybe<Array<ResolversTypes['Link']>>, ParentType, ContextType>;

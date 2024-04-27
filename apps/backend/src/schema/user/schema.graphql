@@ -7,8 +7,10 @@ type User {
   id: ID!
   name: String!
   displayName: String!
+  email: String!
   iconImageURL: String
   description: String
+  contents: String
   twitterProfileUrl: String
   links: [Link!]
   comments: [Comment!]

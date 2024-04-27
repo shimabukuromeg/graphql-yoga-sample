@@ -114,8 +114,10 @@ type Query {
 
 type User {
   comments: [Comment!]
+  contents: String
   description: String
   displayName: String!
+  email: String!
   iconImageURL: String
   id: ID!
   links: [Link!]
