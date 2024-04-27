@@ -70,6 +70,7 @@ jobs:
           gcloud beta run jobs execute migration --wait --format=json
 
   cloudrun-deploy:
+    environment: Production
     runs-on: ubuntu-latest
 
     needs:
