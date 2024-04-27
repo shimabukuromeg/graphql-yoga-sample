@@ -184,7 +184,6 @@ export type User = {
   comments?: Maybe<Array<Comment>>;
   description?: Maybe<Scalars['String']['output']>;
   displayName: Scalars['String']['output'];
-  email: Scalars['String']['output'];
   iconImageURL?: Maybe<Scalars['String']['output']>;
   id: Scalars['ID']['output'];
   links?: Maybe<Array<Link>>;
