@@ -1,3 +1,7 @@
+# Javascript actionのサンプル
+# https://docs.github.com/en/actions/creating-actions/creating-a-javascript-action
+name: Sample Creating a JavaScript action
+
 on: [push, pull_request, workflow_dispatch]
 
 jobs:
@@ -7,7 +11,7 @@ jobs:
     steps:
       - name: Hello world action step
         id: hello
-        uses: shimabukuromeg/hello-world-javascript-action@v1.1
+        uses: shimabukuromeg/hello-world-javascript-action@v1.2
         with:
           who-to-greet: "テスト!!!!"
       # Use the output from the `hello` step
