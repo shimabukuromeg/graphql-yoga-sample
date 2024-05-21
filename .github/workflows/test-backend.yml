@@ -9,6 +9,7 @@ jobs:
       matrix:
         node-version: [20]
     steps:
+      - uses: Kesin11/actions-timeline@v2
       - uses: actions/checkout@v3
       - uses: pnpm/action-setup@v2
         with:
