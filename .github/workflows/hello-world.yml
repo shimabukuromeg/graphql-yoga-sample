@@ -2,13 +2,14 @@
 # https://docs.github.com/en/actions/creating-actions/creating-a-javascript-action
 name: Sample Creating a JavaScript action
 
-on: [push, pull_request, workflow_dispatch]
+on: [workflow_dispatch]
 
 jobs:
   hello_world_job:
     runs-on: ubuntu-latest
     name: A job to say hello
     steps:
+      - uses: Kesin11/actions-timeline@v2
       - name: Hello world action step
         id: hello
         uses: shimabukuromeg/hello-world-javascript-action@v1.2
