@@ -141,4 +141,9 @@ dist
 # SvelteKit build / generate output
 .svelte-kit
 
+# turbo-cache
+.turbo
+build/**
+dist/**
+.next/**
 # End of https://www.toptal.com/developers/gitignore/api/node
