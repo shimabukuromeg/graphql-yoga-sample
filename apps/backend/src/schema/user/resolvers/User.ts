@@ -14,5 +14,8 @@ export const User: UserResolvers = {
         id: parent.id
       }
     }).links()
+  },
+  contents: () => {
+    return "テストコンテンツ!!!"
   }
 };

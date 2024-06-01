@@ -182,6 +182,7 @@ export type QueryUserArgs = {
 export type User = {
   __typename?: 'User';
   comments?: Maybe<Array<Comment>>;
+  contents?: Maybe<Scalars['String']['output']>;
   description?: Maybe<Scalars['String']['output']>;
   displayName: Scalars['String']['output'];
   email: Scalars['String']['output'];

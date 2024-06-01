@@ -1,0 +1,21 @@
+name: PR
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+
+on:
+  push:
+    branches:
+      - "**"
+  workflow_dispatch:
+
+jobs:
+  deploy-to-cloud-run:
+    environment: Preview
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Display the path
+        shell: bash
+        run: echo $PATH
