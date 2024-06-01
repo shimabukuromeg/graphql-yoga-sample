@@ -3,12 +3,10 @@ import { VariablesOf } from "@graphql-typed-document-node/core"
 import { GraphQLClient } from "graphql-request"
 import { cache } from "react"
 import { UserCard } from "./components/user-card"
-import { Link } from "lucide-react"
 
 export default async function Members() {
   const data = await fetchUsers({})
 
-  console.log(data)
   return (
     <div className="flex flex-col p-8 md:p-20 gap-8">
       <h1 className="text-3xl font-bold">Members</h1>
