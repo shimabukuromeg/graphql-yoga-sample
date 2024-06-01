@@ -1,6 +1,16 @@
 /* This file was automatically generated. DO NOT UPDATE MANUALLY. */
     import type   { Resolvers } from './types.generated';
-    import    { blog as Query_blog } from './blog/resolvers/Query/blog';
+    import    { Author } from './author/resolvers/Author';
+import    { Blog } from './blog/resolvers/Blog';
+import    { Category } from './category/resolvers/Category';
+import    { Comment } from './comment/resolvers/Comment';
+import    { Link } from './feed/resolvers/Link';
+import    { Meshi } from './meshi/resolvers/Meshi';
+import    { MicroCmsImage } from './base/resolvers/MicroCmsImage';
+import    { Municipality } from './municipality/resolvers/Municipality';
+import    { postCommentOnLink as Mutation_postCommentOnLink } from './comment/resolvers/Mutation/postCommentOnLink';
+import    { postLink as Mutation_postLink } from './feed/resolvers/Mutation/postLink';
+import    { blog as Query_blog } from './blog/resolvers/Query/blog';
 import    { blogs as Query_blogs } from './blog/resolvers/Query/blogs';
 import    { categories as Query_categories } from './category/resolvers/Query/categories';
 import    { comment as Query_comment } from './comment/resolvers/Query/comment';
@@ -13,16 +23,6 @@ import    { municipalities as Query_municipalities } from './municipality/resolv
 import    { municipality as Query_municipality } from './municipality/resolvers/Query/municipality';
 import    { user as Query_user } from './user/resolvers/Query/user';
 import    { users as Query_users } from './user/resolvers/Query/users';
-import    { postCommentOnLink as Mutation_postCommentOnLink } from './comment/resolvers/Mutation/postCommentOnLink';
-import    { postLink as Mutation_postLink } from './feed/resolvers/Mutation/postLink';
-import    { Author } from './author/resolvers/Author';
-import    { Blog } from './blog/resolvers/Blog';
-import    { Category } from './category/resolvers/Category';
-import    { Comment } from './comment/resolvers/Comment';
-import    { Link } from './feed/resolvers/Link';
-import    { Meshi } from './meshi/resolvers/Meshi';
-import    { MicroCmsImage } from './base/resolvers/MicroCmsImage';
-import    { Municipality } from './municipality/resolvers/Municipality';
 import    { User } from './user/resolvers/User';
 import    { DateResolver,DateTimeResolver } from 'graphql-scalars';
     export const resolvers: Resolvers = {
