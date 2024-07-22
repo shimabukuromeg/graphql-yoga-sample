@@ -5,7 +5,7 @@ volumes:
 
 services:
   db:
-    image: postgres:15
+    image: postgres:16
     container_name: sample-monorepo-pnpm
     volumes:
       - db-data:/var/lib/postgresql/sample-monorepo-pnpm/data
