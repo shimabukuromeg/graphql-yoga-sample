@@ -48,7 +48,7 @@ jobs:
           service_account: ${{ env.SERVICE_ACCOUNT }}
 
       - name: "Set up Cloud SDK"
-        uses: "google-github-actions/setup-gcloud@v1"
+        uses: "google-github-actions/setup-gcloud@v2"
         with:
           install_components: "beta"
 
@@ -93,7 +93,7 @@ jobs:
           service_account: ${{ env.SERVICE_ACCOUNT }}
 
       - name: "Set up Cloud SDK"
-        uses: "google-github-actions/setup-gcloud@v1"
+        uses: "google-github-actions/setup-gcloud@v2"
 
       - name: CloudRun Deploy
         id: deploy
