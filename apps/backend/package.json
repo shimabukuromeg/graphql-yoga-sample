@@ -20,7 +20,7 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "@eddeee888/gcg-typescript-resolver-files": "^0.7.1",
+    "@eddeee888/gcg-typescript-resolver-files": "^0.10.0",
     "@graphql-codegen/cli": "^5.0.0",
     "@types/node": "20.15.0",
     "@vitest/ui": "^1.2.2",
