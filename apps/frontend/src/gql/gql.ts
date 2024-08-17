@@ -20,7 +20,7 @@ const documents = {
     "\n  query Municipality($id: ID!) {\n    municipality(id: $id) {\n      createdAt\n      name\n      id\n      meshis {\n        id\n        ...MeshiCard\n      }\n    }\n  }\n": types.MunicipalityDocument,
     "\n  query Meshi {\n    meshis {\n      id\n      ...MeshiCard\n    }\n  }\n": types.MeshiDocument,
     "\n  query Municipalities {\n    municipalities {\n      name\n      id\n    }\n  }\n": types.MunicipalitiesDocument,
-    "\n  fragment MeshiCard on Meshi {\n    id\n    imageUrl\n    siteUrl\n    title\n    storeName\n    publishedDate\n    createdAt\n    municipality {\n        id\n        name\n    }\n  }\n": types.MeshiCardFragmentDoc,
+    "\n  fragment MeshiCard on Meshi {\n    id\n    imageUrl\n    siteUrl\n    title\n    storeName\n    publishedDate\n    createdAt\n    municipality {\n      id\n      name\n    }\n  }\n": types.MeshiCardFragmentDoc,
 };
 
 /**
@@ -68,7 +68,7 @@ export function graphql(source: "\n  query Municipalities {\n    municipalities 
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
-export function graphql(source: "\n  fragment MeshiCard on Meshi {\n    id\n    imageUrl\n    siteUrl\n    title\n    storeName\n    publishedDate\n    createdAt\n    municipality {\n        id\n        name\n    }\n  }\n"): (typeof documents)["\n  fragment MeshiCard on Meshi {\n    id\n    imageUrl\n    siteUrl\n    title\n    storeName\n    publishedDate\n    createdAt\n    municipality {\n        id\n        name\n    }\n  }\n"];
+export function graphql(source: "\n  fragment MeshiCard on Meshi {\n    id\n    imageUrl\n    siteUrl\n    title\n    storeName\n    publishedDate\n    createdAt\n    municipality {\n      id\n      name\n    }\n  }\n"): (typeof documents)["\n  fragment MeshiCard on Meshi {\n    id\n    imageUrl\n    siteUrl\n    title\n    storeName\n    publishedDate\n    createdAt\n    municipality {\n      id\n      name\n    }\n  }\n"];
 
 export function graphql(source: string) {
   return (documents as any)[source] ?? {};
