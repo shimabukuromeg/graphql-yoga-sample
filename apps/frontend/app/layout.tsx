@@ -1,6 +1,5 @@
-import "./globals.css"
-import type { Metadata } from "next"
-import { Inter } from "next/font/google"
+import "./globals.css";
+import type { Metadata } from "next";
 import {
   Menubar,
   MenubarContent,
@@ -9,34 +8,33 @@ import {
   MenubarSeparator,
   MenubarShortcut,
   MenubarTrigger,
-} from "@/components/ui/menubar"
-import Link from "next/link"
-import { Icons } from "@/components/ui/icons"
-import { FloatingButton } from "@/components/ui/floating-button"
+} from "@/components/ui/menubar";
+import Link from "next/link";
+import { Icons } from "@/components/ui/icons";
+import { FloatingButton } from "@/components/ui/floating-button";
 // @ts-ignore
-import { GoogleTagManager } from "@next/third-parties/google"
-import { Noto_Sans_JP } from "next/font/google"
-import { cn } from "@/lib/utils"
-import { HamburgerMenuIcon } from "@radix-ui/react-icons"
-import { SpeedInsights } from "@vercel/speed-insights/next"
+import { GoogleTagManager } from "@next/third-parties/google";
+import { Noto_Sans_JP } from "next/font/google";
+import { cn } from "@/lib/utils";
+import { HamburgerMenuIcon } from "@radix-ui/react-icons";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 
 const noto = Noto_Sans_JP({
   weight: ["400", "700"],
   subsets: ["latin"],
   variable: "--font-noto",
-})
+});
 
 export const metadata: Metadata = {
   title: "飯ぴよ",
   description: "沖縄のグルメ情報を探索するサイトです",
-}
+};
 
 export default function RootLayout({
   children,
-  modal,
 }: {
-  children: React.ReactNode
-  modal: React.ReactNode
+  children: React.ReactNode;
+  modal: React.ReactNode;
 }) {
   return (
     <html lang="jp">
@@ -65,11 +63,10 @@ export default function RootLayout({
           </MenubarMenu>
         </Menubar>
         {children}
-        {modal}
         <FloatingButton />
         <SpeedInsights />
       </body>
       <GoogleTagManager gtmId={process.env.GOOGLE_TAG_MANAGER_ID ?? ""} />
     </html>
-  )
+  );
 }
