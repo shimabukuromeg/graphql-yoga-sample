@@ -27,7 +27,7 @@ export default async function MunicipalityPage(props: Props) {
       </div>
       <div className="flex justify-center">
         {data.municipality != null && (
-          <div className="grid grid-cols-2 md:grid-cols-3 gap-1 max-w-[900px]">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-1">
             {data.municipality?.meshis.map((meshi, i) => {
               if (meshi == null) {
                 throw new Error("meshi is null");
