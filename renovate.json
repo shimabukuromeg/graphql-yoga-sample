@@ -14,6 +14,12 @@
     {
       "matchPackageNames": ["eslint"],
       "enabled": false
+    },
+    {
+      "lockFileMaintenance": {
+        "enabled": true,
+        "automerge": true
+      }
     }
   ]
 }
