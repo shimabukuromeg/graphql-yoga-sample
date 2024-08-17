@@ -22,7 +22,7 @@
   "devDependencies": {
     "@eddeee888/gcg-typescript-resolver-files": "^0.7.1",
     "@graphql-codegen/cli": "^5.0.0",
-    "@types/node": "20.10.0",
+    "@types/node": "20.15.0",
     "@vitest/ui": "^1.2.2",
     "cross-env": "7.0.3",
     "ts-node": "10.9.2",
