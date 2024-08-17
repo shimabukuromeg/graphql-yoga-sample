@@ -1,11 +1,11 @@
-import { graphql } from "@/src/gql"
-import { VariablesOf } from "@graphql-typed-document-node/core"
-import { GraphQLClient } from "graphql-request"
-import { cache } from "react"
-import { MeshiCard } from "@/components/meshi-card"
+import { graphql } from "@/src/gql";
+import { VariablesOf } from "@graphql-typed-document-node/core";
+import { GraphQLClient } from "graphql-request";
+import { cache } from "react";
+import { MeshiCard } from "@/components/meshi-card";
 
 export default async function Home() {
-  const data = await fetchMeshis({})
+  const data = await fetchMeshis({});
 
   return (
     <div className="flex justify-center">
@@ -17,7 +17,7 @@ export default async function Home() {
           <p className="font-bold text-textBlack">{data.meshis.length}件</p>
         </div>
         <div className="flex justify-center">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-1">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             {data.meshis.map((meshi, i) => (
               <MeshiCard meshi={meshi} key={i} isEager={i <= 10} />
             ))}
@@ -25,21 +25,21 @@ export default async function Home() {
         </div>
       </div>
     </div>
-  )
+  );
 }
 
 const fetchMeshis = async (input: VariablesOf<typeof MeshisQuery>) => {
   const backendEndpoint =
-    process.env.BACKEND_ENDPOINT ?? "http://localhost:4000/graphql"
+    process.env.BACKEND_ENDPOINT ?? "http://localhost:4000/graphql";
 
   const client = new GraphQLClient(backendEndpoint, {
     fetch: cache(async (url: any, params: any) =>
-      fetch(url, { ...params, next: { revalidate: 60 } }),
+      fetch(url, { ...params, next: { revalidate: 60 } })
     ),
-  })
-  const data = await client.request(MeshisQuery, input)
-  return data
-}
+  });
+  const data = await client.request(MeshisQuery, input);
+  return data;
+};
 
 const MeshisQuery = graphql(/* GraphQL */ `
   query Meshi {
@@ -48,4 +48,4 @@ const MeshisQuery = graphql(/* GraphQL */ `
       ...MeshiCard
     }
   }
-`)
+`);
