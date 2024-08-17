@@ -3,7 +3,6 @@ import { VariablesOf } from "@graphql-typed-document-node/core"
 import { GraphQLClient } from "graphql-request"
 import { cache } from "react"
 import { MeshiCard } from "@/components/meshi-card"
-import Image from "next/image"
 
 export default async function Home() {
   const data = await fetchMeshis({})

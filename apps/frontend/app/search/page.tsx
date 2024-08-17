@@ -1,33 +1,40 @@
-"use client"
+import { GraphQLClient } from "graphql-request";
+import { SearchContent } from "./components/serach-content";
+import { cache } from "react";
+import { graphql } from "@/src/gql";
 
-import { SearchContent } from "../@modal/components/serach-content"
-import { usePathname, useRouter } from "next/navigation"
-import { useEffect, useState } from "react"
-
-export default function SearchPage() {
-  const [open, setOpen] = useState(true)
-  const router = useRouter()
-  const pathname = usePathname()
-
-  useEffect(() => {
-    if ("/search" !== pathname) {
-      setOpen(false)
-    } else {
-      setOpen(true)
-    }
-  }, [pathname])
+export default async function SearchPage() {
+  const data = await fetchMunicipalities();
+  console.log(data);
 
   return (
     <div className="flex flex-col md:gap-8 gap-2 md:p-20 p-2">
       <h1 className="text-2xl md:text-3xl font-bold text-textBlack">検索</h1>
       <div className="md:px-4 px-1">
-        <SearchContent
-          onValueChange={async (value) => {
-            setOpen(false)
-            router.push(`/municipality/${value}`)
-          }}
-        />
+        <SearchContent municipalities={data.municipalities} />
       </div>
     </div>
-  )
+  );
 }
+
+const MunicipalitiesQuery = graphql(/* GraphQL */ `
+  query Municipalities {
+    municipalities {
+      name
+      id
+    }
+  }
+`);
+
+const fetchMunicipalities = async () => {
+  const backendEndpoint =
+    process.env.BACKEND_ENDPOINT ?? "http://localhost:4000/graphql";
+
+  const client = new GraphQLClient(backendEndpoint, {
+    fetch: cache(async (url: any, params: any) =>
+      fetch(url, { ...params, next: { revalidate: 60 } })
+    ),
+  });
+  const data = await client.request(MunicipalitiesQuery, {});
+  return data;
+};
