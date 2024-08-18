@@ -38,7 +38,7 @@
     "graphql": "^16.8.1",
     "graphql-middleware": "^6.1.35",
     "graphql-scalars": "^1.22.4",
-    "graphql-yoga": "5.0.0",
+    "graphql-yoga": "5.7.0",
     "microcms_sdk_generator": "^0.1.1",
     "prisma": "5.14.0",
     "zod": "^3.22.4"
