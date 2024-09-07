@@ -33,7 +33,7 @@ export default async function RestaurantDetail({ id }: Props) {
           戻る
         </Button>
       </Link>
-      <div className="grid grid-cols-1 gap-8 max-w-96">
+      <div className="grid grid-cols-1 gap-8 max-w-[600px]">
         <div>
           <img
             src={data.meshi?.imageUrl}
