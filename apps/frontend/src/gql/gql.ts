@@ -21,6 +21,7 @@ const documents = {
     "\n  query Meshi {\n    meshis {\n      id\n      ...MeshiCard\n    }\n  }\n": types.MeshiDocument,
     "\n  query Municipalities {\n    municipalities {\n      name\n      id\n    }\n  }\n": types.MunicipalitiesDocument,
     "\n  fragment MeshiCard on Meshi {\n    id\n    imageUrl\n    siteUrl\n    title\n    storeName\n    publishedDate\n    createdAt\n    municipality {\n      id\n      name\n    }\n  }\n": types.MeshiCardFragmentDoc,
+    "\n  query MeshiDetail($id: ID!) {\n    meshi(id: $id) {\n      id\n      title\n      address\n      articleId\n      createdAt\n      imageUrl\n      storeName\n      siteUrl\n      publishedDate\n      municipality {\n        name\n        id\n        createdAt\n      }\n    }\n  }\n": types.MeshiDetailDocument,
 };
 
 /**
@@ -69,6 +70,10 @@ export function graphql(source: "\n  query Municipalities {\n    municipalities 
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
 export function graphql(source: "\n  fragment MeshiCard on Meshi {\n    id\n    imageUrl\n    siteUrl\n    title\n    storeName\n    publishedDate\n    createdAt\n    municipality {\n      id\n      name\n    }\n  }\n"): (typeof documents)["\n  fragment MeshiCard on Meshi {\n    id\n    imageUrl\n    siteUrl\n    title\n    storeName\n    publishedDate\n    createdAt\n    municipality {\n      id\n      name\n    }\n  }\n"];
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(source: "\n  query MeshiDetail($id: ID!) {\n    meshi(id: $id) {\n      id\n      title\n      address\n      articleId\n      createdAt\n      imageUrl\n      storeName\n      siteUrl\n      publishedDate\n      municipality {\n        name\n        id\n        createdAt\n      }\n    }\n  }\n"): (typeof documents)["\n  query MeshiDetail($id: ID!) {\n    meshi(id: $id) {\n      id\n      title\n      address\n      articleId\n      createdAt\n      imageUrl\n      storeName\n      siteUrl\n      publishedDate\n      municipality {\n        name\n        id\n        createdAt\n      }\n    }\n  }\n"];
 
 export function graphql(source: string) {
   return (documents as any)[source] ?? {};

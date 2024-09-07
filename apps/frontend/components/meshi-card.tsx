@@ -51,7 +51,6 @@ export const MeshiCard = (props: Props) => {
           />
         </Link>
         <div className="flex flex-row flex-wrap gap-1 pt-2 pb-1">
-          {/* <Link href={`/municipality/${meshi.municipality?.id}`}></Link> */}
           <Link
             href={`/municipality/${meshi.municipality?.id}`}
             className="px-4 py-1 rounded-xl font-bold text-[12px] text-white w-fit bg-primary"
@@ -61,7 +60,7 @@ export const MeshiCard = (props: Props) => {
         </div>
       </CardContent>
       <CardFooter className="p-1">
-        <Link id="meshi" target="_blank" href={meshi.siteUrl} key={meshi.id}>
+        <Link id="meshi" href={`/meshi/${meshi.id}`} key={meshi.id}>
           <p className="font-bold line-clamp-3">{meshi.title}</p>
         </Link>
       </CardFooter>
