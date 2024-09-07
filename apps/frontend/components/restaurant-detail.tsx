@@ -63,7 +63,7 @@ export default async function RestaurantDetail({ id }: Props) {
           <div className="flex flex-row flex-wrap gap-1 mb-2">
             <Link
               href={`/municipality/${data.meshi?.municipality?.id}`}
-              className="px-4 py-1 rounded-xl font-bold text-[12px] text-white w-fit bg-primary"
+              className="px-4 py-1 rounded-xl font-bold text-l text-white w-fit bg-primary"
             >
               {data.meshi?.municipality?.name}
             </Link>

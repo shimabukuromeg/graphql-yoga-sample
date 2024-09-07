@@ -12,6 +12,7 @@ import { FragmentType, graphql, useFragment } from "@/src/gql";
 import { Icons } from "@/components/ui/icons";
 import Link from "next/link";
 import Image from "next/image";
+import { MapPin } from "lucide-react";
 
 export const MeshiCardFragment = graphql(`
   fragment MeshiCard on Meshi {
@@ -50,12 +51,19 @@ export const MeshiCard = (props: Props) => {
             loading={props.isEager ? "eager" : "lazy"}
           />
         </Link>
-        <div className="flex flex-row flex-wrap gap-1 pt-2 pb-1">
+        <div className="flex flex-row items-center justify-between flex-wrap gap-1 pt-2 pb-1">
           <Link
             href={`/municipality/${meshi.municipality?.id}`}
             className="px-4 py-1 rounded-xl font-bold text-[12px] text-white w-fit bg-primary"
           >
             {meshi.municipality?.name}
+          </Link>
+          <Link
+            href={`https://www.google.com/maps/search/?api=1&query=${meshi?.storeName}`}
+            target="_blank"
+            passHref
+          >
+            <MapPin className="h-6 w-6" color="#8d7658" fill="#fff" />
           </Link>
         </div>
       </CardContent>
