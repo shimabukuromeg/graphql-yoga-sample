@@ -14,8 +14,9 @@ import Link from "next/link";
 import { graphql } from "@/src/gql";
 import { VariablesOf } from "@graphql-typed-document-node/core";
 import { GraphQLClient } from "graphql-request";
-import { cache } from "react";
+import { cache, Suspense } from "react";
 import Image from "next/image";
+import { Skeleton } from "./ui/skeleton";
 
 type Props = {
   id: string;
@@ -37,14 +38,18 @@ export default async function RestaurantDetail({ id }: Props) {
       <div className="grid grid-cols-1 gap-8 max-w-[600px]">
         <div>
           {data.meshi?.imageUrl && (
-            <div className="relative h-[400px] w-full">
-              <Image
-                className="rounded-lg"
-                src={data.meshi?.imageUrl}
-                alt="Restaurant Image"
-                fill
-              />
-            </div>
+            <Suspense
+              fallback={<Skeleton className="w-full h-[400px] rounded-full" />}
+            >
+              <div className="relative h-[400px] w-full">
+                <Image
+                  className="rounded-lg"
+                  src={data.meshi?.imageUrl}
+                  alt="Restaurant Image"
+                  fill
+                />
+              </div>
+            </Suspense>
           )}
           <div className="mt-4 grid grid-cols-3 gap-4">
             {[1, 2, 3].map((i) => {
@@ -52,15 +57,22 @@ export default async function RestaurantDetail({ id }: Props) {
                 return null;
               }
               return (
-                <div key={i.toString()} className="relative w-full h-[100px]">
-                  <Image
-                    key={i}
-                    className="rounded-lg"
-                    src={data.meshi?.imageUrl}
-                    alt={`Food ${i}`}
-                    fill
-                  />
-                </div>
+                <Suspense
+                  key={i.toString()}
+                  fallback={
+                    <Skeleton className="w-full h-[100px] rounded-full" />
+                  }
+                >
+                  <div key={i.toString()} className="relative w-full h-[100px]">
+                    <Image
+                      key={i}
+                      className="rounded-lg"
+                      src={data.meshi?.imageUrl}
+                      alt={`Food ${i}`}
+                      fill
+                    />
+                  </div>
+                </Suspense>
               );
             })}
           </div>
