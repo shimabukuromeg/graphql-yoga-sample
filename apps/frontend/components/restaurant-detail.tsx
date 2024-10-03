@@ -47,6 +47,7 @@ export default async function RestaurantDetail({ id }: Props) {
                   src={data.meshi?.imageUrl}
                   alt="Restaurant Image"
                   fill
+                  loading="eager"
                 />
               </div>
             </Suspense>
