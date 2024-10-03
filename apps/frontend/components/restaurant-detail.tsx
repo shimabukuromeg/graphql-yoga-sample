@@ -15,6 +15,7 @@ import { graphql } from "@/src/gql";
 import { VariablesOf } from "@graphql-typed-document-node/core";
 import { GraphQLClient } from "graphql-request";
 import { cache } from "react";
+import Image from "next/image";
 
 type Props = {
   id: string;
@@ -35,27 +36,33 @@ export default async function RestaurantDetail({ id }: Props) {
       </Link>
       <div className="grid grid-cols-1 gap-8 max-w-[600px]">
         <div>
-          <img
-            src={data.meshi?.imageUrl}
-            alt="Restaurant Image"
-            className="w-full h-[400px] object-cover rounded-lg"
-          />
+          {data.meshi?.imageUrl && (
+            <div className="relative h-[400px] w-full">
+              <Image
+                className="rounded-lg"
+                src={data.meshi?.imageUrl}
+                alt="Restaurant Image"
+                fill
+              />
+            </div>
+          )}
           <div className="mt-4 grid grid-cols-3 gap-4">
-            <img
-              src={data.meshi?.imageUrl}
-              alt="Food 1"
-              className="w-full h-[100px] object-cover rounded-lg"
-            />
-            <img
-              src={data.meshi?.imageUrl}
-              alt="Food 2"
-              className="w-full h-[100px] object-cover rounded-lg"
-            />
-            <img
-              src={data.meshi?.imageUrl}
-              alt="Food 3"
-              className="w-full h-[100px] object-cover rounded-lg"
-            />
+            {[1, 2, 3].map((i) => {
+              if (!data.meshi?.imageUrl) {
+                return null;
+              }
+              return (
+                <div key={i.toString()} className="relative w-full h-[100px]">
+                  <Image
+                    key={i}
+                    className="rounded-lg"
+                    src={data.meshi?.imageUrl}
+                    alt={`Food ${i}`}
+                    fill
+                  />
+                </div>
+              );
+            })}
           </div>
         </div>
         <div>
