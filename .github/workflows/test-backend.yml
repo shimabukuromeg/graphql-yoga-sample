@@ -13,10 +13,10 @@ jobs:
         with:
           run_install: false
           package_json_file: "./apps/backend/package.json"
-      - name: Use Node.js ${{ matrix.node-version }}
+      - name: Use Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: ${{ matrix.node-version }}
+          node-version-file: './apps/backend/.node-version'
           cache: "pnpm"
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
@@ -36,10 +36,10 @@ jobs:
         with:
           run_install: false
           package_json_file: "./apps/backend/package.json"
-      - name: Use Node.js ${{ matrix.node-version }}
+      - name: Use Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: ${{ matrix.node-version }}
+          node-version-file: './apps/backend/.node-version'
           cache: "pnpm"
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
