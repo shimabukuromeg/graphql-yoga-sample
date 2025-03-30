@@ -18,7 +18,8 @@
     "db:pull": "prisma db pull",
     "codegen:prisma": "prisma generate",
     "codegen:microcms": "microcms_sdk_generator src/micro-cms-schemas src/micro-cms-schemas/generated.ts",
-    "codegen": "pnpm run codegen:prisma && pnpm run codegen:gql"
+    "codegen": "pnpm run codegen:prisma && pnpm run codegen:gql",
+    "ageage:scrape": "ts-node src/scripts/ageage-collector/index.ts"
   },
   "prisma": {
     "seed": "node dist/prisma/seed.js"
@@ -41,6 +42,7 @@
   "dependencies": {
     "@graphql-tools/schema": "^10.0.2",
     "@prisma/client": "5.14.0",
+    "cheerio": "1.0.0",
     "fastify": "^4.24.3",
     "graphql": "^16.8.1",
     "graphql-middleware": "^6.1.35",
