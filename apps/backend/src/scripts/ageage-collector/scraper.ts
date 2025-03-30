@@ -18,6 +18,7 @@ export type MeshiData = {
   title: string;
   imageUrl: string;
   storeName: string;
+  zipCode: string;
   address: string;
   siteUrl: string;
   publishedDate: Date;
@@ -26,9 +27,63 @@ export type MeshiData = {
 };
 
 /**
+ * 郵便番号と住所を分離する
+ */
+export const getZipcodeAndAddress = (fullAddress: string): { zipCode: string, address: string } => {
+  const regex = /〒([0-9]{3})-([0-9]{4})\s?(.*)/;
+  const match = regex.exec(fullAddress);
+  
+  if (match && match.length > 3) {
+    const zipCode = match[1] + match[2];         // 郵便番号
+    const address = match[3].trim();             // 住所
+    return { zipCode, address };
+  }
+  
+  return { zipCode: '', address: fullAddress };
+};
+
+/**
+ * 住所から緯度経度を取得する
+ */
+export const getLatLng = async (address: string): Promise<{ latitude: number, longitude: number }> => {
+  try {
+    const baseUrl = "https://msearch.gsi.go.jp/address-search/AddressSearch";
+    const params = new URLSearchParams({ q: address });
+    
+    const response = await fetch(`${baseUrl}?${params.toString()}`);
+    
+    if (!response.ok) {
+      throw new Error(`HTTPエラー: ${response.status}`);
+    }
+    
+    const data = await response.json();
+    
+    if (!data || data.length === 0) {
+      console.warn(`住所に対する結果が見つかりませんでした: ${address}`);
+      return { latitude: 0, longitude: 0 };
+    }
+    
+    // APIからの応答: [longitude, latitude]の順で座標が返される
+    return {
+      latitude: data[0].geometry.coordinates[1],
+      longitude: data[0].geometry.coordinates[0]
+    };
+  } catch (error) {
+    console.error('緯度経度取得中にエラーが発生しました:', error);
+    return { latitude: 0, longitude: 0 };
+  }
+};
+
+/**
  * 店舗名と住所を記事の詳細ページから取得する
  */
-export const findStoreAndAddress = async (siteUrl: string): Promise<{ storeName: string, address: string }> => {
+export const findStoreAndAddress = async (siteUrl: string): Promise<{ 
+  storeName: string, 
+  zipCode: string, 
+  address: string,
+  latitude: number,
+  longitude: number 
+}> => {
   try {
     // 詳細ページの取得
     const response = await fetch(siteUrl);
@@ -46,17 +101,26 @@ export const findStoreAndAddress = async (siteUrl: string): Promise<{ storeName:
     const storeName = $('dt').first().text().trim() || 'unknown';
     
     // 「住所」というラベルを持つdt要素の次のdd要素から住所を取得
-    let address = 'unknown';
+    let fullAddress = 'unknown';
     $('dt').each((_, element) => {
       if ($(element).text().trim() === '住所') {
         // dtの次のdd要素を取得
-        address = $(element).next('dd').text().trim() || 'unknown';
+        fullAddress = $(element).next('dd').text().trim() || 'unknown';
       }
     });
     
+    // 郵便番号と住所を分離
+    const { zipCode, address } = getZipcodeAndAddress(fullAddress);
+    
+    // 住所から緯度経度を取得
+    const { latitude, longitude } = await getLatLng(address);
+    
     return {
       storeName,
-      address
+      zipCode,
+      address,
+      latitude,
+      longitude
     };
   } catch (error) {
     console.error('店舗情報取得中にエラーが発生しました:', error);
@@ -105,18 +169,15 @@ export const scrapeAgeagePage = async (pageNumber: number): Promise<MeshiData[]>
       const siteUrl = href;
       
       try {
-        // 店舗名と住所を取得
-        const { storeName, address } = await findStoreAndAddress(siteUrl);
-        
-        // 仮の緯度経度（実際には住所から取得する処理が必要）
-        const latitude = 0;
-        const longitude = 0;
+        // 店舗名と住所、緯度経度を取得
+        const { storeName, zipCode, address, latitude, longitude } = await findStoreAndAddress(siteUrl);
         
         return {
           articleId,
           title,
           imageUrl,
           storeName,
+          zipCode,
           address,
           siteUrl,
           publishedDate,
