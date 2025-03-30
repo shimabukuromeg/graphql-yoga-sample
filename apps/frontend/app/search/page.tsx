@@ -31,7 +31,7 @@ const fetchMunicipalities = async () => {
     process.env.BACKEND_ENDPOINT ?? "http://localhost:4000/graphql";
 
   const client = new GraphQLClient(backendEndpoint, {
-    fetch: cache(async (url: any, params: any) =>
+    fetch: cache(async (url: RequestInfo | URL, params?: RequestInit) =>
       fetch(url, { ...params, next: { revalidate: 60 } })
     ),
   });

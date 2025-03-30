@@ -1,0 +1,36 @@
+volumes:
+  db-data:
+
+services:
+  db:
+    image: postgres:16
+    container_name: sample-monorepo-pnpm
+    volumes:
+      - db-data:/var/lib/postgresql/sample-monorepo-pnpm/data
+      - ./docker/postgres/init:/docker-entrypoint-initdb.d
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: password
+    networks:
+      - app-network
+
+  backend:
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+      target: backend
+    container_name: sample-monorepo-backend
+    ports:
+      - "4000:4000"
+    env_file:
+      - ./apps/backend/.env
+    depends_on:
+      - db
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    driver: bridge

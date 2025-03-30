@@ -2,25 +2,53 @@ name: pnpm Example Workflow
 on:
   workflow_dispatch:
   push:
+
 jobs:
-  build:
+  typecheck:
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        node-version: [20]
     steps:
       - uses: Kesin11/actions-timeline@v2
       - uses: actions/checkout@v4
       - uses: pnpm/action-setup@v2
         with:
-          version: latest
-      - name: Use Node.js ${{ matrix.node-version }}
+          run_install: false
+          package_json_file: "./apps/backend/package.json"
+      - name: Use Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: ${{ matrix.node-version }}
+          node-version-file: './apps/backend/.node-version'
           cache: "pnpm"
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
+      - name: Generate Prisma Client
+        working-directory: apps/backend
+        run: npx prisma generate
+      - name: Run type check
+        working-directory: apps/backend
+        run: pnpm typecheck
+      - name: Exec pnpm test
+        working-directory: apps/backend
+        run: pnpm test run
+
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: Kesin11/actions-timeline@v2
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v2
+        with:
+          run_install: false
+          package_json_file: "./apps/backend/package.json"
+      - name: Use Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version-file: './apps/backend/.node-version'
+          cache: "pnpm"
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+      - name: Generate Prisma Client
+        working-directory: apps/backend
+        run: npx prisma generate
       - name: Exec pnpm test
         working-directory: apps/backend
         run: pnpm test run

@@ -1,4 +1,3 @@
-import { createServer } from 'http'
 import { createYoga, createSchema } from 'graphql-yoga'
 import { createContext } from './context'
 import { typeDefs } from './schema/typeDefs.generated'
@@ -7,7 +6,7 @@ import { applyMiddleware } from "graphql-middleware"
 
 // fastify 導入した。
 // 参考: https://the-guild.dev/graphql/yoga-server/docs/integrations/integration-with-fastify
-import fastify, { FastifyReply, FastifyRequest } from 'fastify'
+import fastify, { type FastifyReply, type FastifyRequest } from 'fastify'
 
 
 
@@ -24,12 +23,13 @@ function main() {
             typeDefs, resolvers
         })),
         context: createContext,
+        graphiql: true,
         // Integrate Fastify logger
         logging: {
-            debug: (...args) => args.forEach(arg => app.log.debug(arg)),
-            info: (...args) => args.forEach(arg => app.log.info(arg)),
-            warn: (...args) => args.forEach(arg => app.log.warn(arg)),
-            error: (...args) => args.forEach(arg => app.log.error(arg))
+            debug: (...args) => { for (const arg of args) app.log.debug(arg) },
+            info: (...args) => { for (const arg of args) app.log.info(arg) },
+            warn: (...args) => { for (const arg of args) app.log.warn(arg) },
+            error: (...args) => { for (const arg of args) app.log.error(arg) }
         }
     })
 
