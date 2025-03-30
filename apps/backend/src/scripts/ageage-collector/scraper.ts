@@ -20,6 +20,7 @@ export type MeshiData = {
   storeName: string;
   zipCode: string;
   address: string;
+  municipality: string;
   siteUrl: string;
   publishedDate: Date;
   latitude: number;
@@ -75,12 +76,27 @@ export const getLatLng = async (address: string): Promise<{ latitude: number, lo
 };
 
 /**
+ * 住所から市町村名を抽出する
+ */
+export const getMunicipalityByAddress = (address: string): string => {
+  const regex = /(沖縄県)?([^市町村]*郡)?([^市町村]*?[市町村])/;
+  const match = regex.exec(address);
+  
+  if (match && match.length > 3) {
+    return match[3]; // 市町村名を返す
+  }
+  
+  return '';
+};
+
+/**
  * 店舗名と住所を記事の詳細ページから取得する
  */
 export const findStoreAndAddress = async (siteUrl: string): Promise<{ 
   storeName: string, 
   zipCode: string, 
   address: string,
+  municipality: string,
   latitude: number,
   longitude: number 
 }> => {
@@ -112,6 +128,9 @@ export const findStoreAndAddress = async (siteUrl: string): Promise<{
     // 郵便番号と住所を分離
     const { zipCode, address } = getZipcodeAndAddress(fullAddress);
     
+    // 住所から市町村名を抽出
+    const municipality = getMunicipalityByAddress(address);
+    
     // 住所から緯度経度を取得
     const { latitude, longitude } = await getLatLng(address);
     
@@ -119,6 +138,7 @@ export const findStoreAndAddress = async (siteUrl: string): Promise<{
       storeName,
       zipCode,
       address,
+      municipality,
       latitude,
       longitude
     };
@@ -170,7 +190,7 @@ export const scrapeAgeagePage = async (pageNumber: number): Promise<MeshiData[]>
       
       try {
         // 店舗名と住所、緯度経度を取得
-        const { storeName, zipCode, address, latitude, longitude } = await findStoreAndAddress(siteUrl);
+        const { storeName, zipCode, address, municipality, latitude, longitude } = await findStoreAndAddress(siteUrl);
         
         return {
           articleId,
@@ -179,6 +199,7 @@ export const scrapeAgeagePage = async (pageNumber: number): Promise<MeshiData[]>
           storeName,
           zipCode,
           address,
+          municipality,
           siteUrl,
           publishedDate,
           latitude,
