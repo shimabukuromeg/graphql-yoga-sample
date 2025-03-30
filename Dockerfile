@@ -22,7 +22,7 @@ RUN pnpm --filter backend install --frozen-lockfile
 RUN pnpm --filter backend build
 
 # 本番用の node_modules の作成
-RUN pnpm --filter=backend deploy --prod --legacy /deploy/backend
+RUN pnpm --filter=backend deploy --prod /deploy/backend
 WORKDIR /deploy/backend
 RUN pnpm prisma generate
 
