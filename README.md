@@ -1,4 +1,4 @@
-# graphql-yoga-sample
+# meshipiyo
 
 This repository serves as a sample monorepo using pnpm. It contains two applications: backend and frontend.
 
