@@ -9,6 +9,7 @@
     "dev": "cross-env NODE_ENV=development ts-node-dev --exit-child --respawn src/main.ts",
     "start": "node dist/src/main.js",
     "build": "prisma generate && rm -rf ./dist && tsc && cp -r ./prisma/* ./dist/prisma",
+    "typecheck": "tsc --noEmit",
     "codegen:gql": "graphql-codegen --config ./codegen.ts",
     "db:migrate:dev": "prisma migrate dev",
     "db:migrate:deploy": "prisma migrate deploy",
