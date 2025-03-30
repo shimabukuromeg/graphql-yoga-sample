@@ -9,6 +9,7 @@ services:
     container_name: sample-monorepo-pnpm
     volumes:
       - db-data:/var/lib/postgresql/sample-monorepo-pnpm/data
+      - ./docker/postgres/init:/docker-entrypoint-initdb.d
     ports:
       - "5432:5432"
     environment:

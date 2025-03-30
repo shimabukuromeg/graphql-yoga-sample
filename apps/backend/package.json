@@ -9,6 +9,11 @@
     "start": "node dist/src/main.js",
     "build": "prisma generate && rm -rf ./dist && tsc && cp -r ./prisma/* ./dist/prisma",
     "codegen:gql": "graphql-codegen --config ./codegen.ts",
+    "db:migrate:dev": "prisma migrate dev",
+    "db:migrate:deploy": "prisma migrate deploy",
+    "db:migrate:reset": "prisma migrate reset",
+    "db:studio": "prisma studio",
+    "db:pull": "prisma db pull",
     "codegen:prisma": "prisma generate",
     "codegen:microcms": "microcms_sdk_generator src/micro-cms-schemas src/micro-cms-schemas/generated.ts",
     "codegen": "pnpm run codegen:prisma && pnpm run codegen:gql"
