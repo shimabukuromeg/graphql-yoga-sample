@@ -5,6 +5,8 @@ on:
       - "apps/backend/**"
       - ".github/workflows/**"
       - "!.github/workflows/exec-ageage-collector.yml"
+      - "pnpm-lock.yaml"
+      - "package.json"
       - "Dockerfile"
     branches:
       - "main"
