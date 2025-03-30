@@ -20,6 +20,9 @@ jobs:
           cache: "pnpm"
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
+      - name: Generate Prisma Client
+        working-directory: apps/backend
+        run: npx prisma generate
       - name: Run type check
         working-directory: apps/backend
         run: pnpm typecheck
@@ -43,6 +46,9 @@ jobs:
           cache: "pnpm"
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
+      - name: Generate Prisma Client
+        working-directory: apps/backend
+        run: npx prisma generate
       - name: Exec pnpm test
         working-directory: apps/backend
         run: pnpm test run
