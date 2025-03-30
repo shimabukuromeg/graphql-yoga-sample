@@ -1,14 +1,18 @@
 FROM node:20.16-slim AS base
-ENV PNPM_HOME="/pnpm"
-ENV PATH="$PNPM_HOME:$PATH"
-RUN corepack enable
 RUN apt-get update -y && apt-get install -y openssl
 WORKDIR /app
+
+# package.jsonをコピーしてpnpmバージョンを抽出
+COPY apps/backend/package.json /app/apps/backend/package.json
+# package.jsonからpnpmバージョンを抽出してインストール
+RUN node -e 'const pkg = require("./apps/backend/package.json"); \
+    const pnpmVersion = pkg.packageManager.split("@")[1]; \
+    console.log(`pnpmバージョン ${pnpmVersion} をインストールします`); \
+    require("child_process").execSync(`npm install -g pnpm@${pnpmVersion}`, {stdio: "inherit"});'
 
 # ビルドステージ
 FROM base AS build
 # プロジェクトのルートディレクトリからファイルをコピー
-# ここでは、/app/apps/backend に必要な package.json が含まれていることを想定しています
 COPY . /app
 
 # backend の依存関係のインストール
