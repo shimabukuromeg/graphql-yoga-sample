@@ -6,5 +6,5 @@ export const Meshi: MeshiResolvers = {
         where: { id: parent.id },
       })
       .municipality();
-  }
+  },
 };
