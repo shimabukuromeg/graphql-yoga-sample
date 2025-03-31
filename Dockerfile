@@ -1,4 +1,4 @@
-FROM node:20.16-slim AS base
+FROM node:22.11-slim AS base
 RUN apt-get update -y && apt-get install -y openssl
 WORKDIR /app
 
