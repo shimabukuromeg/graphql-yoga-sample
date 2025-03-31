@@ -22,7 +22,7 @@ jobs:
         run: pnpm install --frozen-lockfile
       - name: Run format check
         working-directory: apps/backend
-        run: pnpm format:check
+        run: pnpm format
 
   lint:
     runs-on: ubuntu-latest
