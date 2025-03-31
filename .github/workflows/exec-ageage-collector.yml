@@ -68,6 +68,12 @@ jobs:
           node-version: 22
           check-latest: true
 
+      - name: Setup pnpm (latest)
+        uses: pnpm/action-setup@v2
+        with:
+          version: latest
+          run_install: false  # 自動で pnpm install したくない場合は false
+
       - name: Install Vercel CLI
         run: npm install --global vercel@latest
 
