@@ -11,8 +11,20 @@ import { TypedDocumentNode as DocumentNode } from '@graphql-typed-document-node/
  * 3. It does not support dead code elimination, so it will add unused operations.
  *
  * Therefore it is highly recommended to use the babel or swc plugin for production.
+ * Learn more about it here: https://the-guild.dev/graphql/codegen/plugins/presets/preset-client#reducing-bundle-size
  */
-const documents = {
+type Documents = {
+    "\n  fragment User on User {\n    id\n    name\n    iconImageURL\n    description\n    twitterProfileUrl\n    displayName\n  }\n": typeof types.UserFragmentDoc,
+    "\n    query User($id: ID!) {\n      user(id: $id) {\n        ...User\n      }\n    }\n  ": typeof types.UserDocument,
+    "\n    query Users {\n      users {\n        id\n        ...User\n      }\n    }\n  ": typeof types.UsersDocument,
+    "\n  query Users {\n    users {\n      id\n      ...User\n    }\n  }\n": typeof types.UsersDocument,
+    "\n  query Municipality($id: ID!) {\n    municipality(id: $id) {\n      createdAt\n      name\n      id\n      meshis {\n        id\n        ...MeshiCard\n      }\n    }\n  }\n": typeof types.MunicipalityDocument,
+    "\n  query Meshi {\n    meshis {\n      id\n      ...MeshiCard\n    }\n  }\n": typeof types.MeshiDocument,
+    "\n  query Municipalities {\n    municipalities {\n      name\n      id\n    }\n  }\n": typeof types.MunicipalitiesDocument,
+    "\n  fragment MeshiCard on Meshi {\n    id\n    imageUrl\n    siteUrl\n    title\n    storeName\n    publishedDate\n    createdAt\n    municipality {\n      id\n      name\n    }\n  }\n": typeof types.MeshiCardFragmentDoc,
+    "\n  query MeshiDetail($id: ID!) {\n    meshi(id: $id) {\n      id\n      title\n      address\n      articleId\n      createdAt\n      imageUrl\n      storeName\n      siteUrl\n      publishedDate\n      municipality {\n        name\n        id\n        createdAt\n      }\n    }\n  }\n": typeof types.MeshiDetailDocument,
+};
+const documents: Documents = {
     "\n  fragment User on User {\n    id\n    name\n    iconImageURL\n    description\n    twitterProfileUrl\n    displayName\n  }\n": types.UserFragmentDoc,
     "\n    query User($id: ID!) {\n      user(id: $id) {\n        ...User\n      }\n    }\n  ": types.UserDocument,
     "\n    query Users {\n      users {\n        id\n        ...User\n      }\n    }\n  ": types.UsersDocument,

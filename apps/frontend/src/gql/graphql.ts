@@ -18,63 +18,6 @@ export type Scalars = {
   DateTime: { input: any; output: any; }
 };
 
-/** ブログ記事の著者 */
-export type Author = {
-  __typename?: 'Author';
-  blogs?: Maybe<Array<Blog>>;
-  createdAt: Scalars['DateTime']['output'];
-  id: Scalars['ID']['output'];
-  image?: Maybe<MicroCmsImage>;
-  name: Scalars['String']['output'];
-  publishedAt?: Maybe<Scalars['DateTime']['output']>;
-  revisedAt?: Maybe<Scalars['DateTime']['output']>;
-  updatedAt: Scalars['DateTime']['output'];
-};
-
-/** ブログ記事 */
-export type Blog = {
-  __typename?: 'Blog';
-  author: Author;
-  body: Scalars['String']['output'];
-  category: Category;
-  createdAt: Scalars['DateTime']['output'];
-  id: Scalars['ID']['output'];
-  image?: Maybe<MicroCmsImage>;
-  publishedAt?: Maybe<Scalars['DateTime']['output']>;
-  revisedAt?: Maybe<Scalars['DateTime']['output']>;
-  title: Scalars['String']['output'];
-  updatedAt: Scalars['DateTime']['output'];
-};
-
-/** ブログ記事のカテゴリー */
-export type Category = {
-  __typename?: 'Category';
-  blogs: Array<Blog>;
-  createdAt: Scalars['DateTime']['output'];
-  id: Scalars['ID']['output'];
-  name: Scalars['String']['output'];
-  publishedAt?: Maybe<Scalars['DateTime']['output']>;
-  revisedAt?: Maybe<Scalars['DateTime']['output']>;
-  updatedAt: Scalars['DateTime']['output'];
-};
-
-export type Comment = {
-  __typename?: 'Comment';
-  body: Scalars['String']['output'];
-  id: Scalars['ID']['output'];
-  link?: Maybe<Link>;
-  postedBy?: Maybe<User>;
-};
-
-export type Link = {
-  __typename?: 'Link';
-  comments: Array<Comment>;
-  description: Scalars['String']['output'];
-  id: Scalars['ID']['output'];
-  postedBy?: Maybe<User>;
-  url: Scalars['String']['output'];
-};
-
 export type Meshi = {
   __typename?: 'Meshi';
   address: Scalars['String']['output'];
@@ -109,59 +52,16 @@ export type Municipality = {
 
 export type Mutation = {
   __typename?: 'Mutation';
-  postCommentOnLink: Comment;
-  postLink: Link;
-};
-
-
-export type MutationPostCommentOnLinkArgs = {
-  body: Scalars['String']['input'];
-  linkId: Scalars['ID']['input'];
-};
-
-
-export type MutationPostLinkArgs = {
-  description: Scalars['String']['input'];
-  url: Scalars['String']['input'];
 };
 
 export type Query = {
   __typename?: 'Query';
-  blog: Blog;
-  blogs: Array<Blog>;
-  categories: Array<Category>;
-  comment?: Maybe<Comment>;
-  feed: Array<Link>;
-  info: Scalars['String']['output'];
-  link?: Maybe<Link>;
   meshi?: Maybe<Meshi>;
   meshis: Array<Meshi>;
   municipalities: Array<Municipality>;
   municipality?: Maybe<Municipality>;
   user: User;
   users: Array<User>;
-};
-
-
-export type QueryBlogArgs = {
-  id: Scalars['ID']['input'];
-};
-
-
-export type QueryCommentArgs = {
-  id: Scalars['ID']['input'];
-};
-
-
-export type QueryFeedArgs = {
-  filterNeedle?: InputMaybe<Scalars['String']['input']>;
-  skip?: InputMaybe<Scalars['Int']['input']>;
-  take?: InputMaybe<Scalars['Int']['input']>;
-};
-
-
-export type QueryLinkArgs = {
-  id: Scalars['ID']['input'];
 };
 
 
@@ -181,13 +81,11 @@ export type QueryUserArgs = {
 
 export type User = {
   __typename?: 'User';
-  comments?: Maybe<Array<Comment>>;
   description?: Maybe<Scalars['String']['output']>;
   displayName: Scalars['String']['output'];
   email: Scalars['String']['output'];
   iconImageURL?: Maybe<Scalars['String']['output']>;
   id: Scalars['ID']['output'];
-  links?: Maybe<Array<Link>>;
   name: Scalars['String']['output'];
   twitterProfileUrl?: Maybe<Scalars['String']['output']>;
 };
