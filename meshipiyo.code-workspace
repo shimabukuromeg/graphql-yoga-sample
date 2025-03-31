@@ -11,17 +11,12 @@
     {
       "path": "apps/frontend",
       "name": "frontend"
-    },
-    {
-      "path": "apps/admin",
-      "name": "admin"
     }
   ],
   "settings": {
     "files.exclude": {
       "frontend": true,
-      "backend": true,
-      "admin": true
+      "backend": true
     },
     "testing.automaticallyOpenPeekView": "never"
   }

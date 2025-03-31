@@ -7,7 +7,6 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "frontend": "pnpm --filter \"frontend\"",
     "backend": "pnpm --filter \"backend\"",
-    "admin": "pnpm --filter \"admin\"",
     "lint": "biome lint .",
     "lint:fix": "biome lint --apply .",
     "format": "biome format .",
