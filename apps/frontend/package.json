@@ -9,8 +9,8 @@
     "lint": "next lint",
     "codegen": "graphql-codegen",
     "codegen:watch": "graphql-codegen --watch",
-    "format": "biome format ./app",
-    "format:fix": "biome format --write ./app"
+    "format": "biome format ./app ./components",
+    "format:fix": "biome format --write ./app ./components"
   },
   "dependencies": {
     "@graphql-typed-document-node/core": "^3.2.0",

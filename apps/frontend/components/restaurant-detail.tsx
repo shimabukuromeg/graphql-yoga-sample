@@ -1,31 +1,22 @@
-import {
-  ArrowLeft,
-  MapPin,
-  Clock,
-  Phone,
-  Globe,
-  Instagram,
-  Twitter,
-  Utensils,
-} from "lucide-react";
-import { Button } from "@/components/ui/button";
-import { Card, CardContent } from "@/components/ui/card";
-import Link from "next/link";
-import { graphql } from "@/src/gql";
-import { VariablesOf } from "@graphql-typed-document-node/core";
-import { GraphQLClient } from "graphql-request";
-import { cache, Suspense } from "react";
-import Image from "next/image";
-import { Skeleton } from "./ui/skeleton";
+import { Button } from '@/components/ui/button'
+import { Card, CardContent } from '@/components/ui/card'
+import { graphql } from '@/src/gql'
+import type { VariablesOf } from '@graphql-typed-document-node/core'
+import { GraphQLClient } from 'graphql-request'
+import { ArrowLeft, Globe, MapPin } from 'lucide-react'
+import Image from 'next/image'
+import Link from 'next/link'
+import { Suspense, cache } from 'react'
+import { Skeleton } from './ui/skeleton'
 
 type Props = {
-  id: string;
-};
+  id: string
+}
 
 export default async function RestaurantDetail({ id }: Props) {
   const data = await fetchMeshiDetail({
     id,
-  });
+  })
 
   return (
     <div className="flex flex-col items-center container mx-auto px-4 py-8">
@@ -55,7 +46,7 @@ export default async function RestaurantDetail({ id }: Props) {
           <div className="mt-4 grid grid-cols-3 gap-4">
             {[1, 2, 3].map((i) => {
               if (!data.meshi?.imageUrl) {
-                return null;
+                return null
               }
               return (
                 <Suspense
@@ -74,7 +65,7 @@ export default async function RestaurantDetail({ id }: Props) {
                     />
                   </div>
                 </Suspense>
-              );
+              )
             })}
           </div>
         </div>
@@ -118,23 +109,24 @@ export default async function RestaurantDetail({ id }: Props) {
         </div>
       </div>
     </div>
-  );
+  )
 }
 
 const fetchMeshiDetail = async (
-  input: VariablesOf<typeof MeshiDetailQuery>
+  input: VariablesOf<typeof MeshiDetailQuery>,
 ) => {
   const backendEndpoint =
-    process.env.BACKEND_ENDPOINT ?? "http://localhost:4000/graphql";
+    process.env.BACKEND_ENDPOINT ?? 'http://localhost:4000/graphql'
 
   const client = new GraphQLClient(backendEndpoint, {
+    // biome-ignore lint/suspicious/noExplicitAny: <explanation>
     fetch: cache(async (url: any, params: any) =>
-      fetch(url, { ...params, next: { revalidate: 60 } })
+      fetch(url, { ...params, next: { revalidate: 60 } }),
     ),
-  });
-  const data = await client.request(MeshiDetailQuery, input);
-  return data;
-};
+  })
+  const data = await client.request(MeshiDetailQuery, input)
+  return data
+}
 
 const MeshiDetailQuery = graphql(/* GraphQL */ `
   query MeshiDetail($id: ID!) {
@@ -155,4 +147,4 @@ const MeshiDetailQuery = graphql(/* GraphQL */ `
       }
     }
   }
-`);
+`)

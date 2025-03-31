@@ -1,18 +1,8 @@
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from '@/components/ui/card';
-import { cn } from '@/lib/utils';
-import { Button } from '@/components/ui/button';
-import { type FragmentType, graphql, useFragment } from '@/src/gql';
-import { Icons } from '@/components/ui/icons';
-import Link from 'next/link';
-import Image from 'next/image';
-import { MapPin } from 'lucide-react';
+import { Card, CardContent, CardFooter } from '@/components/ui/card'
+import { type FragmentType, graphql, useFragment } from '@/src/gql'
+import { MapPin } from 'lucide-react'
+import Image from 'next/image'
+import Link from 'next/link'
 
 export const MeshiCardFragment = graphql(`
   fragment MeshiCard on Meshi {
@@ -28,15 +18,15 @@ export const MeshiCardFragment = graphql(`
       name
     }
   }
-`);
+`)
 
 type Props = {
-  meshi: FragmentType<typeof MeshiCardFragment>;
-  isEager?: boolean;
-};
+  meshi: FragmentType<typeof MeshiCardFragment>
+  isEager?: boolean
+}
 
 export const MeshiCard = (props: Props) => {
-  const meshi = useFragment(MeshiCardFragment, props.meshi);
+  const meshi = useFragment(MeshiCardFragment, props.meshi)
 
   return (
     <Card className="p-2 max-w-[300px]" key={meshi.id}>
@@ -73,5 +63,5 @@ export const MeshiCard = (props: Props) => {
         </Link>
       </CardFooter>
     </Card>
-  );
-};
+  )
+}
