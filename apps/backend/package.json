@@ -19,7 +19,11 @@
     "codegen:prisma": "prisma generate",
     "codegen:microcms": "microcms_sdk_generator src/micro-cms-schemas src/micro-cms-schemas/generated.ts",
     "codegen": "pnpm run codegen:prisma && pnpm run codegen:gql",
-    "ageage:scrape": "ts-node src/scripts/ageage-collector/index.ts"
+    "ageage:scrape": "ts-node src/scripts/ageage-collector/index.ts",
+    "lint": "biome lint .",
+    "lint:fix": "biome lint --apply .",
+    "format": "biome format .",
+    "format:fix": "biome format --write ."
   },
   "prisma": {
     "seed": "node dist/prisma/seed.js"
@@ -28,6 +32,7 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "@biomejs/biome": "^1.7.3",
     "@eddeee888/gcg-typescript-resolver-files": "^0.7.1",
     "@graphql-codegen/cli": "^5.0.0",
     "@types/node": "20.15.0",

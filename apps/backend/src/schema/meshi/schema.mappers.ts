@@ -1,3 +1,3 @@
-import { Meshi } from "@prisma/client";
+import type { Meshi } from '@prisma/client';
 
-export type Meshi_Mapper = Meshi
+export type Meshi_Mapper = Meshi;

@@ -1,3 +1,3 @@
-import { Comment } from "@prisma/client";
+import type { Comment } from '@prisma/client';
 
-export type Comment_Mapper = Comment
+export type Comment_Mapper = Comment;

@@ -7,11 +7,11 @@ export const Link: LinkResolvers = {
       },
     });
   },
-  postedBy(parent, _args, context) {
+  postedBy(parent, args, context) {
     return context.prisma.link
       .findUnique({
         where: {
-          id: parent.userId,
+          id: parent.id,
         },
       })
       .postedBy();

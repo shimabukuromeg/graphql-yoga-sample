@@ -1,3 +1,3 @@
-import { Category } from "micro-cms-schemas/generated";
+import type { Category } from 'micro-cms-schemas/generated';
 
-export type Category_Mapper = Category
+export type Category_Mapper = Category;

@@ -1,3 +1,3 @@
-import { Municipality } from "@prisma/client";
+import type { Municipality } from '@prisma/client';
 
-export type Municipality_Mapper = Municipality
+export type Municipality_Mapper = Municipality;

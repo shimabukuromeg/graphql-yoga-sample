@@ -2,15 +2,16 @@
   "extends": ["../../biome.json"],
   "javascript": {
     "formatter": {
-      "jsxQuoteStyle": "double",
-      "semicolons": "asNeeded",
+      "semicolons": "always",
       "arrowParentheses": "always"
     }
   },
   "linter": {
+    "enabled": true,
     "rules": {
-      "style": {
-        "noNonNullAssertion": "off"
+      "recommended": true,
+      "suspicious": {
+        "noConsoleLog": "off"
       }
     }
   }
