@@ -1,9 +1,9 @@
-import { graphql } from "@/src/gql"
-import { VariablesOf } from "@graphql-typed-document-node/core"
-import { GraphQLClient } from "graphql-request"
-import { cache } from "react"
-import { UserCard } from "./components/user-card"
-import { Link } from "lucide-react"
+import { graphql } from '@/src/gql'
+import { VariablesOf } from '@graphql-typed-document-node/core'
+import { GraphQLClient } from 'graphql-request'
+import { cache } from 'react'
+import { UserCard } from './components/user-card'
+import { Link } from 'lucide-react'
 
 export default async function Members() {
   const data = await fetchUsers({})
@@ -23,7 +23,7 @@ export default async function Members() {
 
 const fetchUsers = async (input: VariablesOf<typeof UsersQuery>) => {
   const backendEndpoint =
-    process.env.BACKEND_ENDPOINT ?? "http://localhost:4000/graphql"
+    process.env.BACKEND_ENDPOINT ?? 'http://localhost:4000/graphql'
 
   const client = new GraphQLClient(backendEndpoint, {
     fetch: cache(async (url: any, params: any) =>

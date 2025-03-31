@@ -1,19 +1,19 @@
-import { graphql } from "@/src/gql";
-import { VariablesOf } from "@graphql-typed-document-node/core";
-import { GraphQLClient } from "graphql-request";
-import { cache } from "react";
-import { MeshiCard } from "@/components/meshi-card";
+import { graphql } from '@/src/gql'
+import { VariablesOf } from '@graphql-typed-document-node/core'
+import { GraphQLClient } from 'graphql-request'
+import { cache } from 'react'
+import { MeshiCard } from '@/components/meshi-card'
 
 type Props = {
   params: {
-    id: string;
-  };
-};
+    id: string
+  }
+}
 
 export default async function MunicipalityPage(props: Props) {
   const data = await fetchMunicipality({
     id: props.params.id,
-  });
+  })
 
   return (
     <div className="flex flex-col md:gap-8 gap-2 md:p-20 p-2">
@@ -30,31 +30,31 @@ export default async function MunicipalityPage(props: Props) {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             {data.municipality?.meshis.map((meshi, i) => {
               if (meshi == null) {
-                throw new Error("meshi is null");
+                throw new Error('meshi is null')
               }
-              return <MeshiCard meshi={meshi} key={i} isEager={i <= 10} />;
+              return <MeshiCard meshi={meshi} key={i} isEager={i <= 10} />
             })}
           </div>
         )}
       </div>
     </div>
-  );
+  )
 }
 
 const fetchMunicipality = async (
-  input: VariablesOf<typeof MunicipalityQuery>
+  input: VariablesOf<typeof MunicipalityQuery>,
 ) => {
   const backendEndpoint =
-    process.env.BACKEND_ENDPOINT ?? "http://localhost:4000/graphql";
+    process.env.BACKEND_ENDPOINT ?? 'http://localhost:4000/graphql'
 
   const client = new GraphQLClient(backendEndpoint, {
     fetch: cache(async (url: any, params: any) =>
-      fetch(url, { ...params, next: { revalidate: 60 } })
+      fetch(url, { ...params, next: { revalidate: 60 } }),
     ),
-  });
-  const data = await client.request(MunicipalityQuery, input);
-  return data;
-};
+  })
+  const data = await client.request(MunicipalityQuery, input)
+  return data
+}
 
 const MunicipalityQuery = graphql(/* GraphQL */ `
   query Municipality($id: ID!) {
@@ -68,4 +68,4 @@ const MunicipalityQuery = graphql(/* GraphQL */ `
       }
     }
   }
-`);
+`)

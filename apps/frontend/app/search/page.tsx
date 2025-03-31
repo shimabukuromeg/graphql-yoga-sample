@@ -1,11 +1,11 @@
-import { GraphQLClient } from "graphql-request";
-import { SearchContent } from "./components/serach-content";
-import { cache } from "react";
-import { graphql } from "@/src/gql";
+import { GraphQLClient } from 'graphql-request'
+import { SearchContent } from './components/serach-content'
+import { cache } from 'react'
+import { graphql } from '@/src/gql'
 
 export default async function SearchPage() {
-  const data = await fetchMunicipalities();
-  console.log(data);
+  const data = await fetchMunicipalities()
+  console.log(data)
 
   return (
     <div className="flex flex-col md:gap-8 gap-2 md:p-20 p-2">
@@ -14,7 +14,7 @@ export default async function SearchPage() {
         <SearchContent municipalities={data.municipalities} />
       </div>
     </div>
-  );
+  )
 }
 
 const MunicipalitiesQuery = graphql(/* GraphQL */ `
@@ -24,17 +24,17 @@ const MunicipalitiesQuery = graphql(/* GraphQL */ `
       id
     }
   }
-`);
+`)
 
 const fetchMunicipalities = async () => {
   const backendEndpoint =
-    process.env.BACKEND_ENDPOINT ?? "http://localhost:4000/graphql";
+    process.env.BACKEND_ENDPOINT ?? 'http://localhost:4000/graphql'
 
   const client = new GraphQLClient(backendEndpoint, {
     fetch: cache(async (url: RequestInfo | URL, params?: RequestInit) =>
-      fetch(url, { ...params, next: { revalidate: 60 } })
+      fetch(url, { ...params, next: { revalidate: 60 } }),
     ),
-  });
-  const data = await client.request(MunicipalitiesQuery, {});
-  return data;
-};
+  })
+  const data = await client.request(MunicipalitiesQuery, {})
+  return data
+}

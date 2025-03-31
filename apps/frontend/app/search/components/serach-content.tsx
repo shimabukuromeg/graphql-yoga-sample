@@ -1,4 +1,4 @@
-"use client";
+'use client'
 
 import {
   Select,
@@ -8,20 +8,20 @@ import {
   SelectLabel,
   SelectTrigger,
   SelectValue,
-} from "@/components/ui/select";
-import { useRouter } from "next/navigation";
+} from '@/components/ui/select'
+import { useRouter } from 'next/navigation'
 
 type Props = {
-  municipalities: { id: string; name: string }[];
-};
+  municipalities: { id: string; name: string }[]
+}
 
 export const SearchContent = (props: Props) => {
-  const { municipalities } = props;
-  const router = useRouter();
+  const { municipalities } = props
+  const router = useRouter()
   return (
     <Select
       onValueChange={(value: string) => {
-        router.push(`/municipality/${value}`);
+        router.push(`/municipality/${value}`)
       }}
     >
       <SelectTrigger className="w-full">
@@ -35,10 +35,10 @@ export const SearchContent = (props: Props) => {
               <SelectItem key={municipality.id} value={municipality.id}>
                 {municipality.name}
               </SelectItem>
-            );
+            )
           })}
         </SelectGroup>
       </SelectContent>
     </Select>
-  );
-};
+  )
+}

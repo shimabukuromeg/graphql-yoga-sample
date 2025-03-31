@@ -5,14 +5,14 @@ import {
   CardFooter,
   CardHeader,
   CardTitle,
-} from "@/components/ui/card";
-import { cn } from "@/lib/utils";
-import { Button } from "@/components/ui/button";
-import { FragmentType, graphql, useFragment } from "@/src/gql";
-import { Icons } from "@/components/ui/icons";
-import Link from "next/link";
-import Image from "next/image";
-import { MapPin } from "lucide-react";
+} from '@/components/ui/card';
+import { cn } from '@/lib/utils';
+import { Button } from '@/components/ui/button';
+import { type FragmentType, graphql, useFragment } from '@/src/gql';
+import { Icons } from '@/components/ui/icons';
+import Link from 'next/link';
+import Image from 'next/image';
+import { MapPin } from 'lucide-react';
 
 export const MeshiCardFragment = graphql(`
   fragment MeshiCard on Meshi {
@@ -48,7 +48,7 @@ export const MeshiCard = (props: Props) => {
             height={300}
             src={meshi.imageUrl}
             alt=""
-            loading={props.isEager ? "eager" : "lazy"}
+            loading={props.isEager ? 'eager' : 'lazy'}
           />
         </Link>
         <div className="flex flex-row items-center justify-between flex-wrap gap-1 pt-2 pb-1">

@@ -1,8 +1,8 @@
-import { FragmentType, graphql, useFragment } from "@/src/gql"
-import { VariablesOf } from "@graphql-typed-document-node/core"
-import { GraphQLClient } from "graphql-request"
-import { cache } from "react"
-import { UserCard, UserCardFragment } from "../components/user-card"
+import { FragmentType, graphql, useFragment } from '@/src/gql'
+import { VariablesOf } from '@graphql-typed-document-node/core'
+import { GraphQLClient } from 'graphql-request'
+import { cache } from 'react'
+import { UserCard, UserCardFragment } from '../components/user-card'
 import {
   Card,
   CardContent,
@@ -10,13 +10,13 @@ import {
   CardFooter,
   CardHeader,
   CardTitle,
-} from "@/components/ui/card"
-import { cn } from "@/lib/utils"
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
-import { Button } from "@/components/ui/button"
-import { Icons } from "@/components/ui/icons"
-import Link from "next/link"
-import { UserDetail } from "./components/user-detail"
+} from '@/components/ui/card'
+import { cn } from '@/lib/utils'
+import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
+import { Button } from '@/components/ui/button'
+import { Icons } from '@/components/ui/icons'
+import Link from 'next/link'
+import { UserDetail } from './components/user-detail'
 
 type Props = {
   params: {
@@ -29,10 +29,10 @@ type Props = {
 export default async function Page({ params, searchParams }: Props) {
   // 動作確認用
   const x =
-    searchParams != null && typeof searchParams["createdAt"] === "string"
-      ? "a"
-      : "b"
-  console.log("x", x)
+    searchParams != null && typeof searchParams['createdAt'] === 'string'
+      ? 'a'
+      : 'b'
+  console.log('x', x)
 
   const { user } = await fetchUser({ id: params.id })
 
@@ -58,7 +58,7 @@ const UserQuery = graphql(/* GraphQL */ `
 
 const fetchUser = async (input: VariablesOf<typeof UserQuery>) => {
   const backendEndpoint =
-    process.env.BACKEND_ENDPOINT ?? "http://localhost:4000/graphql"
+    process.env.BACKEND_ENDPOINT ?? 'http://localhost:4000/graphql'
 
   const client = new GraphQLClient(backendEndpoint, {
     fetch: cache(async (url: any, params: any) =>
@@ -71,7 +71,7 @@ const fetchUser = async (input: VariablesOf<typeof UserQuery>) => {
 
 const fetchUsers = async (input: VariablesOf<typeof UsersQuery>) => {
   const backendEndpoint =
-    process.env.BACKEND_ENDPOINT ?? "http://localhost:4000/graphql"
+    process.env.BACKEND_ENDPOINT ?? 'http://localhost:4000/graphql'
 
   const client = new GraphQLClient(backendEndpoint, {
     fetch: cache(async (url: any, params: any) =>
