@@ -6,61 +6,9 @@ schema {
   mutation: Mutation
 }
 
-"""ブログ記事の著者"""
-type Author {
-  blogs: [Blog!]
-  createdAt: DateTime!
-  id: ID!
-  image: MicroCmsImage
-  name: String!
-  publishedAt: DateTime
-  revisedAt: DateTime
-  updatedAt: DateTime!
-}
-
-"""ブログ記事"""
-type Blog {
-  author: Author!
-  body: String!
-  category: Category!
-  createdAt: DateTime!
-  id: ID!
-  image: MicroCmsImage
-  publishedAt: DateTime
-  revisedAt: DateTime
-  title: String!
-  updatedAt: DateTime!
-}
-
-"""ブログ記事のカテゴリー"""
-type Category {
-  blogs: [Blog!]!
-  createdAt: DateTime!
-  id: ID!
-  name: String!
-  publishedAt: DateTime
-  revisedAt: DateTime
-  updatedAt: DateTime!
-}
-
-type Comment {
-  body: String!
-  id: ID!
-  link: Link
-  postedBy: User
-}
-
 scalar Date
 
 scalar DateTime
-
-type Link {
-  comments: [Comment!]!
-  description: String!
-  id: ID!
-  postedBy: User
-  url: String!
-}
 
 type Meshi {
   address: String!
@@ -91,19 +39,9 @@ type Municipality {
   name: String!
 }
 
-type Mutation {
-  postCommentOnLink(body: String!, linkId: ID!): Comment!
-  postLink(description: String!, url: String!): Link!
-}
+type Mutation
 
 type Query {
-  blog(id: ID!): Blog!
-  blogs: [Blog!]!
-  categories: [Category!]!
-  comment(id: ID!): Comment
-  feed(filterNeedle: String, skip: Int, take: Int): [Link!]!
-  info: String!
-  link(id: ID!): Link
   meshi(id: ID!): Meshi
   meshis: [Meshi!]!
   municipalities: [Municipality!]!
@@ -113,13 +51,11 @@ type Query {
 }
 
 type User {
-  comments: [Comment!]
   description: String
   displayName: String!
   email: String!
   iconImageURL: String
   id: ID!
-  links: [Link!]
   name: String!
   twitterProfileUrl: String
 }

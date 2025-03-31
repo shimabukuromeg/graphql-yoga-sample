@@ -37,28 +37,6 @@ async function main() {
       },
     ],
   });
-
-  const user = await prisma.user.findFirstOrThrow({
-    where: {
-      name: 'シマブクロメグミ',
-    },
-  });
-
-  for (let i = 0; i < 10; i++) {
-    await prisma.link.create({
-      data: {
-        description: `Fullstack tutorial for GraphQL ${i + 1}`,
-        url: `www.howtographql.com/${i}`,
-        postedBy: {
-          connect: { id: user.id },
-        },
-      },
-    });
-  }
-
-  const allLinks = await prisma.link.findMany();
-
-  console.log(allLinks);
 }
 
 // 4

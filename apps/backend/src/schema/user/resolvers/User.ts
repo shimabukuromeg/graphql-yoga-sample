@@ -20,5 +20,5 @@ export const User: UserResolvers = {
         },
       })
       .links();
-  },
+  }
 };

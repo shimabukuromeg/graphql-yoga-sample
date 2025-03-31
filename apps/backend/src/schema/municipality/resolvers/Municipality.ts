@@ -7,5 +7,5 @@ export const Municipality: MunicipalityResolvers = {
         publishedDate: 'desc',
       },
     });
-  },
+  }
 };
