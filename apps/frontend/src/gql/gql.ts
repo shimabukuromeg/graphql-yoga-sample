@@ -14,10 +14,6 @@ import { TypedDocumentNode as DocumentNode } from '@graphql-typed-document-node/
  * Learn more about it here: https://the-guild.dev/graphql/codegen/plugins/presets/preset-client#reducing-bundle-size
  */
 type Documents = {
-    "\n  fragment User on User {\n    id\n    name\n    iconImageURL\n    description\n    twitterProfileUrl\n    displayName\n  }\n": typeof types.UserFragmentDoc,
-    "\n    query User($id: ID!) {\n      user(id: $id) {\n        ...User\n      }\n    }\n  ": typeof types.UserDocument,
-    "\n    query Users {\n      users {\n        id\n        ...User\n      }\n    }\n  ": typeof types.UsersDocument,
-    "\n  query Users {\n    users {\n      id\n      ...User\n    }\n  }\n": typeof types.UsersDocument,
     "\n  query Municipality($id: ID!) {\n    municipality(id: $id) {\n      createdAt\n      name\n      id\n      meshis {\n        id\n        ...MeshiCard\n      }\n    }\n  }\n": typeof types.MunicipalityDocument,
     "\n  query Meshi {\n    meshis {\n      id\n      ...MeshiCard\n    }\n  }\n": typeof types.MeshiDocument,
     "\n  query Municipalities {\n    municipalities {\n      name\n      id\n    }\n  }\n": typeof types.MunicipalitiesDocument,
@@ -25,10 +21,6 @@ type Documents = {
     "\n  query MeshiDetail($id: ID!) {\n    meshi(id: $id) {\n      id\n      title\n      address\n      articleId\n      createdAt\n      imageUrl\n      storeName\n      siteUrl\n      publishedDate\n      municipality {\n        name\n        id\n        createdAt\n      }\n    }\n  }\n": typeof types.MeshiDetailDocument,
 };
 const documents: Documents = {
-    "\n  fragment User on User {\n    id\n    name\n    iconImageURL\n    description\n    twitterProfileUrl\n    displayName\n  }\n": types.UserFragmentDoc,
-    "\n    query User($id: ID!) {\n      user(id: $id) {\n        ...User\n      }\n    }\n  ": types.UserDocument,
-    "\n    query Users {\n      users {\n        id\n        ...User\n      }\n    }\n  ": types.UsersDocument,
-    "\n  query Users {\n    users {\n      id\n      ...User\n    }\n  }\n": types.UsersDocument,
     "\n  query Municipality($id: ID!) {\n    municipality(id: $id) {\n      createdAt\n      name\n      id\n      meshis {\n        id\n        ...MeshiCard\n      }\n    }\n  }\n": types.MunicipalityDocument,
     "\n  query Meshi {\n    meshis {\n      id\n      ...MeshiCard\n    }\n  }\n": types.MeshiDocument,
     "\n  query Municipalities {\n    municipalities {\n      name\n      id\n    }\n  }\n": types.MunicipalitiesDocument,
@@ -50,22 +42,6 @@ const documents: Documents = {
  */
 export function graphql(source: string): unknown;
 
-/**
- * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
- */
-export function graphql(source: "\n  fragment User on User {\n    id\n    name\n    iconImageURL\n    description\n    twitterProfileUrl\n    displayName\n  }\n"): (typeof documents)["\n  fragment User on User {\n    id\n    name\n    iconImageURL\n    description\n    twitterProfileUrl\n    displayName\n  }\n"];
-/**
- * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
- */
-export function graphql(source: "\n    query User($id: ID!) {\n      user(id: $id) {\n        ...User\n      }\n    }\n  "): (typeof documents)["\n    query User($id: ID!) {\n      user(id: $id) {\n        ...User\n      }\n    }\n  "];
-/**
- * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
- */
-export function graphql(source: "\n    query Users {\n      users {\n        id\n        ...User\n      }\n    }\n  "): (typeof documents)["\n    query Users {\n      users {\n        id\n        ...User\n      }\n    }\n  "];
-/**
- * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
- */
-export function graphql(source: "\n  query Users {\n    users {\n      id\n      ...User\n    }\n  }\n"): (typeof documents)["\n  query Users {\n    users {\n      id\n      ...User\n    }\n  }\n"];
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */

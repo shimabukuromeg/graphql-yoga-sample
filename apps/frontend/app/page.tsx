@@ -1,8 +1,8 @@
+import { MeshiCard } from '@/components/meshi-card'
 import { graphql } from '@/src/gql'
-import { VariablesOf } from '@graphql-typed-document-node/core'
+import type { VariablesOf } from '@graphql-typed-document-node/core'
 import { GraphQLClient } from 'graphql-request'
 import { cache } from 'react'
-import { MeshiCard } from '@/components/meshi-card'
 
 export default async function Home() {
   const data = await fetchMeshis({})
@@ -18,8 +18,12 @@ export default async function Home() {
         </div>
         <div className="flex justify-center">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-            {data.meshis.map((meshi, i) => (
-              <MeshiCard meshi={meshi} key={i} isEager={i <= 10} />
+            {data.meshis.map((meshi) => (
+              <MeshiCard
+                meshi={meshi}
+                key={meshi.id}
+                isEager={data.meshis.indexOf(meshi) <= 10}
+              />
             ))}
           </div>
         </div>
@@ -33,6 +37,7 @@ const fetchMeshis = async (input: VariablesOf<typeof MeshisQuery>) => {
     process.env.BACKEND_ENDPOINT ?? 'http://localhost:4000/graphql'
 
   const client = new GraphQLClient(backendEndpoint, {
+    // biome-ignore lint/suspicious/noExplicitAny: <explanation>
     fetch: cache(async (url: any, params: any) =>
       fetch(url, { ...params, next: { revalidate: 60 } }),
     ),

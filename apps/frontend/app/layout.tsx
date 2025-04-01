@@ -1,23 +1,22 @@
-import './globals.css'
-import type { Metadata } from 'next'
+import { FloatingButton } from '@/components/ui/floating-button'
+import { Icons } from '@/components/ui/icons'
 import {
   Menubar,
   MenubarContent,
   MenubarItem,
   MenubarMenu,
   MenubarSeparator,
-  MenubarShortcut,
   MenubarTrigger,
 } from '@/components/ui/menubar'
-import Link from 'next/link'
-import { Icons } from '@/components/ui/icons'
-import { FloatingButton } from '@/components/ui/floating-button'
+import { cn } from '@/lib/utils'
+import './globals.css'
 // @ts-ignore
 import { GoogleTagManager } from '@next/third-parties/google'
-import { Noto_Sans_JP } from 'next/font/google'
-import { cn } from '@/lib/utils'
 import { HamburgerMenuIcon } from '@radix-ui/react-icons'
 import { SpeedInsights } from '@vercel/speed-insights/next'
+import type { Metadata } from 'next'
+import { Noto_Sans_JP } from 'next/font/google'
+import Link from 'next/link'
 
 const noto = Noto_Sans_JP({
   weight: ['400', '700'],
@@ -37,6 +36,7 @@ export default function RootLayout({
   modal: React.ReactNode
 }) {
   return (
+    // biome-ignore lint/a11y/useValidLang: <explanation>
     <html lang="jp">
       <body className={cn('font-sans bg-background', noto.variable)}>
         <Menubar className="flex flex-row justify-between bg-white shadow-nav">
