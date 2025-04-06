@@ -1,18 +1,3 @@
 {
-  "extends": ["../../biome.json"],
-  "javascript": {
-    "formatter": {
-      "semicolons": "always",
-      "arrowParentheses": "always"
-    }
-  },
-  "linter": {
-    "enabled": true,
-    "rules": {
-      "recommended": true,
-      "suspicious": {
-        "noConsoleLog": "off"
-      }
-    }
-  }
+  "extends": ["../../biome.json"]
 }

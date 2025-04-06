@@ -1,20 +1,3 @@
 {
-  "extends": ["../../biome.json"],
-  "javascript": {
-    "formatter": {
-      "jsxQuoteStyle": "double",
-      "semicolons": "asNeeded",
-      "arrowParentheses": "always"
-    }
-  },
-  "formatter": {
-    "ignore": [".next/**", "node_modules/**", "src/gql/**"]
-  },
-  "linter": {
-    "rules": {
-      "style": {
-        "noNonNullAssertion": "off"
-      }
-    }
-  }
+  "extends": ["../../biome.json"]
 }

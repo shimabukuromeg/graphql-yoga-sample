@@ -1,8 +1,8 @@
+import { MeshiCard } from '@/components/meshi-card'
 import { graphql } from '@/src/gql'
-import { VariablesOf } from '@graphql-typed-document-node/core'
+import type { VariablesOf } from '@graphql-typed-document-node/core'
 import { GraphQLClient } from 'graphql-request'
 import { cache } from 'react'
-import { MeshiCard } from '@/components/meshi-card'
 
 type Props = {
   params: {
@@ -32,7 +32,9 @@ export default async function MunicipalityPage(props: Props) {
               if (meshi == null) {
                 throw new Error('meshi is null')
               }
-              return <MeshiCard meshi={meshi} key={i} isEager={i <= 10} />
+              return (
+                <MeshiCard meshi={meshi} key={meshi.id} isEager={i <= 10} />
+              )
             })}
           </div>
         )}
@@ -48,6 +50,7 @@ const fetchMunicipality = async (
     process.env.BACKEND_ENDPOINT ?? 'http://localhost:4000/graphql'
 
   const client = new GraphQLClient(backendEndpoint, {
+    // biome-ignore lint/suspicious/noExplicitAny: <explanation>
     fetch: cache(async (url: any, params: any) =>
       fetch(url, { ...params, next: { revalidate: 60 } }),
     ),
