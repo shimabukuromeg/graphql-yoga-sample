@@ -60,10 +60,15 @@ export const MeshiCard = (props: Props) => {
           </Link>
         </div>
       </CardContent>
-      <CardFooter className="p-1">
-        <Link id="meshi" href={`/meshi/${meshi.id}`} key={meshi.id}>
-          <p className="font-bold line-clamp-3">{meshi.title}</p>
-        </Link>
+      <CardFooter className="p-0">
+        <div className="w-full">
+          <Link id="meshi" href={`/meshi/${meshi.id}`} key={meshi.id}>
+            <p className="font-bold line-clamp-3">{meshi.title}</p>
+          </Link>
+          <div className="flex justify-end mt-1">
+            <p className="text-sm text-gray-500">{new Date(meshi.publishedDate).toLocaleDateString('ja-JP')}</p>
+          </div>
+        </div>
       </CardFooter>
     </Card>
   )
