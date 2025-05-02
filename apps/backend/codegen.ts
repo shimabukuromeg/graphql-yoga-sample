@@ -1,6 +1,7 @@
-import type { CodegenConfig } from '@graphql-codegen/cli';
 import { defineConfig } from '@eddeee888/gcg-typescript-resolver-files';
+import type { CodegenConfig } from '@graphql-codegen/cli';
 
+// https://github.com/eddeee888/graphql-code-generator-plugins/tree/master/packages/typescript-resolver-files
 const config: CodegenConfig = {
   schema: '**/schema.graphql',
   generates: {

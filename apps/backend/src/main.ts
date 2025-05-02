@@ -1,8 +1,8 @@
-import { createYoga, createSchema } from 'graphql-yoga';
-import { createContext } from './context';
-import { typeDefs } from './schema/typeDefs.generated';
-import { resolvers } from './schema/resolvers.generated';
 import { applyMiddleware } from 'graphql-middleware';
+import { createSchema, createYoga } from 'graphql-yoga';
+import { createContext } from './context';
+import { resolvers } from './schema/resolvers.generated';
+import { typeDefs } from './schema/typeDefs.generated';
 
 // fastify 導入した。
 // 参考: https://the-guild.dev/graphql/yoga-server/docs/integrations/integration-with-fastify

@@ -53,10 +53,6 @@ export type Municipality = {
   name: Scalars['String']['output'];
 };
 
-export type Mutation = {
-  __typename?: 'Mutation';
-};
-
 export type Query = {
   __typename?: 'Query';
   meshi?: Maybe<Meshi>;
@@ -173,7 +169,6 @@ export type ResolversTypes = {
   MicroCmsImage: ResolverTypeWrapper<MicroCmsImage>;
   Int: ResolverTypeWrapper<Scalars['Int']['output']>;
   Municipality: ResolverTypeWrapper<Municipality_Mapper>;
-  Mutation: ResolverTypeWrapper<{}>;
   Query: ResolverTypeWrapper<{}>;
   User: ResolverTypeWrapper<User_Mapper>;
   Boolean: ResolverTypeWrapper<Scalars['Boolean']['output']>;
@@ -190,7 +185,6 @@ export type ResolversParentTypes = {
   MicroCmsImage: MicroCmsImage;
   Int: Scalars['Int']['output'];
   Municipality: Municipality_Mapper;
-  Mutation: {};
   Query: {};
   User: User_Mapper;
   Boolean: Scalars['Boolean']['output'];
@@ -235,8 +229,6 @@ export type MunicipalityResolvers<ContextType = any, ParentType extends Resolver
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
-export type MutationResolvers<ContextType = any, ParentType extends ResolversParentTypes['Mutation'] = ResolversParentTypes['Mutation']> = {};
-
 export type QueryResolvers<ContextType = any, ParentType extends ResolversParentTypes['Query'] = ResolversParentTypes['Query']> = {
   meshi?: Resolver<Maybe<ResolversTypes['Meshi']>, ParentType, ContextType, RequireFields<QuerymeshiArgs, 'id'>>;
   meshis?: Resolver<Array<ResolversTypes['Meshi']>, ParentType, ContextType>;
@@ -263,7 +255,6 @@ export type Resolvers<ContextType = any> = {
   Meshi?: MeshiResolvers<ContextType>;
   MicroCmsImage?: MicroCmsImageResolvers<ContextType>;
   Municipality?: MunicipalityResolvers<ContextType>;
-  Mutation?: MutationResolvers<ContextType>;
   Query?: QueryResolvers<ContextType>;
   User?: UserResolvers<ContextType>;
 };
