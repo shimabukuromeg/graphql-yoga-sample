@@ -7,11 +7,13 @@ import { cache } from 'react'
 export default async function Home() {
   const data = await fetchMeshis({})
 
-  const name = process.env.SERVICE_NAME ?? 'なし'
-
   return (
     <div className="flex justify-center">
-      <div className="flex flex-col md:gap-8 gap-2 md:p-20 px-2 pt-6 max-w-[900px]">
+      <div className="flex flex-col gap-2 md:p-20 px-2 pt-6 max-w-[900px]">
+        <div className="text-center mb-4 md:mb-8">
+          <h1 className="text-4xl md:text-5xl font-bold text-center mb-2 text-primary">🍚 飯ぴよ 🐤</h1>
+          <p className="text-gray-600">美味しいごはんを探そう！</p>
+        </div>
         <div className="flex justify-center">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             {data.meshis.map((meshi) => (
