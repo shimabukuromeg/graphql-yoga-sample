@@ -1,5 +1,5 @@
 import { expect, describe, it } from 'vitest'
-import { getZipcodeAndAddress, getMunicipalityByAddress } from './scraper'
+import { getZipcodeAndAddress, extractMunicipalityFromAddress } from './scraper'
 
 describe('getZipcodeAndAddress', () => {
   it('正しい郵便番号と住所を抽出する', () => {
@@ -43,52 +43,52 @@ describe('getZipcodeAndAddress', () => {
   })
 })
 
-describe('getMunicipalityByAddress', () => {
+describe('extractMunicipalityFromAddress', () => {
   it('市を含む住所から市名を抽出する', () => {
     const address = '沖縄県那覇市おもろまち1-1-1'
-    const result = getMunicipalityByAddress(address)
+    const result = extractMunicipalityFromAddress(address)
     
     expect(result).to.equal('那覇市')
   })
 
   it('町を含む住所から町名を抽出する', () => {
     const address = '沖縄県北谷町美浜1-1-1'
-    const result = getMunicipalityByAddress(address)
+    const result = extractMunicipalityFromAddress(address)
     
     expect(result).to.equal('北谷町')
   })
 
   it('村を含む住所から村名を抽出する', () => {
     const address = '沖縄県読谷村字高志保1-1-1'
-    const result = getMunicipalityByAddress(address)
+    const result = extractMunicipalityFromAddress(address)
     
     expect(result).to.equal('読谷村')
   })
 
   it('郡を含む住所から正しく市町村名を抽出する', () => {
     const address = '沖縄県中頭郡北谷町美浜1-1-1'
-    const result = getMunicipalityByAddress(address)
+    const result = extractMunicipalityFromAddress(address)
     
     expect(result).to.equal('北谷町')
   })
 
   it('沖縄県の表記がない場合も市町村名を抽出する', () => {
     const address = '那覇市おもろまち1-1-1'
-    const result = getMunicipalityByAddress(address)
+    const result = extractMunicipalityFromAddress(address)
     
     expect(result).to.equal('那覇市')
   })
 
   it('市町村名が含まれない場合は空文字を返す', () => {
     const address = '沖縄県1-1-1'
-    const result = getMunicipalityByAddress(address)
+    const result = extractMunicipalityFromAddress(address)
     
     expect(result).to.equal('')
   })
 
   it('空文字の場合は空文字を返す', () => {
     const address = ''
-    const result = getMunicipalityByAddress(address)
+    const result = extractMunicipalityFromAddress(address)
     
     expect(result).to.equal('')
   })

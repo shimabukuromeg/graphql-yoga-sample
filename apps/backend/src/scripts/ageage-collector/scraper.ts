@@ -83,7 +83,7 @@ export const getLatLng = async (
 /**
  * 住所から市町村名を抽出する
  */
-export const getMunicipalityByAddress = (address: string): string => {
+export const extractMunicipalityFromAddress = (address: string): string => {
   const regex = /(沖縄県)?([^市町村]*郡)?([^市町村]*?[市町村])/
   const match = regex.exec(address)
 
@@ -136,7 +136,7 @@ export const findStoreAndAddress = async (
     const { zipCode, address } = getZipcodeAndAddress(fullAddress)
 
     // 住所から市町村名を抽出
-    const municipality = getMunicipalityByAddress(address)
+    const municipality = extractMunicipalityFromAddress(address)
 
     // 住所から緯度経度を取得
     const { latitude, longitude } = await getLatLng(address)
