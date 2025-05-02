@@ -33,7 +33,8 @@ export type MeshiData = {
 export const getZipcodeAndAddress = (
   fullAddress: string,
 ): { zipCode: string; address: string } => {
-  const regex = /〒([0-9]{3})-([0-9]{4})\s?(.*)/
+  // 通常のハイフン(-) と en dash(–) の両方に対応
+  const regex = /〒([0-9]{3})[-–]([0-9]{4})\s?(.*)/
   const match = regex.exec(fullAddress)
 
   if (match && match.length > 3) {
