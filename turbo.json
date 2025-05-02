@@ -3,12 +3,12 @@
   "tasks": {
     "build": {
       "dependsOn": ["^build"],
-      "outputs": [".next/**", "!.next/cache/**"]
+      "outputs": [".next/**", "!.next/cache/**", "dist/**"]
     },
     "frontend#build": {
       "dependsOn": ["^build"],
       "env": ["BACKEND_ENDPOINT", "BASE_URL", "GOOGLE_TAG_MANAGER_ID"],
-      "outputs": [".next/**", "!.next/cache/**"]
+      "outputs": [".next/**", "!.next/cache/**", "dist/**"]
     },
     "deploy": {
       "dependsOn": ["build", "test", "lint"]
@@ -18,7 +18,18 @@
       "inputs": ["src/**/*.tsx", "src/**/*.ts", "test/**/*.ts", "test/**/*.tsx"]
     },
     "lint": {},
+    "format": {
+      "cache": true
+    },
     "dev": {
+      "cache": false,
+      "persistent": true
+    },
+    "ci": {
+      "cache": false,
+      "persistent": true
+    },
+    "typecheck": {
       "cache": false,
       "persistent": true
     }

@@ -5,12 +5,13 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "frontend": "pnpm --filter \"frontend\"",
-    "backend": "pnpm --filter \"backend\"",
-    "lint": "biome lint .",
-    "lint:fix": "biome lint --apply .",
-    "format": "biome format .",
-    "format:fix": "biome format --write ."
+    "dev": "turbo run dev",
+    "build": "turbo run build",
+    "start": "turbo run start",
+    "lint": "turbo run lint",
+    "format": "turbo run format",
+    "ci": "turbo run ci",
+    "typecheck": "turbo run typecheck"
   },
   "keywords": [],
   "author": "",
@@ -22,6 +23,6 @@
     "yarn": "use pnpm please!"
   },
   "devDependencies": {
-    "@biomejs/biome": "1.9.4"
+    "turbo": "2.5.2"
   }
 }

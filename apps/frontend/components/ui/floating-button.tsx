@@ -1,4 +1,4 @@
-import { MagnifyingGlassIcon, ArrowBottomLeftIcon } from '@radix-ui/react-icons'
+import { ArrowBottomLeftIcon, MagnifyingGlassIcon } from '@radix-ui/react-icons'
 import Link from 'next/link'
 
 export const FloatingButton = () => {

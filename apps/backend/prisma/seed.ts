@@ -1,8 +1,8 @@
 // 1
-import { PrismaClient } from '@prisma/client';
+import { PrismaClient } from '@prisma/client'
 
 // 2
-const prisma = new PrismaClient();
+const prisma = new PrismaClient()
 
 // 3
 async function main() {
@@ -36,12 +36,12 @@ async function main() {
         twitterProfileUrl: 'https://twitter.com/20092014',
       },
     ],
-  });
+  })
 }
 
 // 4
 main()
   // 5
   .finally(async () => {
-    await prisma.$disconnect();
-  });
+    await prisma.$disconnect()
+  })

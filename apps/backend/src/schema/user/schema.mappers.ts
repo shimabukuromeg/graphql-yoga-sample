@@ -1,3 +1,3 @@
-import type { User } from '@prisma/client';
+import type { User } from '@prisma/client'
 
-export type User_Mapper = User;
+export type User_Mapper = User

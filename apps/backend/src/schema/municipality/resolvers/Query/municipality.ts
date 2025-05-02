@@ -1,4 +1,4 @@
-import type { QueryResolvers } from './../../../types.generated';
+import type { QueryResolvers } from './../../../types.generated'
 export const municipality: NonNullable<QueryResolvers['municipality']> = async (
   parent,
   arg,
@@ -6,5 +6,5 @@ export const municipality: NonNullable<QueryResolvers['municipality']> = async (
 ) => {
   return await ctx.prisma.municipality.findUnique({
     where: { id: Number.parseInt(arg.id) },
-  });
-};
+  })
+}

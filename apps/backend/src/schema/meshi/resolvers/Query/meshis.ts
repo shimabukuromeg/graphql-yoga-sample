@@ -1,4 +1,4 @@
-import type { QueryResolvers } from './../../../types.generated';
+import type { QueryResolvers } from './../../../types.generated'
 export const meshis: NonNullable<QueryResolvers['meshis']> = async (
   _parent,
   _arg,
@@ -8,5 +8,5 @@ export const meshis: NonNullable<QueryResolvers['meshis']> = async (
     orderBy: {
       publishedDate: 'desc',
     },
-  });
-};
+  })
+}

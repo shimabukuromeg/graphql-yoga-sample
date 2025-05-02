@@ -1,21 +1,21 @@
-import { applyMiddleware } from 'graphql-middleware';
-import { createSchema, createYoga } from 'graphql-yoga';
-import { createContext } from './context';
-import { resolvers } from './schema/resolvers.generated';
-import { typeDefs } from './schema/typeDefs.generated';
+import { applyMiddleware } from 'graphql-middleware'
+import { createSchema, createYoga } from 'graphql-yoga'
+import { createContext } from './context'
+import { resolvers } from './schema/resolvers.generated'
+import { typeDefs } from './schema/typeDefs.generated'
 
 // fastify 導入した。
 // 参考: https://the-guild.dev/graphql/yoga-server/docs/integrations/integration-with-fastify
-import fastify, { type FastifyReply, type FastifyRequest } from 'fastify';
+import fastify, { type FastifyReply, type FastifyRequest } from 'fastify'
 
 function main() {
   // This is the fastify instance you have created
-  const app = fastify({ logger: true });
+  const app = fastify({ logger: true })
 
   // TODO: スキーマ読み込み
   const yoga = createYoga<{
-    req: FastifyRequest;
-    reply: FastifyReply;
+    req: FastifyRequest
+    reply: FastifyReply
   }>({
     schema: applyMiddleware(
       createSchema({
@@ -28,19 +28,19 @@ function main() {
     // Integrate Fastify logger
     logging: {
       debug: (...args) => {
-        for (const arg of args) app.log.debug(arg);
+        for (const arg of args) app.log.debug(arg)
       },
       info: (...args) => {
-        for (const arg of args) app.log.info(arg);
+        for (const arg of args) app.log.info(arg)
       },
       warn: (...args) => {
-        for (const arg of args) app.log.warn(arg);
+        for (const arg of args) app.log.warn(arg)
       },
       error: (...args) => {
-        for (const arg of args) app.log.error(arg);
+        for (const arg of args) app.log.error(arg)
       },
     },
-  });
+  })
 
   app.route({
     // Bind to the Yoga's endpoint to avoid rendering on any path
@@ -51,27 +51,27 @@ function main() {
       const response = await yoga.handleNodeRequest(req, {
         req,
         reply,
-      });
+      })
       response.headers.forEach((value, key) => {
-        reply.header(key, value);
-      });
+        reply.header(key, value)
+      })
 
-      reply.status(response.status);
+      reply.status(response.status)
 
-      reply.send(response.body);
+      reply.send(response.body)
 
-      return reply;
+      return reply
     },
-  });
+  })
 
-  console.info('starting http server');
+  console.info('starting http server')
   app.listen({ port: 4000, host: '0.0.0.0' }, (err, address) => {
     if (err) {
-      console.error(err);
-      process.exit(1);
+      console.error(err)
+      process.exit(1)
     }
-    console.info(`server listening on ${address}`);
-  });
+    console.info(`server listening on ${address}`)
+  })
 }
 
-main();
+main()

@@ -1,6 +1,6 @@
 const test = () => {
-  console.log('これはテストです');
-  return 'test';
-};
+  console.log('これはテストです')
+  return 'test'
+}
 
-export default test;
+export default test

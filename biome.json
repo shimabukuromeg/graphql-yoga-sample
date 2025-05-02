@@ -12,9 +12,9 @@
       "**/generated/**",
       "**/*.generated.*",
       "**/generated.ts",
-      ".next/**",
-      "node_modules/**",
-      "src/gql/**"
+      "**/.next/**",
+      "**/node_modules/**",
+      "**/src/gql/**"
     ]
   },
   "javascript": {
@@ -31,7 +31,10 @@
       "**/dist/**",
       "**/generated/**",
       "**/*.generated.*",
-      "**/generated.ts"
+      "**/generated.ts",
+      "**/.next/**",
+      "**/node_modules/**",
+      "**/src/gql/**"
     ]
   },
   "linter": {
@@ -50,7 +53,10 @@
       "**/dist/**",
       "**/generated/**",
       "**/*.generated.*",
-      "**/generated.ts"
+      "**/generated.ts",
+      "**/.next/**",
+      "**/node_modules/**",
+      "**/src/gql/**"
     ]
   },
   "json": {

@@ -1,7 +1,7 @@
-import { GraphQLClient } from 'graphql-request'
-import { SearchContent } from './components/serach-content'
-import { cache } from 'react'
 import { graphql } from '@/src/gql'
+import { GraphQLClient } from 'graphql-request'
+import { cache } from 'react'
+import { SearchContent } from './components/serach-content'
 
 export default async function SearchPage() {
   const data = await fetchMunicipalities()
