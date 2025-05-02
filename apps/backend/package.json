@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
-  "packageManager": "pnpm@10.0.0",
+  "packageManager": "pnpm@10.10.0",
   "scripts": {
     "test": "vitest",
     "dev": "cross-env NODE_ENV=development ts-node-dev --exit-child --respawn src/main.ts",
@@ -32,29 +32,29 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "@biomejs/biome": "^1.7.3",
-    "@eddeee888/gcg-typescript-resolver-files": "^0.7.1",
-    "@graphql-codegen/cli": "^5.0.0",
-    "@types/node": "20.15.0",
-    "@vitest/ui": "^1.2.2",
+    "@biomejs/biome": "^1.9.4",
+    "@eddeee888/gcg-typescript-resolver-files": "^0.12.0",
+    "@graphql-codegen/cli": "^5.0.5",
+    "@types/node": "22.15.3",
+    "@vitest/ui": "^3.1.2",
     "cross-env": "7.0.3",
     "ts-node": "10.9.2",
     "ts-node-dev": "2.0.0",
-    "typescript": "5.4.5",
-    "vite-tsconfig-paths": "^4.3.1",
-    "vitest": "^1.2.2"
+    "typescript": "5.8.3",
+    "vite-tsconfig-paths": "^5.1.4",
+    "vitest": "^3.1.2"
   },
   "dependencies": {
-    "@graphql-tools/schema": "^10.0.2",
-    "@prisma/client": "5.14.0",
+    "@graphql-tools/schema": "^10.0.23",
+    "@prisma/client": "6.7.0",
     "cheerio": "1.0.0",
-    "fastify": "^4.24.3",
-    "graphql": "^16.8.1",
+    "fastify": "^5.3.2",
+    "graphql": "^16.11.0",
     "graphql-middleware": "^6.1.35",
-    "graphql-scalars": "^1.22.4",
-    "graphql-yoga": "5.0.0",
+    "graphql-scalars": "^1.24.2",
+    "graphql-yoga": "5.13.4",
     "microcms_sdk_generator": "^0.1.1",
-    "prisma": "5.14.0",
-    "zod": "^3.22.4"
+    "prisma": "6.7.0",
+    "zod": "^3.24.3"
   }
 }
