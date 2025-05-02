@@ -16,7 +16,6 @@ export default async function Home() {
           <h1 className="text-2xl md:text-3xl font-bold text-textBlack pb-4">
             全域
           </h1>
-          <div>サービス名：{name}</div>
           <p className="font-bold text-textBlack">{data.meshis.length}件</p>
         </div>
         <div className="flex justify-center">
