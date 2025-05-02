@@ -1,7 +1,17 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
   "extends": ["config:recommended"],
+  "timezone": "Asia/Tokyo",
   "labels": ["renovate"],
+  "schedule": ["before 10:00"],
+  "automergeSchedule": ["before 10:00"],
+  "lockFileMaintenance": {
+    "enabled": true,
+    "recreateClosed": true,
+    "rebaseStalePrs": true
+  },
+  "prConcurrentLimit": 10,
+  "prConcurrentLimitInMinutes": 10,
   "packageRules": [
     {
       "matchUpdateTypes": ["patch"],
@@ -14,12 +24,6 @@
     {
       "matchPackageNames": ["eslint"],
       "enabled": false
-    },
-    {
-      "lockFileMaintenance": {
-        "enabled": true,
-        "automerge": true
-      }
     }
   ]
 }
