@@ -5,14 +5,15 @@ import { GraphQLClient } from 'graphql-request'
 import { cache } from 'react'
 
 type Props = {
-  params: {
+  params: Promise<{
     id: string
-  }
+  }>
 }
 
-export default async function MunicipalityPage(props: Props) {
+export default async function MunicipalityPage({params}: Props) {
+  const {id} = await params
   const data = await fetchMunicipality({
-    id: props.params.id,
+    id,
   })
 
   return (

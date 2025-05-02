@@ -6,11 +6,12 @@ import { GraphQLClient } from 'graphql-request'
 import { cache } from 'react'
 
 type Props = {
-  params: {
+  params: Promise<{
     id: string
-  }
+  }>
 }
 
-export default async function MunicipalityPage(props: Props) {
-  return <RestaurantDetail id={props.params.id} />
+export default async function MunicipalityPage({params}: Props) {
+  const {id} = await params
+  return <RestaurantDetail id={id} />
 }
