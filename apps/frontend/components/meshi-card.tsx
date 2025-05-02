@@ -29,19 +29,22 @@ export const MeshiCard = (props: Props) => {
   const meshi = useFragment(MeshiCardFragment, props.meshi)
 
   return (
-    <Card className="p-2 max-w-[300px]" key={meshi.id}>
+    <Card className="p-4 max-w-[345px]" key={meshi.id}>
       <CardContent className="p-0">
-        <Link id="meshi" target="_blank" href={meshi.siteUrl} key={meshi.id}>
-          <Image
-            className="h-auto max-w-full rounded-lg"
-            width={300}
-            height={300}
-            src={meshi.imageUrl}
-            alt=""
-            loading={props.isEager ? 'eager' : 'lazy'}
-          />
-        </Link>
-        <div className="flex flex-row items-center justify-between flex-wrap gap-1 pt-2 pb-1">
+        <div className="flex justify-center">
+          {/* 中央に寄せる */}
+          <Link id="meshi" target="_blank" href={meshi.siteUrl} key={meshi.id}>
+            <Image
+              className="h-auto max-w-full rounded-lg"
+              width={313}
+              height={313}
+              src={meshi.imageUrl}
+              alt=""
+              loading={props.isEager ? 'eager' : 'lazy'}
+            />
+          </Link>
+        </div>
+        <div className="flex flex-row items-center justify-between flex-wrap gap-1 pt-3 pb-1">
           <Link
             href={`/municipality/${meshi.municipality?.id}`}
             className="px-4 py-1 rounded-xl font-bold text-[12px] text-white w-fit bg-primary"
