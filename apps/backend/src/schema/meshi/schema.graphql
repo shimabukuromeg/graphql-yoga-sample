@@ -1,6 +1,6 @@
 extend type Query {
   meshi(id: ID!): Meshi
-  meshis: [Meshi!]!
+  meshis(query: String, first: Int = 20, after: String): MeshiConnection!
 }
 
 type Meshi {
@@ -16,4 +16,22 @@ type Meshi {
   longitude: Float!
   createdAt: Date!
   municipality: Municipality
+}
+
+type MeshiConnection {
+  edges: [MeshiEdge!]!
+  pageInfo: PageInfo!
+  totalCount: Int!
+}
+
+type MeshiEdge {
+  cursor: String!
+  node: Meshi!
+}
+
+type PageInfo {
+  hasNextPage: Boolean!
+  hasPreviousPage: Boolean!
+  startCursor: String
+  endCursor: String
 }

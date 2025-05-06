@@ -15,14 +15,14 @@ import { TypedDocumentNode as DocumentNode } from '@graphql-typed-document-node/
  */
 type Documents = {
     "\n  query Municipality($id: ID!) {\n    municipality(id: $id) {\n      createdAt\n      name\n      id\n      meshis {\n        id\n        ...MeshiCard\n      }\n    }\n  }\n": typeof types.MunicipalityDocument,
-    "\n  query Meshi {\n    meshis {\n      id\n      ...MeshiCard\n    }\n  }\n": typeof types.MeshiDocument,
+    "\n  query Meshi($first: Int = 20, $query: String) {\n    meshis(first: $first, query: $query) {\n      edges {\n        node {\n          id\n          ...MeshiCard\n        }\n      }\n      pageInfo {\n        hasNextPage\n        endCursor\n      }\n      totalCount\n    }\n  }\n": typeof types.MeshiDocument,
     "\n  query Municipalities {\n    municipalities {\n      name\n      id\n    }\n  }\n": typeof types.MunicipalitiesDocument,
     "\n  fragment MeshiCard on Meshi {\n    id\n    imageUrl\n    siteUrl\n    title\n    storeName\n    publishedDate\n    createdAt\n    municipality {\n      id\n      name\n    }\n  }\n": typeof types.MeshiCardFragmentDoc,
     "\n  query MeshiDetail($id: ID!) {\n    meshi(id: $id) {\n      id\n      title\n      address\n      articleId\n      createdAt\n      imageUrl\n      storeName\n      siteUrl\n      publishedDate\n      municipality {\n        name\n        id\n        createdAt\n      }\n    }\n  }\n": typeof types.MeshiDetailDocument,
 };
 const documents: Documents = {
     "\n  query Municipality($id: ID!) {\n    municipality(id: $id) {\n      createdAt\n      name\n      id\n      meshis {\n        id\n        ...MeshiCard\n      }\n    }\n  }\n": types.MunicipalityDocument,
-    "\n  query Meshi {\n    meshis {\n      id\n      ...MeshiCard\n    }\n  }\n": types.MeshiDocument,
+    "\n  query Meshi($first: Int = 20, $query: String) {\n    meshis(first: $first, query: $query) {\n      edges {\n        node {\n          id\n          ...MeshiCard\n        }\n      }\n      pageInfo {\n        hasNextPage\n        endCursor\n      }\n      totalCount\n    }\n  }\n": types.MeshiDocument,
     "\n  query Municipalities {\n    municipalities {\n      name\n      id\n    }\n  }\n": types.MunicipalitiesDocument,
     "\n  fragment MeshiCard on Meshi {\n    id\n    imageUrl\n    siteUrl\n    title\n    storeName\n    publishedDate\n    createdAt\n    municipality {\n      id\n      name\n    }\n  }\n": types.MeshiCardFragmentDoc,
     "\n  query MeshiDetail($id: ID!) {\n    meshi(id: $id) {\n      id\n      title\n      address\n      articleId\n      createdAt\n      imageUrl\n      storeName\n      siteUrl\n      publishedDate\n      municipality {\n        name\n        id\n        createdAt\n      }\n    }\n  }\n": types.MeshiDetailDocument,
@@ -49,7 +49,7 @@ export function graphql(source: "\n  query Municipality($id: ID!) {\n    municip
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
-export function graphql(source: "\n  query Meshi {\n    meshis {\n      id\n      ...MeshiCard\n    }\n  }\n"): (typeof documents)["\n  query Meshi {\n    meshis {\n      id\n      ...MeshiCard\n    }\n  }\n"];
+export function graphql(source: "\n  query Meshi($first: Int = 20, $query: String) {\n    meshis(first: $first, query: $query) {\n      edges {\n        node {\n          id\n          ...MeshiCard\n        }\n      }\n      pageInfo {\n        hasNextPage\n        endCursor\n      }\n      totalCount\n    }\n  }\n"): (typeof documents)["\n  query Meshi($first: Int = 20, $query: String) {\n    meshis(first: $first, query: $query) {\n      edges {\n        node {\n          id\n          ...MeshiCard\n        }\n      }\n      pageInfo {\n        hasNextPage\n        endCursor\n      }\n      totalCount\n    }\n  }\n"];
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */

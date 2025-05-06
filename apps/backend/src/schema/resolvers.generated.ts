@@ -7,8 +7,11 @@ import    { municipality as Query_municipality } from './municipality/resolvers/
 import    { user as Query_user } from './user/resolvers/Query/user';
 import    { users as Query_users } from './user/resolvers/Query/users';
 import    { Meshi } from './meshi/resolvers/Meshi';
+import    { MeshiConnection } from './meshi/resolvers/MeshiConnection';
+import    { MeshiEdge } from './meshi/resolvers/MeshiEdge';
 import    { MicroCmsImage } from './base/resolvers/MicroCmsImage';
 import    { Municipality } from './municipality/resolvers/Municipality';
+import    { PageInfo } from './meshi/resolvers/PageInfo';
 import    { User } from './user/resolvers/User';
 import    { DateResolver,DateTimeResolver } from 'graphql-scalars';
     export const resolvers: Resolvers = {
@@ -16,8 +19,11 @@ import    { DateResolver,DateTimeResolver } from 'graphql-scalars';
       
       
       Meshi: Meshi,
+MeshiConnection: MeshiConnection,
+MeshiEdge: MeshiEdge,
 MicroCmsImage: MicroCmsImage,
 Municipality: Municipality,
+PageInfo: PageInfo,
 User: User,
 Date: DateResolver,
 DateTime: DateTimeResolver
