@@ -9,6 +9,7 @@ export type MakeOptional<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]?: 
 export type MakeMaybe<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]: Maybe<T[SubKey]> };
 export type MakeEmpty<T extends { [key: string]: unknown }, K extends keyof T> = { [_ in K]?: never };
 export type Incremental<T> = T | { [P in keyof T]?: P extends ' $fragmentName' | '__typename' ? T[P] : never };
+export type Omit<T, K extends keyof T> = Pick<T, Exclude<keyof T, K>>;
 export type RequireFields<T, K extends keyof T> = Omit<T, K> & { [P in K]-?: NonNullable<T[P]> };
 /** All built-in and custom scalars, mapped to their actual values */
 export type Scalars = {
@@ -37,6 +38,19 @@ export type Meshi = {
   title: Scalars['String']['output'];
 };
 
+export type MeshiConnection = {
+  __typename?: 'MeshiConnection';
+  edges: Array<MeshiEdge>;
+  pageInfo: PageInfo;
+  totalCount: Scalars['Int']['output'];
+};
+
+export type MeshiEdge = {
+  __typename?: 'MeshiEdge';
+  cursor: Scalars['String']['output'];
+  node: Meshi;
+};
+
 /** MicroCMSの画像 */
 export type MicroCmsImage = {
   __typename?: 'MicroCmsImage';
@@ -53,10 +67,18 @@ export type Municipality = {
   name: Scalars['String']['output'];
 };
 
+export type PageInfo = {
+  __typename?: 'PageInfo';
+  endCursor?: Maybe<Scalars['String']['output']>;
+  hasNextPage: Scalars['Boolean']['output'];
+  hasPreviousPage: Scalars['Boolean']['output'];
+  startCursor?: Maybe<Scalars['String']['output']>;
+};
+
 export type Query = {
   __typename?: 'Query';
   meshi?: Maybe<Meshi>;
-  meshis: Array<Meshi>;
+  meshis: MeshiConnection;
   municipalities: Array<Municipality>;
   municipality?: Maybe<Municipality>;
   user: User;
@@ -66,6 +88,13 @@ export type Query = {
 
 export type QuerymeshiArgs = {
   id: Scalars['ID']['input'];
+};
+
+
+export type QuerymeshisArgs = {
+  after?: InputMaybe<Scalars['String']['input']>;
+  first?: InputMaybe<Scalars['Int']['input']>;
+  query?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -166,12 +195,15 @@ export type ResolversTypes = {
   String: ResolverTypeWrapper<Scalars['String']['output']>;
   ID: ResolverTypeWrapper<Scalars['ID']['output']>;
   Float: ResolverTypeWrapper<Scalars['Float']['output']>;
-  MicroCmsImage: ResolverTypeWrapper<MicroCmsImage>;
+  MeshiConnection: ResolverTypeWrapper<Omit<MeshiConnection, 'edges'> & { edges: Array<ResolversTypes['MeshiEdge']> }>;
   Int: ResolverTypeWrapper<Scalars['Int']['output']>;
+  MeshiEdge: ResolverTypeWrapper<Omit<MeshiEdge, 'node'> & { node: ResolversTypes['Meshi'] }>;
+  MicroCmsImage: ResolverTypeWrapper<MicroCmsImage>;
   Municipality: ResolverTypeWrapper<Municipality_Mapper>;
+  PageInfo: ResolverTypeWrapper<PageInfo>;
+  Boolean: ResolverTypeWrapper<Scalars['Boolean']['output']>;
   Query: ResolverTypeWrapper<{}>;
   User: ResolverTypeWrapper<User_Mapper>;
-  Boolean: ResolverTypeWrapper<Scalars['Boolean']['output']>;
 };
 
 /** Mapping between all available schema types and the resolvers parents */
@@ -182,12 +214,15 @@ export type ResolversParentTypes = {
   String: Scalars['String']['output'];
   ID: Scalars['ID']['output'];
   Float: Scalars['Float']['output'];
-  MicroCmsImage: MicroCmsImage;
+  MeshiConnection: Omit<MeshiConnection, 'edges'> & { edges: Array<ResolversParentTypes['MeshiEdge']> };
   Int: Scalars['Int']['output'];
+  MeshiEdge: Omit<MeshiEdge, 'node'> & { node: ResolversParentTypes['Meshi'] };
+  MicroCmsImage: MicroCmsImage;
   Municipality: Municipality_Mapper;
+  PageInfo: PageInfo;
+  Boolean: Scalars['Boolean']['output'];
   Query: {};
   User: User_Mapper;
-  Boolean: Scalars['Boolean']['output'];
 };
 
 export interface DateScalarConfig extends GraphQLScalarTypeConfig<ResolversTypes['Date'], any> {
@@ -214,6 +249,19 @@ export type MeshiResolvers<ContextType = any, ParentType extends ResolversParent
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
+export type MeshiConnectionResolvers<ContextType = any, ParentType extends ResolversParentTypes['MeshiConnection'] = ResolversParentTypes['MeshiConnection']> = {
+  edges?: Resolver<Array<ResolversTypes['MeshiEdge']>, ParentType, ContextType>;
+  pageInfo?: Resolver<ResolversTypes['PageInfo'], ParentType, ContextType>;
+  totalCount?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type MeshiEdgeResolvers<ContextType = any, ParentType extends ResolversParentTypes['MeshiEdge'] = ResolversParentTypes['MeshiEdge']> = {
+  cursor?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  node?: Resolver<ResolversTypes['Meshi'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
 export type MicroCmsImageResolvers<ContextType = any, ParentType extends ResolversParentTypes['MicroCmsImage'] = ResolversParentTypes['MicroCmsImage']> = {
   height?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
   url?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
@@ -229,9 +277,17 @@ export type MunicipalityResolvers<ContextType = any, ParentType extends Resolver
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
+export type PageInfoResolvers<ContextType = any, ParentType extends ResolversParentTypes['PageInfo'] = ResolversParentTypes['PageInfo']> = {
+  endCursor?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  hasNextPage?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
+  hasPreviousPage?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
+  startCursor?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
 export type QueryResolvers<ContextType = any, ParentType extends ResolversParentTypes['Query'] = ResolversParentTypes['Query']> = {
   meshi?: Resolver<Maybe<ResolversTypes['Meshi']>, ParentType, ContextType, RequireFields<QuerymeshiArgs, 'id'>>;
-  meshis?: Resolver<Array<ResolversTypes['Meshi']>, ParentType, ContextType>;
+  meshis?: Resolver<ResolversTypes['MeshiConnection'], ParentType, ContextType, RequireFields<QuerymeshisArgs, 'first'>>;
   municipalities?: Resolver<Array<ResolversTypes['Municipality']>, ParentType, ContextType>;
   municipality?: Resolver<Maybe<ResolversTypes['Municipality']>, ParentType, ContextType, RequireFields<QuerymunicipalityArgs, 'id'>>;
   user?: Resolver<ResolversTypes['User'], ParentType, ContextType, RequireFields<QueryuserArgs, 'id'>>;
@@ -253,8 +309,11 @@ export type Resolvers<ContextType = any> = {
   Date?: GraphQLScalarType;
   DateTime?: GraphQLScalarType;
   Meshi?: MeshiResolvers<ContextType>;
+  MeshiConnection?: MeshiConnectionResolvers<ContextType>;
+  MeshiEdge?: MeshiEdgeResolvers<ContextType>;
   MicroCmsImage?: MicroCmsImageResolvers<ContextType>;
   Municipality?: MunicipalityResolvers<ContextType>;
+  PageInfo?: PageInfoResolvers<ContextType>;
   Query?: QueryResolvers<ContextType>;
   User?: UserResolvers<ContextType>;
 };

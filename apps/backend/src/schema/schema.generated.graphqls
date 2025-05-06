@@ -17,6 +17,17 @@ type Meshi {
   title: String!
 }
 
+type MeshiConnection {
+  edges: [MeshiEdge!]!
+  pageInfo: PageInfo!
+  totalCount: Int!
+}
+
+type MeshiEdge {
+  cursor: String!
+  node: Meshi!
+}
+
 """MicroCMSの画像"""
 type MicroCmsImage {
   height: Int
@@ -31,9 +42,16 @@ type Municipality {
   name: String!
 }
 
+type PageInfo {
+  endCursor: String
+  hasNextPage: Boolean!
+  hasPreviousPage: Boolean!
+  startCursor: String
+}
+
 type Query {
   meshi(id: ID!): Meshi
-  meshis: [Meshi!]!
+  meshis(after: String, first: Int = 20, query: String): MeshiConnection!
   municipalities: [Municipality!]!
   municipality(id: ID!): Municipality
   user(id: ID!): User!
