@@ -10,8 +10,8 @@ type Props = {
   }>
 }
 
-export default async function MunicipalityPage({params}: Props) {
-  const {id} = await params
+export default async function MunicipalityPage({ params }: Props) {
+  const { id } = await params
   const data = await fetchMunicipality({
     id,
   })

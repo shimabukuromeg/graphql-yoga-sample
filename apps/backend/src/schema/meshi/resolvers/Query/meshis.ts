@@ -1,6 +1,9 @@
-import type { QueryResolvers, QuerymeshisArgs } from './../../../types.generated'
-import { encodeCursor, decodeCursor } from '../../../../lib/cursor'
 import { Prisma } from '@prisma/client'
+import { decodeCursor, encodeCursor } from '../../../../lib/cursor'
+import type {
+  QueryResolvers,
+  QuerymeshisArgs,
+} from './../../../types.generated'
 
 export const meshis: NonNullable<QueryResolvers['meshis']> = async (
   _parent,
@@ -61,9 +64,7 @@ export const meshis: NonNullable<QueryResolvers['meshis']> = async (
     }))
   } else {
     // 通常のクエリ（全文検索なし）
-    const whereCondition = cursor
-      ? { id: { gt: cursor } }
-      : {}
+    const whereCondition = cursor ? { id: { gt: cursor } } : {}
 
     // 総件数を取得
     totalCount = await ctx.prisma.meshi.count()

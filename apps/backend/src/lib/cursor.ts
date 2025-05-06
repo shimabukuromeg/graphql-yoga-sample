@@ -8,7 +8,7 @@
  * @returns Base64エンコードされたカーソル文字列
  */
 export function encodeCursor(id: number): string {
-  return Buffer.from(`meshi:${id}`).toString('base64');
+  return Buffer.from(`meshi:${id}`).toString('base64')
 }
 
 /**
@@ -17,10 +17,10 @@ export function encodeCursor(id: number): string {
  * @returns 数値ID
  */
 export function decodeCursor(cursor: string): number {
-  const decoded = Buffer.from(cursor, 'base64').toString('utf-8');
-  const parts = decoded.split(':');
+  const decoded = Buffer.from(cursor, 'base64').toString('utf-8')
+  const parts = decoded.split(':')
   if (parts.length !== 2 || parts[0] !== 'meshi') {
-    throw new Error('Invalid cursor format');
+    throw new Error('Invalid cursor format')
   }
-  return parseInt(parts[1], 10);
-} 
+  return Number.parseInt(parts[1], 10)
+}

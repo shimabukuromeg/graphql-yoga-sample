@@ -66,7 +66,9 @@ export const MeshiCard = (props: Props) => {
             <p className="font-bold line-clamp-3">{meshi.title}</p>
           </Link>
           <div className="flex justify-end mt-1">
-            <p className="text-sm text-gray-500">{new Date(meshi.publishedDate).toLocaleDateString('ja-JP')}</p>
+            <p className="text-sm text-gray-500">
+              {new Date(meshi.publishedDate).toLocaleDateString('ja-JP')}
+            </p>
           </div>
         </div>
       </CardFooter>
