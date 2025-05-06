@@ -5,6 +5,55 @@ import type {
   QuerymeshisArgs,
 } from './../../../types.generated'
 
+interface RawMeshiResult {
+  id: number
+  article_id: string
+  title: string
+  image_url: string
+  store_name: string
+  address: string
+  site_url: string
+  published_date: Date
+  latitude: number
+  longitude: number
+  created_at: Date
+  municipality_meshis: number | null
+}
+
+// ドメインモデルのメシ型
+interface MeshiModel {
+  id: number
+  articleId: string
+  title: string
+  imageUrl: string
+  storeName: string
+  address: string
+  siteUrl: string
+  publishedDate: Date
+  latitude: number
+  longitude: number
+  createdAt: Date
+  municipalityMeshis: number | null
+}
+
+// メシデータの形に変換するためのマッパー関数
+function mapRawMeshiToDomain(item: RawMeshiResult): MeshiModel {
+  return {
+    id: item.id,
+    articleId: item.article_id,
+    title: item.title,
+    imageUrl: item.image_url,
+    storeName: item.store_name,
+    address: item.address,
+    siteUrl: item.site_url,
+    publishedDate: item.published_date,
+    latitude: item.latitude,
+    longitude: item.longitude,
+    createdAt: item.created_at,
+    municipalityMeshis: item.municipality_meshis,
+  }
+}
+
 export const meshis: NonNullable<QueryResolvers['meshis']> = async (
   _parent,
   args: QuerymeshisArgs,
@@ -26,7 +75,7 @@ export const meshis: NonNullable<QueryResolvers['meshis']> = async (
   }
 
   // クエリの有無に応じて検索条件を分岐
-  let items: any[] = []
+  let items: MeshiModel[] = []
   let totalCount = 0
 
   if (query) {
@@ -39,7 +88,7 @@ export const meshis: NonNullable<QueryResolvers['meshis']> = async (
     totalCount = Number(countResult[0].count)
 
     // 検索結果の取得
-    const results = await ctx.prisma.$queryRaw<any[]>`
+    const results = await ctx.prisma.$queryRaw<RawMeshiResult[]>`
       SELECT *
       FROM meshis
       WHERE (title || ' ' || store_name) &@~ ${query}
@@ -48,20 +97,7 @@ export const meshis: NonNullable<QueryResolvers['meshis']> = async (
       LIMIT ${limit}
     `
 
-    items = results.map((item: any) => ({
-      id: item.id,
-      articleId: item.article_id,
-      title: item.title,
-      imageUrl: item.image_url,
-      storeName: item.store_name,
-      address: item.address,
-      siteUrl: item.site_url,
-      publishedDate: item.published_date,
-      latitude: item.latitude,
-      longitude: item.longitude,
-      createdAt: item.created_at,
-      municipalityMeshis: item.municipality_meshis,
-    }))
+    items = results.map(mapRawMeshiToDomain)
   } else {
     // 通常のクエリ（全文検索なし）
     const whereCondition = cursor ? { id: { gt: cursor } } : {}
@@ -81,7 +117,7 @@ export const meshis: NonNullable<QueryResolvers['meshis']> = async (
   const hasNextPage = items.length === limit
 
   // ページ情報の作成
-  const edges = items.map((item: any) => ({
+  const edges = items.map((item: MeshiModel) => ({
     cursor: encodeCursor(item.id),
     node: item,
   }))
