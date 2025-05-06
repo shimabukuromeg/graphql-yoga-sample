@@ -93,7 +93,7 @@ export const meshis: NonNullable<QueryResolvers['meshis']> = async (
       FROM meshis
       WHERE (title || ' ' || store_name) &@~ ${query}
         ${cursor ? Prisma.sql`AND id > ${cursor}` : Prisma.sql``}
-      ORDER BY id
+      ORDER BY published_date DESC
       LIMIT ${limit}
     `
 
@@ -108,7 +108,7 @@ export const meshis: NonNullable<QueryResolvers['meshis']> = async (
     // データ取得
     items = await ctx.prisma.meshi.findMany({
       where: whereCondition,
-      orderBy: { id: 'asc' },
+      orderBy: { publishedDate: 'desc' },
       take: limit,
     })
   }
