@@ -1,9 +1,18 @@
-import { fetchMeshiData } from '@/lib/fetch-meshi-data'
 import { PAGE_SIZE, TRADING_PAGE_SIZE } from '@/src/constants/common'
 // import { useSearch } from "../queries/use-search-query";
 import type { SearchItem } from '@/types/global-search'
 import { useEffect, useMemo, useRef, useState } from 'react'
 import { useGlobalSearchStore } from '../store/global-search-store'
+
+// APIレスポンスの型を定義
+interface MeshiApiResponse {
+  items: SearchItem[]
+  pageInfo: {
+    hasNextPage: boolean
+    endCursor?: string | null
+  }
+  totalCount: number
+}
 
 /**
  * Custom hook for managing global search functionality
@@ -24,12 +33,9 @@ const useGlobalSearch = () => {
   const [isLoading, setIsLoading] = useState<boolean>(false)
   const [isError, setIsError] = useState<boolean>(false)
   const [error, setError] = useState<Error | null>(null)
-  // GraphQLのレスポンスにはページネーション情報が含まれるため、それを利用する
-  // ただし、fetchMeshiData が現状 SearchItem[] しか返さないため、
-  // fetchMeshiData を修正するか、このフックでより詳細なレスポンスを扱う必要がある
-  const [hasNextPage, setHasNextPage] = useState<boolean>(false) // 仮
-  const [totalCount, setTotalCount] = useState<number>(0) // 仮
-  // const [nextCursor, setNextCursor] = useState<string | null>(null); // 必要に応じて
+  const [hasNextPage, setHasNextPage] = useState<boolean>(false)
+  const [totalCount, setTotalCount] = useState<number>(0)
+  const [nextCursor, setNextCursor] = useState<string | null | undefined>(null)
 
   // Determine if we should fetch trending items
   const fetchTrending = useMemo(() => !searchQuery, [searchQuery])
@@ -42,21 +48,21 @@ const useGlobalSearch = () => {
       setError(null)
       try {
         const limit = fetchTrending ? TRADING_PAGE_SIZE : PAGE_SIZE
-        // fetchMeshiData を呼び出し
-        // 注意: 現状の fetchMeshiData は SearchItem[] のみを返す。
-        // ページネーション情報 (hasNextPage, totalCount, endCursor) を取得するには
-        // fetchMeshiData の戻り値を変更するか、ここでレスポンス全体を扱う必要がある。
-        // ここでは、SearchItem[] を受け取る前提で進める。
-        const data = await fetchMeshiData(limit, searchQuery) // searchQueryが空文字の場合undefinedを渡す
-        setSearchResults(data)
+        const params = new URLSearchParams()
+        params.append('first', limit.toString())
+        if (searchQuery) {
+          params.append('query', searchQuery)
+        }
+        const response = await fetch(`/api/meshi?${params.toString()}`)
+        if (!response.ok) {
+          throw new Error(`Failed to fetch meshi data: ${response.statusText}`)
+        }
+        const data: MeshiApiResponse = await response.json()
 
-        // --- ページネーション情報の仮対応 ---
-        // 本来は fetchMeshiData が返すレスポンスから取得する
-        setTotalCount(data.length) // 今は取得した件数をtotalCountとする
-        // hasNextPage の判断もレスポンスに基づく必要がある
-        setHasNextPage(data.length === limit) // もし取得件数がlimitと同じなら次があるかもしれない、という仮定
-        // setNextCursor(null); // レスポンスから取得
-        // --- ここまでページネーション情報の仮対応 ---
+        setSearchResults(data.items)
+        setTotalCount(data.totalCount)
+        setHasNextPage(data.pageInfo.hasNextPage)
+        setNextCursor(data.pageInfo.endCursor)
       } catch (err) {
         setIsError(true)
         if (err instanceof Error) {
@@ -67,6 +73,7 @@ const useGlobalSearch = () => {
         setSearchResults([])
         setTotalCount(0)
         setHasNextPage(false)
+        setNextCursor(null)
       } finally {
         setIsLoading(false)
       }
@@ -91,11 +98,42 @@ const useGlobalSearch = () => {
   }, [searchFilter, searchQuery])
 
   const fetchNextPage = async () => {
-    // TODO: ページネーション処理を実装
-    // searchQuery, nextCursor を使って fetchMeshiData を呼び出し、
-    // searchResults に結果を追加 (concat) する
-    // hasNextPage, nextCursor を更新する
-    console.log('fetchNextPage called, but not implemented yet.')
+    if (!hasNextPage || isLoading) return
+
+    setIsLoading(true)
+    try {
+      const params = new URLSearchParams()
+      params.append('first', PAGE_SIZE.toString())
+      if (searchQuery) {
+        params.append('query', searchQuery)
+      }
+      if (nextCursor) {
+        params.append('after', nextCursor)
+      }
+
+      const response = await fetch(`/api/meshi?${params.toString()}`)
+      if (!response.ok) {
+        throw new Error(
+          `Failed to fetch next page of meshi data: ${response.statusText}`,
+        )
+      }
+      const data: MeshiApiResponse = await response.json()
+
+      setSearchResults((prevResults) => [...prevResults, ...data.items])
+      setHasNextPage(data.pageInfo.hasNextPage)
+      setNextCursor(data.pageInfo.endCursor)
+    } catch (err) {
+      setIsError(true)
+      if (err instanceof Error) {
+        setError(err)
+      } else {
+        setError(
+          new Error('An unknown error occurred while fetching next page.'),
+        )
+      }
+    } finally {
+      setIsLoading(false)
+    }
   }
 
   // Return an object with all necessary state and functions

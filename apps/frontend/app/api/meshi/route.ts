@@ -4,15 +4,18 @@ import type {
   MeshiSearchQueryVariables,
 } from '@/src/gql/graphql'
 import { GraphQLClient } from 'graphql-request'
+import { NextResponse } from 'next/server'
 import { cache } from 'react'
-import type { SearchItem } from '../types/global-search'
 
-export async function fetchMeshiData(
-  first = 1000,
-  query?: string,
-): Promise<SearchItem[]> {
+export async function GET(request: Request) {
+  const { searchParams } = new URL(request.url)
+  const first = Number.parseInt(searchParams.get('first') ?? '1000')
+  const query = searchParams.get('query') ?? undefined
+
   const backendEndpoint =
     process.env.BACKEND_ENDPOINT ?? 'http://localhost:44000/graphql'
+
+  console.log('backendEndpoint', process.env.BACKEND_ENDPOINT)
 
   const client = new GraphQLClient(backendEndpoint, {
     // biome-ignore lint/suspicious/noExplicitAny: <explanation>
@@ -28,7 +31,20 @@ export async function fetchMeshiData(
     MeshiSearchQueryDocument,
     variables,
   )
-  return data.meshis.edges.map((edge) => edge.node as SearchItem)
+
+  try {
+    return NextResponse.json({
+      items: data.meshis.edges.map((edge) => edge.node),
+      pageInfo: data.meshis.pageInfo,
+      totalCount: data.meshis.totalCount,
+    })
+  } catch (error) {
+    console.error(error)
+    return NextResponse.json(
+      { error: 'Failed to fetch meshi data' },
+      { status: 500 },
+    )
+  }
 }
 
 const MeshiSearchQueryDocument = graphql(/* GraphQL */ `

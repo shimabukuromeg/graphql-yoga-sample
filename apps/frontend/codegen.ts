@@ -7,6 +7,7 @@ const config: CodegenConfig = {
     'app/**/*.tsx',
     'components/**/*.tsx',
     'lib/**/*.ts',
+    'app/api/**/*.ts',
   ],
   ignoreNoDocuments: true, // for better experience with the watcher
   generates: {
