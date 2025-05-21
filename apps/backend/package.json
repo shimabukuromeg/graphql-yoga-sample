@@ -53,7 +53,6 @@
     "graphql-yoga": "5.13.4",
     "microcms_sdk_generator": "0.1.1",
     "prisma": "6.7.0",
-    "zod": "3.24.3",
-    "zustand": "5.0.5"
+    "zod": "3.24.3"
   }
 }
