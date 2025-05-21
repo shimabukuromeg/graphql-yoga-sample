@@ -1,40 +1,25 @@
-import { graphql } from '@/src/gql'
-import { GraphQLClient } from 'graphql-request'
-import { cache } from 'react'
-import { SearchContent } from './components/serach-content'
+import GlobalSearch from '@/components/global-search'
+import { UseCaseLink } from './use-case-link'
 
-export default async function SearchPage() {
-  const data = await fetchMunicipalities()
-  console.log(data)
-
+/**
+ * Home Page Component
+ * Renders the main page of the Global Search UI Demo
+ */
+export default function Home() {
   return (
-    <div className="flex flex-col md:gap-8 gap-2 md:p-20 p-2">
-      <h1 className="text-2xl md:text-3xl font-bold text-textBlack">検索</h1>
-      <div className="md:px-4 px-1">
-        <SearchContent municipalities={data.municipalities} />
-      </div>
-    </div>
+    <main className="flex h-full w-full flex-col items-center justify-center gap-6 p-8">
+      <header className="flex flex-col items-center justify-center gap-2 text-center">
+        <h1 className="text-2xl font-bold">調べるぞ🐤</h1>
+      </header>
+
+      <section
+        className="flex w-full items-start justify-center"
+        aria-label="Global Search"
+      >
+        <div className="flex w-full max-w-[750px] items-start justify-center rounded-md border border-stone-200 bg-gradient-to-r from-stone-100 to-stone-50 p-2">
+          <GlobalSearch />
+        </div>
+      </section>
+    </main>
   )
-}
-
-const MunicipalitiesQuery = graphql(/* GraphQL */ `
-  query Municipalities {
-    municipalities {
-      name
-      id
-    }
-  }
-`)
-
-const fetchMunicipalities = async () => {
-  const backendEndpoint =
-    process.env.BACKEND_ENDPOINT ?? 'http://localhost:44000/graphql'
-
-  const client = new GraphQLClient(backendEndpoint, {
-    fetch: cache(async (url: RequestInfo | URL, params?: RequestInit) =>
-      fetch(url, { ...params, next: { revalidate: 60 } }),
-    ),
-  })
-  const data = await client.request(MunicipalitiesQuery, {})
-  return data
 }
