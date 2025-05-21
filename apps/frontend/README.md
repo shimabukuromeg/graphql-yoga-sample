@@ -19,4 +19,4 @@ pnpm codegen
 pnpm dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:33000](http://localhost:33000) with your browser to see the result.

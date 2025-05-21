@@ -9,7 +9,7 @@ services:
       - db-data:/var/lib/postgresql/meshipiyo/data
       - ./docker/postgres/init:/docker-entrypoint-initdb.d
     ports:
-      - "5432:5432"
+      - "55432:5432"
     environment:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: password
@@ -22,7 +22,7 @@ services:
       dockerfile: ./Dockerfile
       target: backend
     ports:
-      - "4000:4000"
+      - "44000:44000"
     env_file:
       - ./apps/backend/.env
     depends_on:

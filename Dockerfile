@@ -30,6 +30,6 @@ RUN pnpm prisma generate
 FROM base AS backend
 COPY --from=build /deploy/backend /app/apps/backend
 WORKDIR /app/apps/backend
-EXPOSE 4000
+EXPOSE 44000
 
 CMD [ "pnpm", "start" ]

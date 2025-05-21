@@ -116,7 +116,7 @@ const fetchMeshiDetail = async (
   input: VariablesOf<typeof MeshiDetailQuery>,
 ) => {
   const backendEndpoint =
-    process.env.BACKEND_ENDPOINT ?? 'http://localhost:4000/graphql'
+    process.env.BACKEND_ENDPOINT ?? 'http://localhost:44000/graphql'
 
   const client = new GraphQLClient(backendEndpoint, {
     // biome-ignore lint/suspicious/noExplicitAny: <explanation>
