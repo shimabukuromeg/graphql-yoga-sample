@@ -71,7 +71,7 @@ const useGlobalSearch = () => {
       }
     }
     loadData()
-  }, [searchQuery, searchFilter, fetchTrending, PAGE_SIZE, TRADING_PAGE_SIZE]) // searchFilterも依存配列に追加
+  }, [searchQuery, fetchTrending]) // searchFilterも依存配列に追加
 
   // Extract trending items from the search results
   const trendingItems = useMemo(() => {
@@ -79,7 +79,7 @@ const useGlobalSearch = () => {
       return searchResults.slice(0, TRADING_PAGE_SIZE)
     }
     return []
-  }, [searchResults, fetchTrending, TRADING_PAGE_SIZE])
+  }, [searchResults, fetchTrending])
 
   // Scroll to top when search filter changes
   useEffect(() => {

@@ -25,14 +25,14 @@ export const HighlightText: React.FC<HighlightTextProps> = ({
       {parts.map((part, index) =>
         part.toLowerCase() === searchTerm.toLowerCase() ? (
           <mark
-            key={index}
+            key={index.toString()}
             className="bg-yellow-200 font-semibold"
             aria-label={`Highlighted text: ${part}`}
           >
             {part}
           </mark>
         ) : (
-          <React.Fragment key={index}>{part}</React.Fragment>
+          <React.Fragment key={index.toString()}>{part}</React.Fragment>
         ),
       )}
     </>

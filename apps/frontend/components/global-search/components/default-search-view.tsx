@@ -23,7 +23,6 @@ export const DefaultView: React.FC<DefaultViewProps> = ({
     animate={{ opacity: 1 }}
     exit={{ opacity: 0 }}
     transition={{ duration: 0.2 }}
-    role="region"
     aria-label="Search results"
   >
     {/* Recent Searches
