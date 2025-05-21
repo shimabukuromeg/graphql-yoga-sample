@@ -1,11 +1,11 @@
-import { motion } from "framer-motion";
-import { SearchItem } from "@/types/global-search";
-import { RecentSearches } from "./recent-searches";
-import { TrendingSearches } from "./trending-searches";
+import type { SearchItem } from '@/types/global-search'
+import { motion } from 'framer-motion'
+import { RecentSearches } from './recent-searches'
+import { TrendingSearches } from './trending-searches'
 
 interface DefaultViewProps {
-  recentSearches: SearchItem[];
-  trendingItems: SearchItem[];
+  recentSearches: SearchItem[]
+  trendingItems: SearchItem[]
 }
 
 /**
@@ -33,4 +33,4 @@ export const DefaultView: React.FC<DefaultViewProps> = ({
     {/* Trending Searches */}
     {trendingItems.length > 0 && <TrendingSearches results={trendingItems} />}
   </motion.div>
-);
+)

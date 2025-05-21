@@ -1,6 +1,5 @@
-import GlobalSearch from "@/components/global-search";
-import { UseCaseLink } from "./use-case-link";
-
+import GlobalSearch from '@/components/global-search'
+import { UseCaseLink } from './use-case-link'
 
 /**
  * Home Page Component
@@ -13,11 +12,14 @@ export default function Home() {
         <h1 className="text-2xl font-bold">調べるぞ🐤</h1>
       </header>
 
-      <section className="flex w-full items-start justify-center" aria-label="Global Search">
+      <section
+        className="flex w-full items-start justify-center"
+        aria-label="Global Search"
+      >
         <div className="flex w-full max-w-[750px] items-start justify-center rounded-md border border-stone-200 bg-gradient-to-r from-stone-100 to-stone-50 p-2">
           <GlobalSearch />
         </div>
       </section>
     </main>
-  );
+  )
 }

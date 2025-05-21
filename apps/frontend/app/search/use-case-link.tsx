@@ -1,13 +1,13 @@
-import Link from "next/link";
-import { ExternalLink } from "lucide-react";
+import { ExternalLink } from 'lucide-react'
+import Link from 'next/link'
 
 /**
  * UseCaseLink Component
  * Renders a link with an external link icon, styled as a button.
  */
 interface UseCaseLinkProps {
-  href: string;
-  title: string;
+  href: string
+  title: string
 }
 
 export const UseCaseLink: React.FC<UseCaseLinkProps> = ({ href, title }) => (
@@ -26,4 +26,4 @@ export const UseCaseLink: React.FC<UseCaseLinkProps> = ({ href, title }) => (
       aria-hidden="true"
     />
   </Link>
-);
+)

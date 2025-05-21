@@ -1,24 +1,30 @@
-"use client";
+'use client'
 
-import React, { useEffect } from "react";
-import { useDebounce } from "@uidotdev/usehooks";
+import { useDebounce } from '@uidotdev/usehooks'
 import {
-  Search,
-  FileText,
-  Users,
-  Calendar,
   BarChart2,
   Briefcase,
-  Globe,
-  X,
+  Calendar,
   ChevronDown,
-} from "lucide-react";
+  FileText,
+  Globe,
+  Search,
+  Users,
+  X,
+} from 'lucide-react'
+import type React from 'react'
+import { useEffect } from 'react'
 
-import { Input } from "@/components/global-search/components/input";
-import { Button } from "@/components/ui/button";
-import { useGlobalSearchStore } from "../store/global-search-store";
-import { SearchFilter } from "@/types/global-search";
-import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "./dropdown-menu";
+import { Input } from '@/components/global-search/components/input'
+import { Button } from '@/components/ui/button'
+import type { SearchFilter } from '@/types/global-search'
+import { useGlobalSearchStore } from '../store/global-search-store'
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from './dropdown-menu'
 
 // Define filter options for the search
 export const filterOptions: SearchFilter[] = [
@@ -29,12 +35,12 @@ export const filterOptions: SearchFilter[] = [
   // { id: "analytics", title: "Analytics", icon: BarChart2 },
   // { id: "project", title: "Project", icon: Briefcase },
   // { id: "global", title: "Global", icon: Globe },
-];
+]
 
 type Props = {
-  searchTerm: string;
-  setSearchTerm: (term: string) => void;
-};
+  searchTerm: string
+  setSearchTerm: (term: string) => void
+}
 
 /**
  * SearchInput component for global search functionality
@@ -43,19 +49,19 @@ type Props = {
  */
 export const SearchInput: React.FC<Props> = ({ searchTerm, setSearchTerm }) => {
   const { setSearchQuery, searchFilter, setSearchFilter } =
-    useGlobalSearchStore();
+    useGlobalSearchStore()
 
-  const debouncedSearchTerm = useDebounce(searchTerm, 300);
+  const debouncedSearchTerm = useDebounce(searchTerm, 300)
 
   // Update search query when debounced search term changes
   useEffect(() => {
-    setSearchQuery(debouncedSearchTerm);
-  }, [debouncedSearchTerm, setSearchQuery]);
+    setSearchQuery(debouncedSearchTerm)
+  }, [debouncedSearchTerm, setSearchQuery])
 
   // Handle search input change
   const handleSearchTermChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setSearchTerm(e.target.value);
-  };
+    setSearchTerm(e.target.value)
+  }
 
   return (
     <div className="flex-shrink-0 border-b p-4">
@@ -75,7 +81,7 @@ export const SearchInput: React.FC<Props> = ({ searchTerm, setSearchTerm }) => {
               variant="link"
               size="icon"
               className="absolute right-0 top-0"
-              onClick={() => setSearchTerm("")}
+              onClick={() => setSearchTerm('')}
               aria-label="Clear search"
             >
               <X size={16} />
@@ -90,7 +96,7 @@ export const SearchInput: React.FC<Props> = ({ searchTerm, setSearchTerm }) => {
           {filterOptions.map((filter) => (
             <Button
               key={filter.id}
-              variant={searchFilter === filter.id ? "default" : "outline"}
+              variant={searchFilter === filter.id ? 'default' : 'outline'}
               size="sm"
               onClick={() => setSearchFilter(filter.id)}
               className="whitespace-nowrap"
@@ -109,7 +115,10 @@ export const SearchInput: React.FC<Props> = ({ searchTerm, setSearchTerm }) => {
           <DropdownMenuTrigger asChild>
             <Button variant="outline" className="w-full justify-between">
               <span className="flex items-center">
-                {filterOptions.find((filter) => filter.id === searchFilter)?.title}
+                {
+                  filterOptions.find((filter) => filter.id === searchFilter)
+                    ?.title
+                }
               </span>
               <ChevronDown className="h-4 w-4 opacity-50" aria-hidden="true" />
             </Button>
@@ -129,5 +138,5 @@ export const SearchInput: React.FC<Props> = ({ searchTerm, setSearchTerm }) => {
         </DropdownMenu>
       </div>
     </div>
-  );
-};
+  )
+}

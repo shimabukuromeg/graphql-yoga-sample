@@ -1,11 +1,12 @@
-"use client";
+'use client'
 
-import React, { useCallback, useEffect, useRef, useState } from "react";
-import { AnimatePresence, motion } from "framer-motion";
-import { LoadingSpinner } from "./components/loading-spinner";
-import { SearchInput } from "./components/search-input";
-import { SearchWrapper } from "./components/search-wrapper";
-import useGlobalSearch from "./hooks/use-global-search";
+import { AnimatePresence, motion } from 'framer-motion'
+import type React from 'react'
+import { useCallback, useEffect, useRef, useState } from 'react'
+import { LoadingSpinner } from './components/loading-spinner'
+import { SearchInput } from './components/search-input'
+import { SearchWrapper } from './components/search-wrapper'
+import useGlobalSearch from './hooks/use-global-search'
 
 /**
  * GlobalSearch Component
@@ -14,8 +15,8 @@ import useGlobalSearch from "./hooks/use-global-search";
  * including real-time search results, infinite scrolling, and trending items.
  */
 const GlobalSearch: React.FC = () => {
-  const [searchTerm, setSearchTerm] = useState<string>("");
-  const observerTarget = useRef<HTMLDivElement>(null);
+  const [searchTerm, setSearchTerm] = useState<string>('')
+  const observerTarget = useRef<HTMLDivElement>(null)
 
   const {
     searchResults,
@@ -27,42 +28,42 @@ const GlobalSearch: React.FC = () => {
     isFetchingNextPage,
     resultsRef,
     totalCount,
-  } = useGlobalSearch();
+  } = useGlobalSearch()
 
   /**
    * Handles the intersection observer for infinite scrolling
    */
   const handleObserver = useCallback(
     (entries: IntersectionObserverEntry[]) => {
-      const [target] = entries;
+      const [target] = entries
       if (
         searchTerm &&
         target.isIntersecting &&
         hasNextPage &&
         !isFetchingNextPage
       ) {
-        fetchNextPage();
+        fetchNextPage()
       }
     },
     [fetchNextPage, hasNextPage, isFetchingNextPage, searchTerm],
-  );
+  )
 
   // Set up intersection observer for infinite scrolling
   // How it works: https://developer.mozilla.org/en-US/docs/Web/API/Intersection_Observer_API
   useEffect(() => {
-    const element = observerTarget.current;
-    if (!element) return;
+    const element = observerTarget.current
+    if (!element) return
 
     const observer = new IntersectionObserver(handleObserver, {
       root: null,
-      rootMargin: "0px",
+      rootMargin: '0px',
       threshold: 1.0,
-    });
+    })
 
-    observer.observe(element);
+    observer.observe(element)
 
-    return () => observer.unobserve(element);
-  }, [handleObserver]);
+    return () => observer.unobserve(element)
+  }, [handleObserver])
 
   return (
     <div className="w-full max-w-[750px] md:w-[750px]">
@@ -99,7 +100,7 @@ const GlobalSearch: React.FC = () => {
         </motion.div>
       </AnimatePresence>
     </div>
-  );
-};
+  )
+}
 
-export default GlobalSearch;
+export default GlobalSearch

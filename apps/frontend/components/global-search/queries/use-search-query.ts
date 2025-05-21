@@ -1,10 +1,10 @@
-import { useInfiniteQuery } from "@tanstack/react-query";
-import { client } from "@/lib/hono";
-import {
+import { client } from '@/lib/hono'
+import type {
   FetchSearchItemsParams,
   FetchSearchItemsResponse,
-} from "@/types/global-search";
-import { useGlobalSearchStore } from "../store/global-search-store";
+} from '@/types/global-search'
+import { useInfiniteQuery } from '@tanstack/react-query'
+import { useGlobalSearchStore } from '../store/global-search-store'
 
 /**
  * Fetches search items from the API
@@ -44,7 +44,7 @@ const fetchSearchItems = async (
    *
    * This approach ensures end-to-end type safety between your API and client code.
    */
-  const response = await client.api["global-search"].$get({
+  const response = await client.api['global-search'].$get({
     query: {
       cursor: cursor ?? undefined,
       limit: params.limit.toString(),
@@ -52,14 +52,14 @@ const fetchSearchItems = async (
       searchTerm: params.searchTerm,
       trending: params.trending.toString(),
     },
-  });
+  })
 
   if (!response.ok) {
-    throw new Error("Failed to fetch search items");
+    throw new Error('Failed to fetch search items')
   }
 
-  return await response.json();
-};
+  return await response.json()
+}
 
 /**
  * Custom hook for handling search queries
@@ -67,7 +67,7 @@ const fetchSearchItems = async (
  * @returns Infinite query result
  */
 export const useSearch = (params: FetchSearchItemsParams) => {
-  const { setCurrentCursor } = useGlobalSearchStore();
+  const { setCurrentCursor } = useGlobalSearchStore()
 
   /**
    * useInfiniteQuery Hook for Paginated Search Results
@@ -96,12 +96,12 @@ export const useSearch = (params: FetchSearchItemsParams) => {
    *    - If params change, it triggers a new query series with a fresh cache.
    */
   return useInfiniteQuery<FetchSearchItemsResponse>({
-    queryKey: ["infinite-search-list", params],
+    queryKey: ['infinite-search-list', params],
     queryFn: ({ pageParam }) => {
-      setCurrentCursor(pageParam as string | undefined);
-      return fetchSearchItems(pageParam as string | null, params);
+      setCurrentCursor(pageParam as string | undefined)
+      return fetchSearchItems(pageParam as string | null, params)
     },
     initialPageParam: null as string | null,
     getNextPageParam: (lastPage) => lastPage.nextCursor,
-  });
-};
+  })
+}

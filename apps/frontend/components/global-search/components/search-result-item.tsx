@@ -1,34 +1,34 @@
-"use client";
+'use client'
 
-import React from "react";
-import Link from "next/link";
-import { ChevronRight } from "lucide-react";
-import Image from "next/image";
-import { useIsClient } from "@uidotdev/usehooks";
+import { useIsClient } from '@uidotdev/usehooks'
+import { ChevronRight } from 'lucide-react'
+import Image from 'next/image'
+import Link from 'next/link'
+import type React from 'react'
 
-import { SearchItem } from "@/types/global-search";
-import { useGlobalSearchStore } from "../store/global-search-store";
-import { HighlightText } from "./highlight-text";
+import type { SearchItem } from '@/types/global-search'
+import { useGlobalSearchStore } from '../store/global-search-store'
+import { HighlightText } from './highlight-text'
 
 type SearchResultItemProps = {
-  item: SearchItem;
-};
+  item: SearchItem
+}
 
 /**
  * SearchResultItem component displays a single search result.
  * It includes the item's icon, name, breadcrumbs, description, and last updated date.
  */
 export const SearchResultItem: React.FC<SearchResultItemProps> = ({ item }) => {
-  const { searchQuery } = useGlobalSearchStore();
-  const isClient = useIsClient();
+  const { searchQuery } = useGlobalSearchStore()
+  const isClient = useIsClient()
 
   // Redirect URL for the search result item
   // TODO: update this to use the actual URL
   // This is a demonstration of how to redirect to a page
-  const redirectUrl = `/meshi/${item.id}`;
+  const redirectUrl = `/meshi/${item.id}`
 
   // Render null on the server to prevent hydration mismatch
-  if (!isClient) return null;
+  if (!isClient) return null
 
   return (
     <Link
@@ -63,5 +63,5 @@ export const SearchResultItem: React.FC<SearchResultItemProps> = ({ item }) => {
         </div>
       )}
     </Link>
-  );
-};
+  )
+}

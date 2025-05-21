@@ -1,12 +1,12 @@
-import React from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { AnimatePresence, motion } from 'framer-motion'
+import type React from 'react'
 
-import { SearchItem } from "@/types/global-search";
-import { SearchResultItem } from "./search-result-item";
-import { useGlobalSearchStore } from "../store/global-search-store";
+import type { SearchItem } from '@/types/global-search'
+import { useGlobalSearchStore } from '../store/global-search-store'
+import { SearchResultItem } from './search-result-item'
 
 interface SearchResultsProps {
-  results: SearchItem[];
+  results: SearchItem[]
 }
 
 /**
@@ -14,10 +14,12 @@ interface SearchResultsProps {
  * It uses Framer Motion for smooth transitions when results change.
  */
 export const SearchResults: React.FC<SearchResultsProps> = ({ results }) => {
-  const { currentCursor } = useGlobalSearchStore();
+  const { currentCursor } = useGlobalSearchStore()
 
   // Calculate the starting index for new items animation
-  const newItemsStartIndex = currentCursor ? parseInt(currentCursor, 10) : 0;
+  const newItemsStartIndex = currentCursor
+    ? Number.parseInt(currentCursor, 10)
+    : 0
 
   return (
     <AnimatePresence mode="wait">
@@ -36,13 +38,13 @@ export const SearchResults: React.FC<SearchResultsProps> = ({ results }) => {
                 : 0,
           }}
           style={{
-            willChange: "opacity",
-            backfaceVisibility: "hidden",
+            willChange: 'opacity',
+            backfaceVisibility: 'hidden',
           }}
         >
           <SearchResultItem item={item} />
         </motion.div>
       ))}
     </AnimatePresence>
-  );
-};
+  )
+}

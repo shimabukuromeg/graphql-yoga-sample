@@ -1,10 +1,10 @@
-"use client";
+'use client'
 
-import React from "react";
+import React from 'react'
 
 interface HighlightTextProps {
-  text: string;
-  searchTerm: string;
+  text: string
+  searchTerm: string
 }
 
 /**
@@ -12,10 +12,13 @@ interface HighlightTextProps {
  * @param {HighlightTextProps} props - The component props.
  * @returns {React.ReactNode} The rendered text with highlighted search terms.
  */
-export const HighlightText: React.FC<HighlightTextProps> = ({ text, searchTerm }) => {
-  if (!searchTerm) return text;
+export const HighlightText: React.FC<HighlightTextProps> = ({
+  text,
+  searchTerm,
+}) => {
+  if (!searchTerm) return text
 
-  const parts = text.split(new RegExp(`(${searchTerm})`, "gi"));
+  const parts = text.split(new RegExp(`(${searchTerm})`, 'gi'))
 
   return (
     <>
@@ -30,8 +33,8 @@ export const HighlightText: React.FC<HighlightTextProps> = ({ text, searchTerm }
           </mark>
         ) : (
           <React.Fragment key={index}>{part}</React.Fragment>
-        )
+        ),
       )}
     </>
-  );
-};
+  )
+}

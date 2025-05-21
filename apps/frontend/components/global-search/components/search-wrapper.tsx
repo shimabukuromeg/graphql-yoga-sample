@@ -1,22 +1,22 @@
-"use client";
+'use client'
 
-import React from "react";
-import { AnimatePresence } from "framer-motion";
+import { AnimatePresence } from 'framer-motion'
+import type React from 'react'
 
-import { SearchItem } from "@/types/global-search";
-import { useGlobalSearchStore } from "../store/global-search-store";
-import { LoadingSpinner } from "./loading-spinner";
-import { DefaultView } from "./default-search-view";
-import { NoResultsPlaceholder } from "./no-results-placeholder";
-import { SearchResults } from "./search-results";
+import type { SearchItem } from '@/types/global-search'
+import { useGlobalSearchStore } from '../store/global-search-store'
+import { DefaultView } from './default-search-view'
+import { LoadingSpinner } from './loading-spinner'
+import { NoResultsPlaceholder } from './no-results-placeholder'
+import { SearchResults } from './search-results'
 
 interface SearchWrapperProps {
-  isLoading: boolean;
-  searchResults: SearchItem[];
-  recentSearches: SearchItem[];
-  trendingItems: SearchItem[];
-  setSearchTerm: (term: string) => void;
-  totalCount: number;
+  isLoading: boolean
+  searchResults: SearchItem[]
+  recentSearches: SearchItem[]
+  trendingItems: SearchItem[]
+  setSearchTerm: (term: string) => void
+  totalCount: number
 }
 
 /**
@@ -31,22 +31,22 @@ export const SearchWrapper: React.FC<SearchWrapperProps> = ({
   setSearchTerm,
   totalCount,
 }) => {
-  const { searchQuery } = useGlobalSearchStore();
+  const { searchQuery } = useGlobalSearchStore()
 
   // Display loading spinner while fetching results
   if (isLoading) {
-    return <LoadingSpinner />;
+    return <LoadingSpinner />
   }
 
   // Check if there are no results to display
   const showNoResults =
     searchResults.length === 0 &&
     recentSearches.length === 0 &&
-    trendingItems.length === 0;
+    trendingItems.length === 0
 
   // Display no results placeholder if there's nothing to show
   if (showNoResults) {
-    return <NoResultsPlaceholder setSearchTerm={setSearchTerm} />;
+    return <NoResultsPlaceholder setSearchTerm={setSearchTerm} />
   }
 
   return (
@@ -70,5 +70,5 @@ export const SearchWrapper: React.FC<SearchWrapperProps> = ({
         />
       )}
     </AnimatePresence>
-  );
-};
+  )
+}

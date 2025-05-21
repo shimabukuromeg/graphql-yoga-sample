@@ -1,14 +1,14 @@
-"use client";
+'use client'
 
-import React from "react";
-import { motion } from "framer-motion";
-import { FolderSearch } from "lucide-react";
+import { motion } from 'framer-motion'
+import { FolderSearch } from 'lucide-react'
+import type React from 'react'
 
-import { Button } from "@/components/ui/button";
-import { useGlobalSearchStore } from "../store/global-search-store";
+import { Button } from '@/components/ui/button'
+import { useGlobalSearchStore } from '../store/global-search-store'
 
 interface NoResultsPlaceholderProps {
-  setSearchTerm: (term: string) => void;
+  setSearchTerm: (term: string) => void
 }
 
 /**
@@ -17,13 +17,15 @@ interface NoResultsPlaceholderProps {
  * @param {NoResultsPlaceholderProps} props - Component props
  * @returns {JSX.Element} Rendered NoResultsPlaceholder component
  */
-export const NoResultsPlaceholder: React.FC<NoResultsPlaceholderProps> = ({ setSearchTerm }) => {
-  const { clearSearchParams } = useGlobalSearchStore();
+export const NoResultsPlaceholder: React.FC<NoResultsPlaceholderProps> = ({
+  setSearchTerm,
+}) => {
+  const { clearSearchParams } = useGlobalSearchStore()
 
   const handleClearFilters = () => {
-    setSearchTerm("");
-    clearSearchParams();
-  };
+    setSearchTerm('')
+    clearSearchParams()
+  }
 
   return (
     <motion.div
@@ -33,7 +35,11 @@ export const NoResultsPlaceholder: React.FC<NoResultsPlaceholderProps> = ({ setS
       transition={{ duration: 0.2 }}
       className="flex h-full w-full flex-col items-center justify-center p-4 text-center"
     >
-      <FolderSearch size={48} className="mb-4 text-gray-400" aria-hidden="true" />
+      <FolderSearch
+        size={48}
+        className="mb-4 text-gray-400"
+        aria-hidden="true"
+      />
       <h3 className="mb-2 text-lg font-semibold text-gray-700">
         No results found
       </h3>
@@ -41,14 +47,14 @@ export const NoResultsPlaceholder: React.FC<NoResultsPlaceholderProps> = ({ setS
         We couldn&apos;t find any items matching your search. Try adjusting your
         keywords or filters.
       </p>
-      <Button 
-        variant="outline" 
-        size="sm" 
+      <Button
+        variant="outline"
+        size="sm"
         onClick={handleClearFilters}
         aria-label="Clear filters and start a new search"
       >
         Clear filters
       </Button>
     </motion.div>
-  );
-};
+  )
+}

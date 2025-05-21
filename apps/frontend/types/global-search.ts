@@ -1,4 +1,4 @@
-import { LucideIcon } from 'lucide-react';
+import type { LucideIcon } from 'lucide-react'
 
 /**
  * Types for Global Search functionality
@@ -14,7 +14,7 @@ export type SearchItemType =
   | 'calendar'
   | 'analytics'
   | 'project'
-  | 'global';
+  | 'global'
 
 /**
  * Possible statuses for search items
@@ -25,23 +25,23 @@ export type SearchItemStatus =
   | 'pending'
   | 'completed'
   | 'archived'
-  | 'scheduled';
+  | 'scheduled'
 
 /**
  * Structure of a search item
  */
 export type SearchItem = {
-  __typename?: 'Meshi',
-  id: string,
-  imageUrl: string,
-  siteUrl: string,
-  title: string,
-  storeName: string,
-  publishedDate: string,
-  createdAt: string,
+  __typename?: 'Meshi'
+  id: string
+  imageUrl: string
+  siteUrl: string
+  title: string
+  storeName: string
+  publishedDate: string
+  createdAt: string
   municipality?: {
-    __typename?: 'Municipality',
-    id: string,
+    __typename?: 'Municipality'
+    id: string
     name: string
   } | null
 } & { ' $fragmentName'?: 'MeshiCardFragment' }
@@ -50,26 +50,26 @@ export type SearchItem = {
  * Structure of a search filter
  */
 export interface SearchFilter {
-  id: SearchItemType;
-  title: string;
-  icon: LucideIcon;
+  id: SearchItemType
+  title: string
+  icon: LucideIcon
 }
 
 /**
  * Structure of the response from fetching search items
  */
 export interface FetchSearchItemsResponse {
-  items: SearchItem[];
-  totalCount: number;
-  nextCursor: string | null;
+  items: SearchItem[]
+  totalCount: number
+  nextCursor: string | null
 }
 
 /**
  * Parameters for fetching search items
  */
 export interface FetchSearchItemsParams {
-  limit: number;
-  searchTerm: string;
-  filter: SearchItemType;
-  trending: boolean;
+  limit: number
+  searchTerm: string
+  filter: SearchItemType
+  trending: boolean
 }
