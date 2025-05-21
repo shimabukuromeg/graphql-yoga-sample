@@ -91,7 +91,6 @@ const GlobalSearch: React.FC = () => {
                 setSearchTerm={setSearchTerm}
                 totalCount={totalCount ?? 0}
               />
-              {/* Intersection observer target for infinite scrolling */}
               <div ref={observerTarget} className="scroll-hit h-10">
                 {isFetchingNextPage && <LoadingSpinner className="size-4" />}
               </div>

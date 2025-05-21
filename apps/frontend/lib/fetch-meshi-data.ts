@@ -1,6 +1,6 @@
 import { SearchItem } from '../types/global-search';
 
-const GRAPHQL_ENDPOINT = 'https://graphql-yoga-sample-358690415971.asia-northeast1.run.app/graphql';
+const GRAPHQL_ENDPOINT = process.env.BACKEND_ENDPOINT ?? 'http://localhost:44000/graphql'
 
 const MESHI_QUERY = `
   query Meshi($first: Int = 1000, $query: String) {

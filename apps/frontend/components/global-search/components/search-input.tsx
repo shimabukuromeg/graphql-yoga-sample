@@ -22,13 +22,13 @@ import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigge
 
 // Define filter options for the search
 export const filterOptions: SearchFilter[] = [
-  { id: "all", title: "All", icon: Search },
-  { id: "file", title: "File", icon: FileText },
-  { id: "team", title: "Team", icon: Users },
-  { id: "calendar", title: "Calendar", icon: Calendar },
-  { id: "analytics", title: "Analytics", icon: BarChart2 },
-  { id: "project", title: "Project", icon: Briefcase },
-  { id: "global", title: "Global", icon: Globe },
+  // { id: "all", title: "All", icon: Search },
+  // { id: "file", title: "File", icon: FileText },
+  // { id: "team", title: "Team", icon: Users },
+  // { id: "calendar", title: "Calendar", icon: Calendar },
+  // { id: "analytics", title: "Analytics", icon: BarChart2 },
+  // { id: "project", title: "Project", icon: Briefcase },
+  // { id: "global", title: "Global", icon: Globe },
 ];
 
 type Props = {
