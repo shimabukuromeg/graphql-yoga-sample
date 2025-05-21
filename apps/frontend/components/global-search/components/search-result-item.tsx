@@ -39,18 +39,18 @@ export const SearchResultItem: React.FC<SearchResultItemProps> = ({ item }) => {
       aria-label={`Search result: ${item.title}`}
     >
       {/* Item name and icon */}
-      <div className="flex w-full max-w-[95%] items-center overflow-hidden">
+      <div className="flex w-full max-w-[95%] flex-col sm:flex-row sm:items-center overflow-hidden">
         {item.imageUrl && (
           <Image
             src={item.imageUrl}
             alt={item.title}
             width={180}
             height={180}
-            className="mr-2 rounded-md object-cover"
+            className="w-full sm:w-auto sm:mr-2 mb-2 sm:mb-0 rounded-md object-cover"
             aria-hidden="true"
           />
         )}
-        <span className="flex-grow font-medium">
+        <span className="flex-grow font-medium text-center sm:text-left">
           <HighlightText text={item.title} searchTerm={searchQuery} />
         </span>
       </div>
@@ -58,7 +58,7 @@ export const SearchResultItem: React.FC<SearchResultItemProps> = ({ item }) => {
       {/* Last updated date */}
       {/* MeshiCardFragment には date プロパティがない。代わりに publishedDate を使用 */}
       {item.publishedDate && (
-        <div className="ml-6 text-[10px] text-gray-400">
+        <div className="ml-0 sm:ml-6 text-center sm:text-left text-[10px] text-gray-400">
           Published: {new Date(item.publishedDate).toLocaleDateString()}
         </div>
       )}

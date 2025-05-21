@@ -113,15 +113,20 @@ export const SearchInput: React.FC<Props> = ({ searchTerm, setSearchTerm }) => {
       <div className="mt-4 block md:hidden">
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
-            <Button variant="outline" className="w-full justify-between">
-              <span className="flex items-center">
-                {
-                  filterOptions.find((filter) => filter.id === searchFilter)
-                    ?.title
-                }
-              </span>
-              <ChevronDown className="h-4 w-4 opacity-50" aria-hidden="true" />
-            </Button>
+            {filterOptions.length > 0 && (
+              <Button variant="outline" className="w-full justify-between">
+                <span className="flex items-center">
+                  {
+                    filterOptions.find((filter) => filter.id === searchFilter)
+                      ?.title
+                  }
+                </span>
+                <ChevronDown
+                  className="h-4 w-4 opacity-50"
+                  aria-hidden="true"
+                />
+              </Button>
+            )}
           </DropdownMenuTrigger>
           <DropdownMenuContent className="w-[--radix-dropdown-menu-trigger-width]">
             {filterOptions.map((filter) => (
