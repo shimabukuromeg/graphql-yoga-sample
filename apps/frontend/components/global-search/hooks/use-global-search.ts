@@ -47,7 +47,7 @@ const useGlobalSearch = () => {
         // ページネーション情報 (hasNextPage, totalCount, endCursor) を取得するには
         // fetchMeshiData の戻り値を変更するか、ここでレスポンス全体を扱う必要がある。
         // ここでは、SearchItem[] を受け取る前提で進める。
-        const data = await fetchMeshiData(limit, searchQuery || undefined) // searchQueryが空文字の場合undefinedを渡す
+        const data = await fetchMeshiData(limit, searchQuery) // searchQueryが空文字の場合undefinedを渡す
         setSearchResults(data)
 
         // --- ページネーション情報の仮対応 ---

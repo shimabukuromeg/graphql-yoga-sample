@@ -17,7 +17,7 @@ export async function fetchMeshiData(
   const client = new GraphQLClient(backendEndpoint, {
     // biome-ignore lint/suspicious/noExplicitAny: <explanation>
     fetch: cache(async (url: any, params: any) =>
-      fetch(url, { ...params, next: { revalidate: 60 } }),
+      fetch(url, { ...params, next: { revalidate: 60, tags: ['meshi-data'] } }),
     ),
   })
 
