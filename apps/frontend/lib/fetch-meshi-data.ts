@@ -1,10 +1,38 @@
+import { graphql } from '@/src/gql'
+import type {
+  MeshiSearchQuery,
+  MeshiSearchQueryVariables,
+} from '@/src/gql/graphql'
+import { GraphQLClient } from 'graphql-request'
+import { cache } from 'react'
 import type { SearchItem } from '../types/global-search'
 
-const GRAPHQL_ENDPOINT =
-  process.env.BACKEND_ENDPOINT ?? 'http://localhost:44000/graphql'
+export async function fetchMeshiData(
+  first = 1000,
+  query?: string,
+): Promise<SearchItem[]> {
+  const backendEndpoint =
+    process.env.BACKEND_ENDPOINT ?? 'http://localhost:44000/graphql'
 
-const MESHI_QUERY = `
-  query Meshi($first: Int = 1000, $query: String) {
+  const client = new GraphQLClient(backendEndpoint, {
+    // biome-ignore lint/suspicious/noExplicitAny: <explanation>
+    fetch: cache(async (url: any, params: any) =>
+      fetch(url, { ...params, next: { revalidate: 60 } }),
+    ),
+  })
+
+  // 変数オブジェクトを明示的に型付け
+  const variables: MeshiSearchQueryVariables = { first, query }
+
+  const data = await client.request<MeshiSearchQuery>(
+    MeshiSearchQueryDocument,
+    variables,
+  )
+  return data.meshis.edges.map((edge) => edge.node as SearchItem)
+}
+
+const MeshiSearchQueryDocument = graphql(/* GraphQL */ `
+  query MeshiSearch($first: Int = 1000, $query: String) {
     meshis(first: $first, query: $query) {
       edges {
         node {
@@ -28,52 +56,4 @@ const MESHI_QUERY = `
       totalCount
     }
   }
-`
-
-interface MeshiResponse {
-  data: {
-    meshis: {
-      edges: Array<{ node: SearchItem }>
-      pageInfo: {
-        hasNextPage: boolean
-        endCursor: string | null
-      }
-      totalCount: number
-    }
-  }
-  errors?: Array<{ message: string }>
-}
-
-export async function fetchMeshiData(
-  first = 1000,
-  query?: string,
-): Promise<SearchItem[]> {
-  try {
-    const response = await fetch(GRAPHQL_ENDPOINT, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        query: MESHI_QUERY,
-        variables: { first, query },
-      }),
-    })
-
-    if (!response.ok) {
-      throw new Error(`GraphQL request failed with status ${response.status}`)
-    }
-
-    const result: MeshiResponse = await response.json()
-
-    if (result.errors) {
-      console.error('GraphQL Errors:', result.errors)
-      throw new Error('GraphQL query returned errors.')
-    }
-
-    return result.data.meshis.edges.map((edge) => edge.node)
-  } catch (error) {
-    console.error('Error fetching Meshi data:', error)
-    throw error
-  }
-}
+`)
